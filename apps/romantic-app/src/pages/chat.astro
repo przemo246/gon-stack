@@ -1,0 +1,15 @@
+---
+import '../modules/variants/variant-8/index.css';
+import VariantLayout from '../layouts/VariantLayout.astro';
+import { Chat as ChatComponent } from '../modules/chat';
+
+/** Default/sample view model for development or when no data is injected */
+
+---
+
+<VariantLayout
+  title="Chat UI: Glass Aurora"
+  fontsUrl="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Prata&display=swap"
+>
+  <ChatComponent client:load />
+</VariantLayout>
