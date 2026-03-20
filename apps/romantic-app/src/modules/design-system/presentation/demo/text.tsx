@@ -39,6 +39,8 @@ export function TextDemo() {
           description="Within this page section, H3-H6 map to their typography styles."
         >
           <Card className="p-5 md:p-6 space-y-3">
+            <h1 className="t1">Heading 1</h1>
+            <h2 className="t2">Heading 2</h2>
             <h3 className="t3">Heading 3</h3>
             <h4 className="t4">Heading 4</h4>
             <h5 className="t5">Heading 5</h5>
@@ -92,10 +94,14 @@ export function TextDemo() {
             </div>
             <div className="space-y-1">
               <div>
-                <span className="v1">Overline V1 for subtle section context</span>
+                <span className="v1">
+                  Overline V1 for subtle section context
+                </span>
               </div>
               <div>
-                <span className="v2">Overline V2 for emphasized meta context</span>
+                <span className="v2">
+                  Overline V2 for emphasized meta context
+                </span>
               </div>
             </div>
           </Card>

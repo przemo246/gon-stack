@@ -1,1 +1,1 @@
-export { LandingHome } from './landing-home';
+export { Main } from './presentation/main';

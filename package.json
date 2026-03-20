@@ -25,7 +25,14 @@
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
-    ]
+    ],
+    "rules": {
+      "body-max-line-length": [
+        2,
+        "always",
+        400
+      ]
+    }
   },
   "devDependencies": {
     "@commitlint/cli": "^20.4.1",

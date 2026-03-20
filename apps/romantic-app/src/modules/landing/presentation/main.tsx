@@ -1,3 +1,6 @@
+import { cn } from '../../../libs/ui/cn';
+import { Card } from '../../../libs/ui/card';
+
 const NAV_ITEMS = [
   { label: 'How it works', href: '#how-it-works' },
   { label: 'Features', href: '#features' },
@@ -39,13 +42,10 @@ const SOCIAL_PROOF = [
   },
 ];
 
-export function LandingHome() {
+export function Main() {
   return (
-    <div
-      className="variant-shell min-h-screen text-text-primary"
-      style={{ fontFamily: 'var(--font-sans)' }}
-    >
-      <nav className="sticky top-0 z-40 variant-nav">
+    <div className="min-h-screen font-sans text-text-primary bg-[repeating-linear-gradient(0deg,rgba(255,255,255,0.02)_0,rgba(255,255,255,0.02)_1px,transparent_1px,transparent_4px),linear-gradient(180deg,#0a0718_0%,#120c24_46%,#1a1133_100%)]">
+      <nav className="sticky top-0 z-40 border-b border-[color-mix(in_srgb,var(--color-primary-500)_45%,transparent)] bg-[color-mix(in_srgb,var(--color-surface-0)_88%,transparent)] shadow-[0_0_14px_color-mix(in_srgb,var(--color-primary-500)_30%,transparent)] backdrop-blur-md">
         <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4 px-4 py-3">
           <a href="/" className="flex items-center gap-2">
             <span
@@ -62,10 +62,12 @@ export function LandingHome() {
               <a
                 key={item.href}
                 href={item.href}
-                className={[
-                  'inline-flex items-center justify-center px-2.5 py-1.5 text-center text-xs font-semibold transition-colors',
-                  idx === 0 ? 'variant-nav-active' : 'variant-nav-item',
-                ].join(' ')}
+                className={cn(
+                  'inline-flex items-center justify-center rounded-lg px-2.5 py-1.5 text-center text-xs font-semibold transition-all duration-150',
+                  idx === 0
+                    ? 'bg-[linear-gradient(120deg,var(--color-primary-500),var(--color-secondary-500))] text-white shadow-[0_0_12px_color-mix(in_srgb,var(--color-secondary-400)_60%,transparent)]'
+                    : 'text-text-tertiary hover:bg-[color-mix(in_srgb,var(--color-primary-500)_24%,transparent)] hover:text-white hover:shadow-[0_0_10px_color-mix(in_srgb,var(--color-primary-500)_55%,transparent)]',
+                )}
               >
                 {item.label}
               </a>
@@ -75,13 +77,13 @@ export function LandingHome() {
           <div className="flex items-center gap-2">
             <a
               href="/login"
-              className="variant-nav-item inline-flex items-center justify-center px-3 py-1.5 text-center text-xs font-semibold uppercase tracking-[0.12em]"
+              className="inline-flex items-center justify-center rounded-lg px-3 py-1.5 text-center text-xs font-semibold text-text-tertiary uppercase tracking-[0.12em] transition-all duration-150 hover:bg-[color-mix(in_srgb,var(--color-primary-500)_24%,transparent)] hover:text-white hover:shadow-[0_0_10px_color-mix(in_srgb,var(--color-primary-500)_55%,transparent)]"
             >
               Log in
             </a>
             <a
               href="/register"
-              className="variant-button-primary inline-flex items-center justify-center px-3 py-1.5 text-center text-xs font-semibold uppercase tracking-[0.12em]"
+              className="inline-flex items-center justify-center rounded-[10px] bg-[linear-gradient(120deg,var(--color-primary-500),#ff4fe3)] px-3 py-1.5 text-center text-xs font-semibold uppercase tracking-[0.12em] text-white shadow-[0_0_12px_color-mix(in_srgb,var(--color-primary-400)_50%,transparent)] transition-all duration-150 hover:saturate-[1.2]"
             >
               Sign up
             </a>
@@ -90,7 +92,7 @@ export function LandingHome() {
       </nav>
 
       <main>
-        <section className="variant-hero border-b border-surface-200">
+        <section className="border-b border-surface-200 bg-[radial-gradient(circle_at_10%_50%,color-mix(in_srgb,var(--color-secondary-400)_35%,transparent)_0%,transparent_28%),radial-gradient(circle_at_90%_30%,color-mix(in_srgb,var(--color-primary-400)_35%,transparent)_0%,transparent_30%)]">
           <div className="mx-auto grid w-full max-w-5xl gap-8 px-4 py-12 md:grid-cols-2 md:py-16">
             <div className="flex flex-col justify-center gap-4">
               <p className="text-xs uppercase tracking-[0.2em] text-text-tertiary">
@@ -106,20 +108,20 @@ export function LandingHome() {
               <div className="mt-1 flex flex-wrap gap-3">
                 <a
                   href="/register"
-                  className="variant-button-primary inline-flex min-h-11 items-center justify-center px-5 py-2.5 text-center text-sm font-semibold uppercase tracking-[0.14em]"
+                  className="inline-flex min-h-11 items-center justify-center rounded-[10px] bg-[linear-gradient(120deg,var(--color-primary-500),#ff4fe3)] px-5 py-2.5 text-center text-sm font-semibold uppercase tracking-[0.14em] text-white shadow-[0_0_12px_color-mix(in_srgb,var(--color-primary-400)_50%,transparent)] transition-all duration-150 hover:saturate-[1.2]"
                 >
                   Start free
                 </a>
                 <a
                   href="/login"
-                  className="variant-button-ghost inline-flex min-h-11 items-center justify-center px-5 py-2.5 text-center text-sm font-semibold uppercase tracking-[0.14em]"
+                  className="inline-flex min-h-11 items-center justify-center rounded-[10px] border border-[color-mix(in_srgb,#ffffff_16%,transparent)] bg-[color-mix(in_srgb,#ffffff_5%,transparent)] px-5 py-2.5 text-center text-sm font-semibold uppercase tracking-[0.14em] text-text-primary transition-all duration-150"
                 >
                   I already have an account
                 </a>
               </div>
             </div>
 
-            <div className="variant-card p-5 md:p-6">
+            <Card className="p-5 md:p-6">
               <p className="text-xs uppercase tracking-[0.18em] text-text-tertiary">
                 Quick preview
               </p>
@@ -127,13 +129,13 @@ export function LandingHome() {
                 Your next game night, organized
               </h2>
               <div className="mt-4 flex flex-col gap-3">
-                <div className="variant-option p-3">
+                <div className="rounded-[10px] border border-[color-mix(in_srgb,var(--color-secondary-300)_40%,transparent)] bg-[color-mix(in_srgb,#ffffff_4%,transparent)] text-text-primary p-3 transition-all duration-150 hover:border-[color-mix(in_srgb,var(--color-primary-300)_70%,transparent)]">
                   <p className="text-sm font-semibold">Create private room</p>
                   <p className="mt-1 text-xs text-text-tertiary">
                     Invite with a 6-character code
                   </p>
                 </div>
-                <div className="variant-option p-3">
+                <div className="rounded-[10px] border border-[color-mix(in_srgb,var(--color-secondary-300)_40%,transparent)] bg-[color-mix(in_srgb,#ffffff_4%,transparent)] text-text-primary p-3 transition-all duration-150 hover:border-[color-mix(in_srgb,var(--color-primary-300)_70%,transparent)]">
                   <p className="text-sm font-semibold">
                     Choose category difficulty
                   </p>
@@ -141,7 +143,7 @@ export function LandingHome() {
                     Easy, Medium, Hard progression
                   </p>
                 </div>
-                <div className="variant-option p-3">
+                <div className="rounded-[10px] border border-[color-mix(in_srgb,var(--color-secondary-300)_40%,transparent)] bg-[color-mix(in_srgb,#ffffff_4%,transparent)] text-text-primary p-3 transition-all duration-150 hover:border-[color-mix(in_srgb,var(--color-primary-300)_70%,transparent)]">
                   <p className="text-sm font-semibold">
                     Score + reveal answers
                   </p>
@@ -150,7 +152,7 @@ export function LandingHome() {
                   </p>
                 </div>
               </div>
-            </div>
+            </Card>
           </div>
         </section>
 
@@ -167,30 +169,36 @@ export function LandingHome() {
             </h2>
           </div>
           <div className="grid gap-4 md:grid-cols-3">
-            <article className="variant-card p-5">
-              <span className="variant-pill">Step 1</span>
+            <Card role="article" className="p-5">
+              <span className="inline-flex rounded-full border border-[color-mix(in_srgb,var(--color-primary-300)_70%,transparent)] bg-[color-mix(in_srgb,var(--color-primary-500)_30%,transparent)] px-2.5 py-1 text-[11px] uppercase tracking-[0.11em] text-white">
+                Step 1
+              </span>
               <h3 className="mt-3 text-lg font-semibold">Create profiles</h3>
               <p className="mt-2 text-sm text-text-secondary">
                 Set your name, age, and romantic vibe so the app can personalize
                 your sessions.
               </p>
-            </article>
-            <article className="variant-card p-5">
-              <span className="variant-pill">Step 2</span>
+            </Card>
+            <Card role="article" className="p-5">
+              <span className="inline-flex rounded-full border border-[color-mix(in_srgb,var(--color-primary-300)_70%,transparent)] bg-[color-mix(in_srgb,var(--color-primary-500)_30%,transparent)] px-2.5 py-1 text-[11px] uppercase tracking-[0.11em] text-white">
+                Step 2
+              </span>
               <h3 className="mt-3 text-lg font-semibold">Join one room</h3>
               <p className="mt-2 text-sm text-text-secondary">
                 One partner creates a room and shares the code. Both join in
                 seconds.
               </p>
-            </article>
-            <article className="variant-card p-5">
-              <span className="variant-pill">Step 3</span>
+            </Card>
+            <Card role="article" className="p-5">
+              <span className="inline-flex rounded-full border border-[color-mix(in_srgb,var(--color-primary-300)_70%,transparent)] bg-[color-mix(in_srgb,var(--color-primary-500)_30%,transparent)] px-2.5 py-1 text-[11px] uppercase tracking-[0.11em] text-white">
+                Step 3
+              </span>
               <h3 className="mt-3 text-lg font-semibold">Play and reveal</h3>
               <p className="mt-2 text-sm text-text-secondary">
                 Answer simultaneously, reveal together, and learn what brings
                 you closer.
               </p>
-            </article>
+            </Card>
           </div>
         </section>
 
@@ -198,14 +206,19 @@ export function LandingHome() {
           id="features"
           className="mx-auto w-full max-w-5xl px-4 py-4 md:py-6"
         >
-          <div className="variant-card p-6">
+          <Card className="p-6">
             <div className="mb-4 flex items-center justify-between gap-3">
               <h2 className="text-2xl font-semibold">Core features</h2>
-              <span className="variant-pill variant-pill-secondary">MVP</span>
+              <span className="inline-flex rounded-full border border-[color-mix(in_srgb,var(--color-secondary-300)_70%,transparent)] bg-[color-mix(in_srgb,var(--color-secondary-500)_24%,transparent)] px-2.5 py-1 text-[11px] uppercase tracking-[0.11em] text-white">
+                MVP
+              </span>
             </div>
             <div className="grid gap-3 md:grid-cols-3">
               {FEATURE_LIST.map((feature) => (
-                <article key={feature.title} className="variant-option p-4">
+                <article
+                  key={feature.title}
+                  className="rounded-[10px] border border-[color-mix(in_srgb,var(--color-secondary-300)_40%,transparent)] bg-[color-mix(in_srgb,#ffffff_4%,transparent)] text-text-primary p-4 transition-all duration-150 hover:border-[color-mix(in_srgb,var(--color-primary-300)_70%,transparent)]"
+                >
                   <h3 className="text-sm font-semibold">{feature.title}</h3>
                   <p className="mt-2 text-xs text-text-tertiary">
                     {feature.text}
@@ -213,7 +226,7 @@ export function LandingHome() {
                 </article>
               ))}
             </div>
-          </div>
+          </Card>
         </section>
 
         <section
@@ -228,20 +241,20 @@ export function LandingHome() {
           </div>
           <div className="grid gap-4 md:grid-cols-3">
             {SOCIAL_PROOF.map((item) => (
-              <article key={item.id} className="variant-card p-5">
+              <Card key={item.id} role="article" className="p-5">
                 <p className="text-sm text-text-secondary">
                   &quot;{item.quote}&quot;
                 </p>
                 <p className="mt-3 text-xs uppercase tracking-[0.16em] text-text-tertiary">
                   {item.name}
                 </p>
-              </article>
+              </Card>
             ))}
           </div>
         </section>
 
         <section className="mx-auto w-full max-w-5xl px-4 pb-12">
-          <div className="variant-card flex flex-col items-start gap-4 p-6 md:flex-row md:items-center md:justify-between">
+          <Card className="flex flex-col items-start gap-4 p-6 md:flex-row md:items-center md:justify-between">
             <div>
               <p className="text-xs uppercase tracking-[0.18em] text-text-tertiary">
                 Ready to start?
@@ -256,18 +269,18 @@ export function LandingHome() {
             <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
               <a
                 href="/register"
-                className="variant-button-primary inline-flex min-h-11 items-center justify-center px-5 py-2.5 text-center text-sm font-semibold uppercase tracking-[0.14em]"
+                className="inline-flex min-h-11 items-center justify-center rounded-[10px] bg-[linear-gradient(120deg,var(--color-primary-500),#ff4fe3)] px-5 py-2.5 text-center text-sm font-semibold uppercase tracking-[0.14em] text-white shadow-[0_0_12px_color-mix(in_srgb,var(--color-primary-400)_50%,transparent)] transition-all duration-150 hover:saturate-[1.2]"
               >
                 Get started
               </a>
               <a
                 href="/login"
-                className="variant-button-ghost inline-flex min-h-11 items-center justify-center px-5 py-2.5 text-center text-sm font-semibold uppercase tracking-[0.14em]"
+                className="inline-flex min-h-11 items-center justify-center rounded-[10px] border border-[color-mix(in_srgb,#ffffff_16%,transparent)] bg-[color-mix(in_srgb,#ffffff_5%,transparent)] px-5 py-2.5 text-center text-sm font-semibold uppercase tracking-[0.14em] text-text-primary transition-all duration-150"
               >
                 Log in
               </a>
             </div>
-          </div>
+          </Card>
         </section>
       </main>
     </div>

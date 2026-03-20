@@ -1,15 +1,15 @@
 ---
-import Main from '../core/layouts/main.astro';
-import { LandingHome } from '../modules/landing';
+import Layout from '../core/layouts/main.astro';
+import { Main } from '../modules/landing';
 ---
 
-<Main
+<Layout
 	title="Amoria · Home"
 >
 	<div class="landing-page-bg">
-		<LandingHome client:load />
+		<Main client:load />
 	</div>
-</Main>
+</Layout>
 
 <style>
 	.landing-page-bg {

@@ -1,2 +1,29 @@
 @import 'tailwindcss';
 @import '../../libs/ui/index.css';
+
+.page-bg {
+  background:
+    radial-gradient(
+      circle at 10% 50%,
+      color-mix(in srgb, var(--color-secondary-400) 35%, transparent) 0%,
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 90% 30%,
+      color-mix(in srgb, var(--color-primary-400) 35%, transparent) 0%,
+      transparent 30%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      color-mix(in srgb, var(--color-surface-0) 3%, transparent) 0,
+      color-mix(in srgb, var(--color-surface-0) 3%, transparent) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    linear-gradient(
+      180deg,
+      var(--color-surface-900) 0%,
+      var(--color-surface-800) 46%,
+      var(--color-surface-700) 100%
+    );
+}
