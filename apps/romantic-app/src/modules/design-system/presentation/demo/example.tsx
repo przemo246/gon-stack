@@ -10,17 +10,19 @@ export type ExampleProps = {
   className?: string;
 };
 
-function ExampleRoot({
+const ExampleRoot = ({
   id,
   title,
   description,
   children,
   className,
-}: ExampleProps) {
+}: ExampleProps) => {
   return (
     <div
       id={id}
-      className={['w-full max-w-6xl space-y-6', className].filter(Boolean).join(' ')}
+      className={['w-full max-w-6xl space-y-6', className]
+        .filter(Boolean)
+        .join(' ')}
     >
       <div className="text-center space-y-2">
         {description ? <p className="v1">{description}</p> : null}
@@ -31,7 +33,7 @@ function ExampleRoot({
       <div className="space-y-4">{children}</div>
     </div>
   );
-}
+};
 
 export type ExampleCaseProps = {
   id: string;
@@ -40,12 +42,9 @@ export type ExampleCaseProps = {
   children: ReactNode;
 };
 
-function Case({ id, title, description, children }: ExampleCaseProps) {
+const Case = ({ id, title, description, children }: ExampleCaseProps) => {
   return (
-    <Card
-      id={id}
-      className="variant-card scroll-mt-24 rounded-xl p-5 md:p-6"
-    >
+    <Card id={id} className="variant-card scroll-mt-24 rounded-xl p-5 md:p-6">
       {title ? (
         <header className="mb-4 space-y-1">
           {/* Demo root uses h2, so each case title is h3. */}
@@ -56,9 +55,10 @@ function Case({ id, title, description, children }: ExampleCaseProps) {
       {children}
     </Card>
   );
-}
-
-export const Example = Object.assign(ExampleRoot, { Case }) as typeof ExampleRoot & {
-  Case: typeof Case;
 };
 
+export const Example = Object.assign(ExampleRoot, {
+  Case,
+}) as typeof ExampleRoot & {
+  Case: typeof Case;
+};

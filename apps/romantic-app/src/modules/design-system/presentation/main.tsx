@@ -1,5 +1,5 @@
 import { Router } from './router';
 
-export function Main() {
+export const Main = () => {
   return <Router />;
-}
+};

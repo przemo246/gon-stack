@@ -20,7 +20,10 @@
     "update-deps-i": "ncu -i --workspaces",
     "ci:is-working": "pnpm lint && pnpm check-types && pnpm build",
     "ci:format": "lint-staged",
-    "ci:check-updates": "pnpm check-deps"
+    "ci:check-updates": "pnpm check-deps",
+    "db:start": "turbo run db:start",
+    "db:stop": "turbo run db:stop",
+    "db:gen-types": "turbo run db:gen-types"
   },
   "commitlint": {
     "extends": [

@@ -3,8 +3,9 @@ import { useMemo, useState, type FormEvent } from 'react';
 import { Slider } from '../../../../libs/ui/slider';
 
 import { Example } from './example';
+import { Button } from '../../../../libs/ui/button';
 
-export function SliderDemo() {
+export const SliderDemo = () => {
   const [controlledValue, setControlledValue] = useState([4]);
   const [committedValue, setCommittedValue] = useState([4]);
   const [rangeValue, setRangeValue] = useState([20, 80]);
@@ -303,15 +304,12 @@ export function SliderDemo() {
             </Slider.Track>
             <Slider.Thumbs showValueLabel />
           </Slider.Root>
-          <button
-            type="submit"
-            className="variant-button-primary rounded-md px-4 py-2 text-sm font-semibold"
-          >
+          <Button variant="secondary" type="submit">
             Submit form
-          </button>
+          </Button>
           <p className="b2">{formResult}</p>
         </form>
       </Example.Case>
     </Example>
   );
-}
+};

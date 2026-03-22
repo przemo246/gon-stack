@@ -1,7 +1,11 @@
 import { useState, type ComponentType } from 'react';
 
+import { BadgeDemo } from './demo/badge';
+import { ButtonDemo } from './demo/button';
 import { CardDemo } from './demo/card';
+import { InputDemo } from './demo/input';
 import { SliderDemo } from './demo/slider';
+import { TableDemo } from './demo/table';
 import { TextDemo } from './demo/text';
 import { Layout } from './layout';
 import {
@@ -25,6 +29,41 @@ function createDemoConfig(config: DemoComponentConfig): DemoComponentConfig {
 }
 
 const components = [
+  createDemoConfig({
+    key: 'badge',
+    label: 'Badge',
+    rootId: 'badge-examples',
+    items: [
+      { id: 'badge-primary', label: 'Primary' },
+      { id: 'badge-secondary', label: 'Secondary' },
+      { id: 'badge-side-by-side', label: 'Side by side' },
+      { id: 'badge-in-context', label: 'In context' },
+    ],
+    demo: BadgeDemo,
+  }),
+  createDemoConfig({
+    key: 'button',
+    label: 'Button',
+    rootId: 'button-examples',
+    items: [
+      { id: 'button-primary', label: 'Primary' },
+      { id: 'button-secondary', label: 'Secondary' },
+      { id: 'button-side-by-side', label: 'Side by side' },
+      { id: 'button-disabled', label: 'Disabled states' },
+    ],
+    demo: ButtonDemo,
+  }),
+  createDemoConfig({
+    key: 'input',
+    label: 'Input',
+    rootId: 'input-examples',
+    items: [
+      { id: 'input-default', label: 'Default' },
+      { id: 'input-password', label: 'Password' },
+      { id: 'input-disabled', label: 'Disabled' },
+    ],
+    demo: InputDemo,
+  }),
   createDemoConfig({
     key: 'card',
     label: 'Card',
@@ -50,6 +89,16 @@ const components = [
     demo: TextDemo,
   }),
   createDemoConfig({
+    key: 'table',
+    label: 'Table',
+    rootId: 'table-examples',
+    items: [
+      { id: 'table-basic', label: 'Basic' },
+      { id: 'table-no-foot', label: 'Without footer' },
+    ],
+    demo: TableDemo,
+  }),
+  createDemoConfig({
     key: 'slider',
     label: 'Slider',
     rootId: 'slider-examples',
@@ -72,7 +121,7 @@ const components = [
 const title = 'Design System Sandbox';
 const subtitle = 'Choose a component from the sidebar to browse its examples.';
 
-export function Router() {
+export const Router = () => {
   const [activeComponent, setActiveComponent] = useState<ComponentKey>(
     components[0]?.key ?? '',
   );
@@ -124,4 +173,4 @@ export function Router() {
       </Layout>
     </div>
   );
-}
+};

@@ -19,12 +19,12 @@ type NavigationProps = {
   onNavigate: (groupKey: string, sectionId: string) => void;
 };
 
-export function Navigation({
+export const Navigation = ({
   groups,
   activeGroupKey,
   activeSectionId,
   onNavigate,
-}: NavigationProps) {
+}: NavigationProps) => {
   return (
     <aside className="xl:sticky xl:top-6 xl:self-start">
       <Card className="p-5 space-y-5">
@@ -67,4 +67,4 @@ export function Navigation({
       </Card>
     </aside>
   );
-}
+};
