@@ -15,17 +15,12 @@
     ),
     repeating-linear-gradient(
       0deg,
-      color-mix(in srgb, var(--color-surface-0) 3%, transparent) 0,
-      color-mix(in srgb, var(--color-surface-0) 3%, transparent) 1px,
+      rgba(255, 255, 255, 0.03) 0,
+      rgba(255, 255, 255, 0.03) 1px,
       transparent 1px,
       transparent 4px
     ),
-    linear-gradient(
-      180deg,
-      var(--color-surface-900) 0%,
-      var(--color-surface-800) 46%,
-      var(--color-surface-700) 100%
-    );
+    linear-gradient(180deg, #0a0718 0%, #120c24 46%, #1a1133 100%);
 }
 
 .variant-shell {

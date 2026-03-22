@@ -1,0 +1,23 @@
+import { type ComponentProps } from 'react';
+
+import { cn } from './cn';
+
+/* =============================================================================
+ * Public Props
+ * ============================================================================= */
+
+export type FooterProps = ComponentProps<'footer'> & {
+  variant?: 'primary' | 'secondary';
+};
+
+/* =============================================================================
+ * Component
+ * ============================================================================= */
+
+export const Footer = ({
+  variant = 'primary',
+  className,
+  ...props
+}: FooterProps) => {
+  return <footer className={cn('flex items-center', className)} {...props} />;
+};

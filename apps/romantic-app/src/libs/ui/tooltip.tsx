@@ -1,0 +1,23 @@
+import { type ComponentProps } from 'react';
+
+import { cn } from './cn';
+
+/* =============================================================================
+ * Public Props
+ * ============================================================================= */
+
+export type TooltipProps = ComponentProps<'div'> & {
+  variant?: 'primary' | 'secondary';
+};
+
+/* =============================================================================
+ * Component
+ * ============================================================================= */
+
+export const Tooltip = ({
+  variant = 'primary',
+  className,
+  ...props
+}: TooltipProps) => {
+  return <div className={cn('relative inline-block', className)} {...props} />;
+};

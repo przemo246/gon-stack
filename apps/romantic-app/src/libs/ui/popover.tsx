@@ -1,0 +1,23 @@
+import { type ComponentProps } from 'react';
+
+import { cn } from './cn';
+
+/* =============================================================================
+ * Public Props
+ * ============================================================================= */
+
+export type PopoverProps = ComponentProps<'div'> & {
+  variant?: 'primary' | 'secondary';
+};
+
+/* =============================================================================
+ * Component
+ * ============================================================================= */
+
+export const Popover = ({
+  variant = 'primary',
+  className,
+  ...props
+}: PopoverProps) => {
+  return <div className={cn('relative inline-block', className)} {...props} />;
+};
