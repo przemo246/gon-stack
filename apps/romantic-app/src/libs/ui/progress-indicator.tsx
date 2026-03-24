@@ -15,7 +15,6 @@ export type ProgressIndicatorProps = ComponentProps<'div'> & {
  * ============================================================================= */
 
 export const ProgressIndicator = ({
-  variant = 'primary',
   className,
   ...props
 }: ProgressIndicatorProps) => {

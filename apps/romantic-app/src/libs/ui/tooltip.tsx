@@ -14,10 +14,6 @@ export type TooltipProps = ComponentProps<'div'> & {
  * Component
  * ============================================================================= */
 
-export const Tooltip = ({
-  variant = 'primary',
-  className,
-  ...props
-}: TooltipProps) => {
+export const Tooltip = ({ className, ...props }: TooltipProps) => {
   return <div className={cn('relative inline-block', className)} {...props} />;
 };

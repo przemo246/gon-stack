@@ -14,10 +14,6 @@ export type AccordionProps = ComponentProps<'div'> & {
  * Component
  * ============================================================================= */
 
-export const Accordion = ({
-  variant = 'primary',
-  className,
-  ...props
-}: AccordionProps) => {
+export const Accordion = ({ className, ...props }: AccordionProps) => {
   return <div className={cn('flex flex-col', className)} {...props} />;
 };

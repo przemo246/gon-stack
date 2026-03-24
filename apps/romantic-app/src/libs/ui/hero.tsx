@@ -14,11 +14,7 @@ export type HeroProps = ComponentProps<'section'> & {
  * Component
  * ============================================================================= */
 
-export const Hero = ({
-  variant = 'primary',
-  className,
-  ...props
-}: HeroProps) => {
+export const Hero = ({ className, ...props }: HeroProps) => {
   return (
     <section
       className={cn('flex flex-col items-center justify-center', className)}

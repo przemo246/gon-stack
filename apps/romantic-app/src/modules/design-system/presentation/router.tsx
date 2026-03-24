@@ -5,6 +5,7 @@ import { ButtonDemo } from './demo/button';
 import { CardDemo } from './demo/card';
 import { InputDemo } from './demo/input';
 import { SliderDemo } from './demo/slider';
+import { StepperDemo } from './demo/stepper';
 import { TableDemo } from './demo/table';
 import { TextDemo } from './demo/text';
 import { Layout } from './layout';
@@ -97,6 +98,21 @@ const components = [
       { id: 'table-no-foot', label: 'Without footer' },
     ],
     demo: TableDemo,
+  }),
+  createDemoConfig({
+    key: 'stepper',
+    label: 'Stepper',
+    rootId: 'stepper-examples',
+    items: [
+      { id: 'stepper-default', label: 'Default (Uncontrolled)' },
+      { id: 'stepper-controlled', label: 'Controlled' },
+      { id: 'stepper-format', label: 'Format Display' },
+      { id: 'stepper-disabled', label: 'Disabled' },
+      { id: 'stepper-boundary', label: 'Min/Max Boundary' },
+      { id: 'stepper-secondary', label: 'Secondary Variant' },
+      { id: 'stepper-custom-step', label: 'Custom Step' },
+    ],
+    demo: StepperDemo,
   }),
   createDemoConfig({
     key: 'slider',

@@ -14,10 +14,6 @@ export type ListProps = ComponentProps<'ul'> & {
  * Component
  * ============================================================================= */
 
-export const List = ({
-  variant = 'primary',
-  className,
-  ...props
-}: ListProps) => {
+export const List = ({ className, ...props }: ListProps) => {
   return <ul className={cn('flex flex-col', className)} {...props} />;
 };

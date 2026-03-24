@@ -14,11 +14,7 @@ export type LabelProps = ComponentProps<'label'> & {
  * Component
  * ============================================================================= */
 
-export const Label = ({
-  variant = 'primary',
-  className,
-  ...props
-}: LabelProps) => {
+export const Label = ({ className, ...props }: LabelProps) => {
   return (
     <label className={cn('inline-flex items-center', className)} {...props} />
   );

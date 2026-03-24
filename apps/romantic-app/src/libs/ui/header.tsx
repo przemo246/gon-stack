@@ -14,10 +14,6 @@ export type HeaderProps = ComponentProps<'header'> & {
  * Component
  * ============================================================================= */
 
-export const Header = ({
-  variant = 'primary',
-  className,
-  ...props
-}: HeaderProps) => {
+export const Header = ({ className, ...props }: HeaderProps) => {
   return <header className={cn('flex items-center', className)} {...props} />;
 };

@@ -15,7 +15,6 @@ export type RichTextEditorProps = ComponentProps<'div'> & {
  * ============================================================================= */
 
 export const RichTextEditor = ({
-  variant = 'primary',
   className,
   ...props
 }: RichTextEditorProps) => {

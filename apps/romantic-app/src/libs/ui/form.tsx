@@ -14,10 +14,6 @@ export type FormProps = ComponentProps<'form'> & {
  * Component
  * ============================================================================= */
 
-export const Form = ({
-  variant = 'primary',
-  className,
-  ...props
-}: FormProps) => {
+export const Form = ({ className, ...props }: FormProps) => {
   return <form className={cn('flex flex-col', className)} {...props} />;
 };

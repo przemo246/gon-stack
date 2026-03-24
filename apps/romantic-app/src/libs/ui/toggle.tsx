@@ -14,11 +14,7 @@ export type ToggleProps = ComponentProps<'button'> & {
  * Component
  * ============================================================================= */
 
-export const Toggle = ({
-  variant = 'primary',
-  className,
-  ...props
-}: ToggleProps) => {
+export const Toggle = ({ className, ...props }: ToggleProps) => {
   return (
     <button
       className={cn('inline-flex items-center justify-center', className)}

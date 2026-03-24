@@ -1,3 +1,7 @@
+---
+references: [https://component.gallery/components/]
+---
+
 # UX/UI Design Document
 
 ## 1. General UX Principles
@@ -12,28 +16,28 @@
 
 ### Palette
 
-| Token | HEX | Usage |
-|---|---|---|
-| **primary-500** | `#EC4899` | Primary actions, active states, progress indicators (Tailwind `pink-500`) |
-| **primary-600** | `#DB2777` | Hover/pressed state for primary buttons (`pink-600`) |
-| **primary-300** | `#F9A8D4` | Inactive progress segments, subtle highlights (`pink-300`) |
-| **primary-200** | `#FBCFE8` | Light tint backgrounds, step indicators (`pink-200`) |
-| **primary-50** | `#FDF2F8` | Card backgrounds on primary sections (`pink-50`) |
-| **secondary-500** | `#8B5CF6` | Accent for categories, badges, secondary CTA (`violet-500`) |
-| **secondary-600** | `#7C3AED` | Hover for secondary actions (`violet-600`) |
-| **secondary-100** | `#EDE9FE` | Light accent backgrounds (`violet-100`) |
-| **success** | `#10B981` | Matched answers, compatibility high (`emerald-500`) |
-| **warning** | `#F59E0B` | Time running low, moderate compatibility (`amber-500`) |
-| **error** | `#EF4444` | Validation errors, mismatched answers (`red-500`) |
-| **info** | `#3B82F6` | Educational tips, informational banners (`blue-500`) |
-| **surface-0** | `#FFFFFF` | Page background, card backgrounds |
-| **surface-50** | `#F9FAFB` | Alternate section backgrounds (`gray-50`) |
-| **surface-100** | `#F3F4F6` | Input backgrounds on disabled, dividers (`gray-100`) |
-| **text-primary** | `#111827` | Headings, primary body text (`gray-900`) |
-| **text-secondary** | `#374151` | Secondary body text (`gray-700`) |
-| **text-tertiary** | `#6B7280` | Captions, placeholders, helper text (`gray-500`) |
-| **border-default** | `#D1D5DB` | Input borders, card borders (`gray-300`) |
-| **border-hover** | `#F9A8D4` | Hovered input borders (`pink-300`) |
+| Token              | HEX       | Usage                                                                     |
+| ------------------ | --------- | ------------------------------------------------------------------------- |
+| **primary-500**    | `#EC4899` | Primary actions, active states, progress indicators (Tailwind `pink-500`) |
+| **primary-600**    | `#DB2777` | Hover/pressed state for primary buttons (`pink-600`)                      |
+| **primary-300**    | `#F9A8D4` | Inactive progress segments, subtle highlights (`pink-300`)                |
+| **primary-200**    | `#FBCFE8` | Light tint backgrounds, step indicators (`pink-200`)                      |
+| **primary-50**     | `#FDF2F8` | Card backgrounds on primary sections (`pink-50`)                          |
+| **secondary-500**  | `#8B5CF6` | Accent for categories, badges, secondary CTA (`violet-500`)               |
+| **secondary-600**  | `#7C3AED` | Hover for secondary actions (`violet-600`)                                |
+| **secondary-100**  | `#EDE9FE` | Light accent backgrounds (`violet-100`)                                   |
+| **success**        | `#10B981` | Matched answers, compatibility high (`emerald-500`)                       |
+| **warning**        | `#F59E0B` | Time running low, moderate compatibility (`amber-500`)                    |
+| **error**          | `#EF4444` | Validation errors, mismatched answers (`red-500`)                         |
+| **info**           | `#3B82F6` | Educational tips, informational banners (`blue-500`)                      |
+| **surface-0**      | `#FFFFFF` | Page background, card backgrounds                                         |
+| **surface-50**     | `#F9FAFB` | Alternate section backgrounds (`gray-50`)                                 |
+| **surface-100**    | `#F3F4F6` | Input backgrounds on disabled, dividers (`gray-100`)                      |
+| **text-primary**   | `#111827` | Headings, primary body text (`gray-900`)                                  |
+| **text-secondary** | `#374151` | Secondary body text (`gray-700`)                                          |
+| **text-tertiary**  | `#6B7280` | Captions, placeholders, helper text (`gray-500`)                          |
+| **border-default** | `#D1D5DB` | Input borders, card borders (`gray-300`)                                  |
+| **border-hover**   | `#F9A8D4` | Hovered input borders (`pink-300`)                                        |
 
 ### Typography
 
@@ -42,6 +46,7 @@
 The romantic/relationship niche benefits from typefaces that feel warm, personal, and slightly soft — avoiding both sterile corporate sans-serifs and overly decorative scripts. Below are three vetted pairings ranked by recommendation. All are free (Google Fonts) and have excellent language coverage.
 
 **Option A (Recommended): Nunito + DM Sans**
+
 - Headings: **Nunito** (700) — rounded terminals give a friendly, approachable feel without being childish. Excellent for h1–h3.
 - Body: **DM Sans** (400, 500) — clean geometric sans with slightly humanist proportions. Highly legible at small sizes (14px body). Good for forms, labels, and long quiz text.
 - Why: Nunito's softness aligns with the "low-pressure intimacy" UX principle. DM Sans keeps body text crisp and professional.
@@ -49,6 +54,7 @@ The romantic/relationship niche benefits from typefaces that feel warm, personal
 - Google Fonts URL: `https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap`
 
 **Option B: Quicksand + Inter**
+
 - Headings: **Quicksand** (600, 700) — rounded geometric sans with a playful, youthful character. Slightly more casual than Nunito.
 - Body: **Inter** (400, 500, 600) — the gold standard for UI body text. Variable font with optical sizing. Already the Tailwind default `font-sans` fallback.
 - Why: Quicksand is more playful (fits "gamified" tone), Inter is ultra-safe for body text. Lower risk pairing since Inter is battle-tested.
@@ -56,6 +62,7 @@ The romantic/relationship niche benefits from typefaces that feel warm, personal
 - Google Fonts URL: `https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Quicksand:wght@600;700&display=swap`
 
 **Option C: Outfit + Source Sans 3**
+
 - Headings: **Outfit** (500, 600, 700) — modern geometric sans with slight rounding. More neutral than Nunito/Quicksand but still warm.
 - Body: **Source Sans 3** (400, 600) — Adobe's open-source humanist sans. Excellent for longer reading passages (educational tips, question text).
 - Why: More mature/understated pairing. Suits if the audience skews older (30+) or if the tone should feel less "app-like" and more editorial.
@@ -74,19 +81,19 @@ Until a final choice is made, the codebase uses the **system font stack** (`font
 
 **Type scale (Tailwind utilities):**
 
-| Role | Tailwind class | Size | Weight | Extra |
-|---|---|---|---|---|
-| h1 | `text-4xl` | 2.25rem (36px) | `font-semibold` | `text-balance` |
-| h2 | `text-3xl` | 1.875rem (30px) | `font-semibold` | `text-balance` |
-| h3 | `text-2xl` | 1.5rem (24px) | `font-semibold` | `text-balance` |
-| h4 | `text-xl` | 1.25rem (20px) | `font-semibold` | `text-balance` |
-| h5 | `text-lg` | 1.125rem (18px) | `font-semibold` | `text-balance` |
-| h6 | `text-base` | 1rem (16px) | `font-semibold` | `text-balance` |
-| body (p1) | `text-base` | 1rem (16px) | `font-normal` | `text-pretty` |
-| body-sm (p2) | `text-sm` | 0.875rem (14px) | `font-normal` | `text-pretty` |
-| caption | `text-xs` | 0.75rem (12px) | `font-medium` | — |
-| label-lg (l1) | `text-sm` | 0.875rem (14px) | `font-semibold` | `uppercase tracking-[0.18em]` |
-| label-sm (l2) | `text-xs` | 0.75rem (12px) | `font-medium` | — |
+| Role          | Tailwind class | Size            | Weight          | Extra                         |
+| ------------- | -------------- | --------------- | --------------- | ----------------------------- |
+| h1            | `text-4xl`     | 2.25rem (36px)  | `font-semibold` | `text-balance`                |
+| h2            | `text-3xl`     | 1.875rem (30px) | `font-semibold` | `text-balance`                |
+| h3            | `text-2xl`     | 1.5rem (24px)   | `font-semibold` | `text-balance`                |
+| h4            | `text-xl`      | 1.25rem (20px)  | `font-semibold` | `text-balance`                |
+| h5            | `text-lg`      | 1.125rem (18px) | `font-semibold` | `text-balance`                |
+| h6            | `text-base`    | 1rem (16px)     | `font-semibold` | `text-balance`                |
+| body (p1)     | `text-base`    | 1rem (16px)     | `font-normal`   | `text-pretty`                 |
+| body-sm (p2)  | `text-sm`      | 0.875rem (14px) | `font-normal`   | `text-pretty`                 |
+| caption       | `text-xs`      | 0.75rem (12px)  | `font-medium`   | —                             |
+| label-lg (l1) | `text-sm`      | 0.875rem (14px) | `font-semibold` | `uppercase tracking-[0.18em]` |
+| label-sm (l2) | `text-xs`      | 0.75rem (12px)  | `font-medium`   | —                             |
 
 **Line heights:** Tailwind defaults (1.5 for body, 1.25 for headings).
 **Letter spacing:** Default except l1 labels which use `tracking-[0.18em]`.
@@ -112,23 +119,24 @@ Until a final choice is made, the codebase uses the **system font stack** (`font
 
 **Border radius:**
 
-| Token | Tailwind | Value | Usage |
-|---|---|---|---|
-| radius-sm | `rounded` | 4px | Small chips, badges |
-| radius-md | `rounded-md` | 6px | Inputs, buttons, option cards |
-| radius-lg | `rounded-lg` | 8px | Cards, modals |
-| radius-xl | `rounded-xl` | 12px | Large cards, bottom sheets |
+| Token       | Tailwind       | Value  | Usage                               |
+| ----------- | -------------- | ------ | ----------------------------------- |
+| radius-sm   | `rounded`      | 4px    | Small chips, badges                 |
+| radius-md   | `rounded-md`   | 6px    | Inputs, buttons, option cards       |
+| radius-lg   | `rounded-lg`   | 8px    | Cards, modals                       |
+| radius-xl   | `rounded-xl`   | 12px   | Large cards, bottom sheets          |
 | radius-full | `rounded-full` | 9999px | Avatars, progress bars, pill badges |
 
 **Shadow scale:**
 
-| Token | Tailwind | Usage |
-|---|---|---|
+| Token     | Tailwind    | Usage                                  |
+| --------- | ----------- | -------------------------------------- |
 | shadow-sm | `shadow-sm` | Subtle card elevation, inputs on focus |
-| shadow-md | `shadow-md` | Floating cards, dropdowns |
-| shadow-lg | `shadow-lg` | Modals, bottom sheets |
+| shadow-md | `shadow-md` | Floating cards, dropdowns              |
+| shadow-lg | `shadow-lg` | Modals, bottom sheets                  |
 
 **Border widths:**
+
 - Default: `border` (1px) with `border-gray-300`
 - Focus ring: `ring-2 ring-pink-500`
 - Active/selected: `border-pink-500` (1px)
@@ -410,14 +418,14 @@ Until a final choice is made, the codebase uses the **system font stack** (`font
 
 ## 4. Technical Correction Ledger
 
-| Original | Correction | Rationale |
-|---|---|---|
-| "Friendly, non-intimidating interface" (QUIZ_STRUCTURE.md) | Defined as: soft pink/violet palette, rounded-md corners, `text-sm`/`text-xs` for secondary text, no sharp edges or high-contrast alert patterns outside errors | Vague design goal replaced with concrete token references |
-| "Gamified experience" (MVP.md) | Scoring displayed as a persistent top bar during game sessions with animated counter; match = green sparkle micro-animation; mismatch = neutral gray with no negative language | "Gamified" is not a visual spec — translated to specific UI behaviors |
-| "Fun and engaging way" (MVP.md) | Playful tone achieved via: pink-500 accent color, confetti on win, micro-animations on reveals (150ms ease-out), friendly copy ("Nice!" / "So close!"), no red/angry states for mismatches | Abstract marketing copy replaced with implementable design decisions |
-| "Paint-like interface" for drawing (MVP.md) | Minimal canvas toolbar: 3 brush sizes, 8-color palette, eraser, undo, clear. No layers, no advanced tools. Canvas is square aspect ratio, min 280px | "Paint-like" scoped to MVP-appropriate feature set |
-| "Warnings before difficult questions" (QUIZ_STRUCTURE.md) | Dismissable inline banner (`bg-amber-50 border-amber-200 text-sm`) shown before hard-level questions in Sexual Intimacy, Trust, and Conflicts categories only | Clarified which categories trigger warnings and the exact UI pattern |
-| "Option for answer anonymity" (QUIZ_STRUCTURE.md) | Not included in MVP view recommendations — the game requires both players to see results. Noted as potential future privacy toggle in Settings | Feature contradicts the core reveal mechanic; deferred rather than designed in |
-| "Real-time game format with deadlines" (MVP.md) | Timer implemented as a thin horizontal progress bar at bottom of question view, color-transitioning green→amber→red. Auto-submits empty answer at 0. No countdown number displayed to reduce anxiety | "Deadlines" translated to a specific, low-pressure visual timer |
-| "Educational tips and explanations" (MVP.md) | Collapsible card below results reveal, `bg-blue-50 border-blue-200`, collapsed by default with "Learn more" toggle. Does not block progression. | Ensures tips don't interrupt game flow |
-| "2+ players (pairs)" (MVP.md) | All game views designed strictly for 2 players. UI layouts (grid-cols-2 for answers, 2 player cards) do not accommodate 3+ players | MVP states "pairs" throughout; 2-player constraint clarified to avoid over-engineering |
+| Original                                                   | Correction                                                                                                                                                                                           | Rationale                                                                              |
+| ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| "Friendly, non-intimidating interface" (QUIZ_STRUCTURE.md) | Defined as: soft pink/violet palette, rounded-md corners, `text-sm`/`text-xs` for secondary text, no sharp edges or high-contrast alert patterns outside errors                                      | Vague design goal replaced with concrete token references                              |
+| "Gamified experience" (MVP.md)                             | Scoring displayed as a persistent top bar during game sessions with animated counter; match = green sparkle micro-animation; mismatch = neutral gray with no negative language                       | "Gamified" is not a visual spec — translated to specific UI behaviors                  |
+| "Fun and engaging way" (MVP.md)                            | Playful tone achieved via: pink-500 accent color, confetti on win, micro-animations on reveals (150ms ease-out), friendly copy ("Nice!" / "So close!"), no red/angry states for mismatches           | Abstract marketing copy replaced with implementable design decisions                   |
+| "Paint-like interface" for drawing (MVP.md)                | Minimal canvas toolbar: 3 brush sizes, 8-color palette, eraser, undo, clear. No layers, no advanced tools. Canvas is square aspect ratio, min 280px                                                  | "Paint-like" scoped to MVP-appropriate feature set                                     |
+| "Warnings before difficult questions" (QUIZ_STRUCTURE.md)  | Dismissable inline banner (`bg-amber-50 border-amber-200 text-sm`) shown before hard-level questions in Sexual Intimacy, Trust, and Conflicts categories only                                        | Clarified which categories trigger warnings and the exact UI pattern                   |
+| "Option for answer anonymity" (QUIZ_STRUCTURE.md)          | Not included in MVP view recommendations — the game requires both players to see results. Noted as potential future privacy toggle in Settings                                                       | Feature contradicts the core reveal mechanic; deferred rather than designed in         |
+| "Real-time game format with deadlines" (MVP.md)            | Timer implemented as a thin horizontal progress bar at bottom of question view, color-transitioning green→amber→red. Auto-submits empty answer at 0. No countdown number displayed to reduce anxiety | "Deadlines" translated to a specific, low-pressure visual timer                        |
+| "Educational tips and explanations" (MVP.md)               | Collapsible card below results reveal, `bg-blue-50 border-blue-200`, collapsed by default with "Learn more" toggle. Does not block progression.                                                      | Ensures tips don't interrupt game flow                                                 |
+| "2+ players (pairs)" (MVP.md)                              | All game views designed strictly for 2 players. UI layouts (grid-cols-2 for answers, 2 player cards) do not accommodate 3+ players                                                                   | MVP states "pairs" throughout; 2-player constraint clarified to avoid over-engineering |

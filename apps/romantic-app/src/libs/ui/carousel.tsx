@@ -14,11 +14,7 @@ export type CarouselProps = ComponentProps<'div'> & {
  * Component
  * ============================================================================= */
 
-export const Carousel = ({
-  variant = 'primary',
-  className,
-  ...props
-}: CarouselProps) => {
+export const Carousel = ({ className, ...props }: CarouselProps) => {
   return (
     <div className={cn('relative overflow-hidden', className)} {...props} />
   );

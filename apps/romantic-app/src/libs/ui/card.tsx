@@ -6,25 +6,17 @@ import { cn } from './cn';
  * Public Props
  * ============================================================================= */
 
-export type CardProps = ComponentProps<'div'> & {
-  variant?: 'primary' | 'secondary';
-};
+export type CardProps = ComponentProps<'div'>;
 
 /* =============================================================================
  * Component
  * ============================================================================= */
 
-export const Card = ({
-  variant = 'primary',
-  className,
-  children,
-  ...props
-}: CardProps) => {
+export const Card = ({ className, children, ...props }: CardProps) => {
   return (
     <div
       className={cn(
-        'p-4 rounded-xl border border-(--card-border) bg-(--card-bg)',
-        variant === 'primary' && 'shadow-(--card-shadow)',
+        'p-4 rounded-xl border border-(--card-border) bg-(--card-bg) shadow-(--card-shadow)',
         className,
       )}
       {...props}

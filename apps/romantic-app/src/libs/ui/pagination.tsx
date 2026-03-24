@@ -14,11 +14,7 @@ export type PaginationProps = ComponentProps<'nav'> & {
  * Component
  * ============================================================================= */
 
-export const Pagination = ({
-  variant = 'primary',
-  className,
-  ...props
-}: PaginationProps) => {
+export const Pagination = ({ className, ...props }: PaginationProps) => {
   return (
     <nav
       className={cn('flex items-center justify-center', className)}

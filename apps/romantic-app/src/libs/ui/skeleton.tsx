@@ -14,10 +14,6 @@ export type SkeletonProps = ComponentProps<'div'> & {
  * Component
  * ============================================================================= */
 
-export const Skeleton = ({
-  variant = 'primary',
-  className,
-  ...props
-}: SkeletonProps) => {
+export const Skeleton = ({ className, ...props }: SkeletonProps) => {
   return <div className={cn('animate-pulse rounded', className)} {...props} />;
 };

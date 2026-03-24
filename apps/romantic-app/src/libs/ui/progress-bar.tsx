@@ -14,11 +14,7 @@ export type ProgressBarProps = ComponentProps<'div'> & {
  * Component
  * ============================================================================= */
 
-export const ProgressBar = ({
-  variant = 'primary',
-  className,
-  ...props
-}: ProgressBarProps) => {
+export const ProgressBar = ({ className, ...props }: ProgressBarProps) => {
   return (
     <div
       role="progressbar"

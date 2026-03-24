@@ -14,11 +14,7 @@ export type SpinnerProps = ComponentProps<'div'> & {
  * Component
  * ============================================================================= */
 
-export const Spinner = ({
-  variant = 'primary',
-  className,
-  ...props
-}: SpinnerProps) => {
+export const Spinner = ({ className, ...props }: SpinnerProps) => {
   return (
     <div
       role="status"

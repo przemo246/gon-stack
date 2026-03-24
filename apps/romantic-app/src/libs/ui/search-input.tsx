@@ -14,11 +14,7 @@ export type SearchInputProps = ComponentProps<'input'> & {
  * Component
  * ============================================================================= */
 
-export const SearchInput = ({
-  variant = 'primary',
-  className,
-  ...props
-}: SearchInputProps) => {
+export const SearchInput = ({ className, ...props }: SearchInputProps) => {
   return (
     <input
       type="search"

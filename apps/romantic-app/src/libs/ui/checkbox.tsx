@@ -14,11 +14,7 @@ export type CheckboxProps = ComponentProps<'input'> & {
  * Component
  * ============================================================================= */
 
-export const Checkbox = ({
-  variant = 'primary',
-  className,
-  ...props
-}: CheckboxProps) => {
+export const Checkbox = ({ className, ...props }: CheckboxProps) => {
   return (
     <input type="checkbox" className={cn('size-4', className)} {...props} />
   );

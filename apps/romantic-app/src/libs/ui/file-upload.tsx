@@ -14,11 +14,7 @@ export type FileUploadProps = ComponentProps<'div'> & {
  * Component
  * ============================================================================= */
 
-export const FileUpload = ({
-  variant = 'primary',
-  className,
-  ...props
-}: FileUploadProps) => {
+export const FileUpload = ({ className, ...props }: FileUploadProps) => {
   return (
     <div
       className={cn('flex flex-col items-center justify-center', className)}

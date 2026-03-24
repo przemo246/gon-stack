@@ -14,11 +14,7 @@ export type SkipLinkProps = ComponentProps<'a'> & {
  * Component
  * ============================================================================= */
 
-export const SkipLink = ({
-  variant = 'primary',
-  className,
-  ...props
-}: SkipLinkProps) => {
+export const SkipLink = ({ className, ...props }: SkipLinkProps) => {
   return (
     <a className={cn('sr-only focus:not-sr-only', className)} {...props} />
   );

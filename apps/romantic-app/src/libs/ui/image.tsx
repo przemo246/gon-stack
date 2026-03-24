@@ -14,10 +14,6 @@ export type ImageProps = ComponentProps<'img'> & {
  * Component
  * ============================================================================= */
 
-export const Image = ({
-  variant = 'primary',
-  className,
-  ...props
-}: ImageProps) => {
+export const Image = ({ className, ...props }: ImageProps) => {
   return <img className={cn('block', className)} {...props} />;
 };

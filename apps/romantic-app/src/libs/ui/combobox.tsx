@@ -14,10 +14,6 @@ export type ComboboxProps = ComponentProps<'div'> & {
  * Component
  * ============================================================================= */
 
-export const Combobox = ({
-  variant = 'primary',
-  className,
-  ...props
-}: ComboboxProps) => {
+export const Combobox = ({ className, ...props }: ComboboxProps) => {
   return <div className={cn('relative inline-block', className)} {...props} />;
 };

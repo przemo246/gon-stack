@@ -14,10 +14,6 @@ export type DropdownMenuProps = ComponentProps<'div'> & {
  * Component
  * ============================================================================= */
 
-export const DropdownMenu = ({
-  variant = 'primary',
-  className,
-  ...props
-}: DropdownMenuProps) => {
+export const DropdownMenu = ({ className, ...props }: DropdownMenuProps) => {
   return <div className={cn('relative inline-block', className)} {...props} />;
 };

@@ -14,11 +14,7 @@ export type EmptyStateProps = ComponentProps<'div'> & {
  * Component
  * ============================================================================= */
 
-export const EmptyState = ({
-  variant = 'primary',
-  className,
-  ...props
-}: EmptyStateProps) => {
+export const EmptyState = ({ className, ...props }: EmptyStateProps) => {
   return (
     <div
       className={cn('flex flex-col items-center justify-center', className)}

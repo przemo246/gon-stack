@@ -14,10 +14,6 @@ export type TextareaProps = ComponentProps<'textarea'> & {
  * Component
  * ============================================================================= */
 
-export const Textarea = ({
-  variant = 'primary',
-  className,
-  ...props
-}: TextareaProps) => {
+export const Textarea = ({ className, ...props }: TextareaProps) => {
   return <textarea className={cn('flex w-full', className)} {...props} />;
 };

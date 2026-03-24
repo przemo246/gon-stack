@@ -14,11 +14,7 @@ export type IconProps = ComponentProps<'span'> & {
  * Component
  * ============================================================================= */
 
-export const Icon = ({
-  variant = 'primary',
-  className,
-  ...props
-}: IconProps) => {
+export const Icon = ({ className, ...props }: IconProps) => {
   return (
     <span
       className={cn('inline-flex items-center justify-center', className)}

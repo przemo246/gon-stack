@@ -14,10 +14,6 @@ export type FieldsetProps = ComponentProps<'fieldset'> & {
  * Component
  * ============================================================================= */
 
-export const Fieldset = ({
-  variant = 'primary',
-  className,
-  ...props
-}: FieldsetProps) => {
+export const Fieldset = ({ className, ...props }: FieldsetProps) => {
   return <fieldset className={cn('flex flex-col', className)} {...props} />;
 };

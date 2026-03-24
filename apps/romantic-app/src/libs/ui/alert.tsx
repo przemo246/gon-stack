@@ -14,11 +14,7 @@ export type AlertProps = ComponentProps<'div'> & {
  * Component
  * ============================================================================= */
 
-export const Alert = ({
-  variant = 'primary',
-  className,
-  ...props
-}: AlertProps) => {
+export const Alert = ({ className, ...props }: AlertProps) => {
   return (
     <div
       role="alert"

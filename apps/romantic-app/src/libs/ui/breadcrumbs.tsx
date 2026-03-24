@@ -14,10 +14,6 @@ export type BreadcrumbsProps = ComponentProps<'nav'> & {
  * Component
  * ============================================================================= */
 
-export const Breadcrumbs = ({
-  variant = 'primary',
-  className,
-  ...props
-}: BreadcrumbsProps) => {
+export const Breadcrumbs = ({ className, ...props }: BreadcrumbsProps) => {
   return <nav className={cn('flex items-center', className)} {...props} />;
 };

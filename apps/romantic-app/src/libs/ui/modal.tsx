@@ -14,11 +14,7 @@ export type ModalProps = ComponentProps<'div'> & {
  * Component
  * ============================================================================= */
 
-export const Modal = ({
-  variant = 'primary',
-  className,
-  ...props
-}: ModalProps) => {
+export const Modal = ({ className, ...props }: ModalProps) => {
   return (
     <div
       role="dialog"

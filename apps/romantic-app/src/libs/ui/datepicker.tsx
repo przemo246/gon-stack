@@ -14,10 +14,6 @@ export type DatepickerProps = ComponentProps<'div'> & {
  * Component
  * ============================================================================= */
 
-export const Datepicker = ({
-  variant = 'primary',
-  className,
-  ...props
-}: DatepickerProps) => {
+export const Datepicker = ({ className, ...props }: DatepickerProps) => {
   return <div className={cn('relative inline-block', className)} {...props} />;
 };

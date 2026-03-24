@@ -14,10 +14,6 @@ export type FooterProps = ComponentProps<'footer'> & {
  * Component
  * ============================================================================= */
 
-export const Footer = ({
-  variant = 'primary',
-  className,
-  ...props
-}: FooterProps) => {
+export const Footer = ({ className, ...props }: FooterProps) => {
   return <footer className={cn('flex items-center', className)} {...props} />;
 };

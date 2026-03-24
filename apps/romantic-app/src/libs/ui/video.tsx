@@ -14,10 +14,6 @@ export type VideoProps = ComponentProps<'video'> & {
  * Component
  * ============================================================================= */
 
-export const Video = ({
-  variant = 'primary',
-  className,
-  ...props
-}: VideoProps) => {
+export const Video = ({ className, ...props }: VideoProps) => {
   return <video className={cn('block', className)} {...props} />;
 };

@@ -15,7 +15,6 @@ export type SegmentedControlProps = ComponentProps<'div'> & {
  * ============================================================================= */
 
 export const SegmentedControl = ({
-  variant = 'primary',
   className,
   ...props
 }: SegmentedControlProps) => {

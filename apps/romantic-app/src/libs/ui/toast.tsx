@@ -14,11 +14,7 @@ export type ToastProps = ComponentProps<'div'> & {
  * Component
  * ============================================================================= */
 
-export const Toast = ({
-  variant = 'primary',
-  className,
-  ...props
-}: ToastProps) => {
+export const Toast = ({ className, ...props }: ToastProps) => {
   return (
     <div
       role="alert"

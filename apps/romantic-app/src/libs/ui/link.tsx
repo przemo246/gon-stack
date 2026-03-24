@@ -14,10 +14,6 @@ export type LinkProps = ComponentProps<'a'> & {
  * Component
  * ============================================================================= */
 
-export const Link = ({
-  variant = 'primary',
-  className,
-  ...props
-}: LinkProps) => {
+export const Link = ({ className, ...props }: LinkProps) => {
   return <a className={cn('inline-flex items-center', className)} {...props} />;
 };

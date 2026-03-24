@@ -14,11 +14,7 @@ export type TreeViewProps = ComponentProps<'div'> & {
  * Component
  * ============================================================================= */
 
-export const TreeView = ({
-  variant = 'primary',
-  className,
-  ...props
-}: TreeViewProps) => {
+export const TreeView = ({ className, ...props }: TreeViewProps) => {
   return (
     <div role="tree" className={cn('flex flex-col', className)} {...props} />
   );

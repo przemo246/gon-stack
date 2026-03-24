@@ -14,11 +14,7 @@ export type RatingProps = ComponentProps<'div'> & {
  * Component
  * ============================================================================= */
 
-export const Rating = ({
-  variant = 'primary',
-  className,
-  ...props
-}: RatingProps) => {
+export const Rating = ({ className, ...props }: RatingProps) => {
   return (
     <div className={cn('inline-flex items-center', className)} {...props} />
   );

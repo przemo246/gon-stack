@@ -14,10 +14,6 @@ export type NavigationProps = ComponentProps<'nav'> & {
  * Component
  * ============================================================================= */
 
-export const Navigation = ({
-  variant = 'primary',
-  className,
-  ...props
-}: NavigationProps) => {
+export const Navigation = ({ className, ...props }: NavigationProps) => {
   return <nav className={cn('flex items-center', className)} {...props} />;
 };

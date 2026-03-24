@@ -14,10 +14,6 @@ export type StackProps = ComponentProps<'div'> & {
  * Component
  * ============================================================================= */
 
-export const Stack = ({
-  variant = 'primary',
-  className,
-  ...props
-}: StackProps) => {
+export const Stack = ({ className, ...props }: StackProps) => {
   return <div className={cn('flex flex-col', className)} {...props} />;
 };

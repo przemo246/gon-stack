@@ -14,10 +14,6 @@ export type FileProps = ComponentProps<'div'> & {
  * Component
  * ============================================================================= */
 
-export const File = ({
-  variant = 'primary',
-  className,
-  ...props
-}: FileProps) => {
+export const File = ({ className, ...props }: FileProps) => {
   return <div className={cn('flex items-center', className)} {...props} />;
 };

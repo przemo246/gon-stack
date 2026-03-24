@@ -14,10 +14,6 @@ export type HeadingProps = ComponentProps<'h2'> & {
  * Component
  * ============================================================================= */
 
-export const Heading = ({
-  variant = 'primary',
-  className,
-  ...props
-}: HeadingProps) => {
+export const Heading = ({ className, ...props }: HeadingProps) => {
   return <h2 className={cn('text-2xl font-bold', className)} {...props} />;
 };

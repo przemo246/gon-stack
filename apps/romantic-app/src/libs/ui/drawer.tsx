@@ -14,10 +14,6 @@ export type DrawerProps = ComponentProps<'div'> & {
  * Component
  * ============================================================================= */
 
-export const Drawer = ({
-  variant = 'primary',
-  className,
-  ...props
-}: DrawerProps) => {
+export const Drawer = ({ className, ...props }: DrawerProps) => {
   return <div className={cn('fixed inset-y-0', className)} {...props} />;
 };

@@ -14,11 +14,7 @@ export type SelectProps = ComponentProps<'select'> & {
  * Component
  * ============================================================================= */
 
-export const Select = ({
-  variant = 'primary',
-  className,
-  ...props
-}: SelectProps) => {
+export const Select = ({ className, ...props }: SelectProps) => {
   return (
     <select className={cn('inline-flex items-center', className)} {...props} />
   );

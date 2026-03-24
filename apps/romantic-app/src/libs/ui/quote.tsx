@@ -14,10 +14,6 @@ export type QuoteProps = ComponentProps<'blockquote'> & {
  * Component
  * ============================================================================= */
 
-export const Quote = ({
-  variant = 'primary',
-  className,
-  ...props
-}: QuoteProps) => {
+export const Quote = ({ className, ...props }: QuoteProps) => {
   return <blockquote className={cn('border-l-4 pl-4', className)} {...props} />;
 };

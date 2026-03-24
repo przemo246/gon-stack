@@ -14,10 +14,6 @@ export type PopoverProps = ComponentProps<'div'> & {
  * Component
  * ============================================================================= */
 
-export const Popover = ({
-  variant = 'primary',
-  className,
-  ...props
-}: PopoverProps) => {
+export const Popover = ({ className, ...props }: PopoverProps) => {
   return <div className={cn('relative inline-block', className)} {...props} />;
 };

@@ -14,10 +14,6 @@ export type ColorPickerProps = ComponentProps<'input'> & {
  * Component
  * ============================================================================= */
 
-export const ColorPicker = ({
-  variant = 'primary',
-  className,
-  ...props
-}: ColorPickerProps) => {
+export const ColorPicker = ({ className, ...props }: ColorPickerProps) => {
   return <input type="color" className={cn('size-8', className)} {...props} />;
 };

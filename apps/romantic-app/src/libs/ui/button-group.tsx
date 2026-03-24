@@ -14,11 +14,7 @@ export type ButtonGroupProps = ComponentProps<'div'> & {
  * Component
  * ============================================================================= */
 
-export const ButtonGroup = ({
-  variant = 'primary',
-  className,
-  ...props
-}: ButtonGroupProps) => {
+export const ButtonGroup = ({ className, ...props }: ButtonGroupProps) => {
   return (
     <div
       role="group"

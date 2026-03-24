@@ -14,10 +14,6 @@ export type TabsProps = ComponentProps<'div'> & {
  * Component
  * ============================================================================= */
 
-export const Tabs = ({
-  variant = 'primary',
-  className,
-  ...props
-}: TabsProps) => {
+export const Tabs = ({ className, ...props }: TabsProps) => {
   return <div className={cn('flex flex-col', className)} {...props} />;
 };

@@ -14,11 +14,7 @@ export type AvatarProps = ComponentProps<'span'> & {
  * Component
  * ============================================================================= */
 
-export const Avatar = ({
-  variant = 'primary',
-  className,
-  ...props
-}: AvatarProps) => {
+export const Avatar = ({ className, ...props }: AvatarProps) => {
   return (
     <span
       className={cn('inline-flex items-center justify-center', className)}

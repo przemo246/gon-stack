@@ -14,10 +14,6 @@ export type RadioButtonProps = ComponentProps<'input'> & {
  * Component
  * ============================================================================= */
 
-export const RadioButton = ({
-  variant = 'primary',
-  className,
-  ...props
-}: RadioButtonProps) => {
+export const RadioButton = ({ className, ...props }: RadioButtonProps) => {
   return <input type="radio" className={cn('size-4', className)} {...props} />;
 };

@@ -15,7 +15,6 @@ export type VisuallyHiddenProps = ComponentProps<'span'> & {
  * ============================================================================= */
 
 export const VisuallyHidden = ({
-  variant = 'primary',
   className,
   ...props
 }: VisuallyHiddenProps) => {

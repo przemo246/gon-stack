@@ -14,10 +14,6 @@ export type SeparatorProps = ComponentProps<'hr'> & {
  * Component
  * ============================================================================= */
 
-export const Separator = ({
-  variant = 'primary',
-  className,
-  ...props
-}: SeparatorProps) => {
+export const Separator = ({ className, ...props }: SeparatorProps) => {
   return <hr className={cn('w-full border-t', className)} {...props} />;
 };

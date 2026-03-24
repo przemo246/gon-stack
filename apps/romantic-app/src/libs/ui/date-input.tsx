@@ -14,11 +14,7 @@ export type DateInputProps = ComponentProps<'input'> & {
  * Component
  * ============================================================================= */
 
-export const DateInput = ({
-  variant = 'primary',
-  className,
-  ...props
-}: DateInputProps) => {
+export const DateInput = ({ className, ...props }: DateInputProps) => {
   return (
     <input
       type="date"
