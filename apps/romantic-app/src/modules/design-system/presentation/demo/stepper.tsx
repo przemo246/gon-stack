@@ -120,29 +120,8 @@ export const StepperDemo = () => {
       </Example.Case>
 
       <Example.Case
-        id="stepper-secondary"
-        title="6) Secondary Variant"
-        description="Secondary button styling for the stepper buttons."
-      >
-        <div className="space-y-4">
-          <Stepper.Root
-            variant="secondary"
-            defaultValue={5}
-            min={0}
-            max={10}
-            aria-label="Secondary variant stepper"
-          >
-            <Stepper.Button action="decrement" />
-            <Stepper.Input />
-            <Stepper.Button action="increment" />
-          </Stepper.Root>
-          <p className="b3">Uses the secondary button token set.</p>
-        </div>
-      </Example.Case>
-
-      <Example.Case
         id="stepper-custom-step"
-        title="7) Custom Step"
+        title="6) Custom Step"
         description="Step of 5 with a larger range."
       >
         <div className="space-y-4">

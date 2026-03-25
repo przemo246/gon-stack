@@ -3,7 +3,10 @@ import { useState, type ComponentType } from 'react';
 import { BadgeDemo } from './demo/badge';
 import { ButtonDemo } from './demo/button';
 import { CardDemo } from './demo/card';
+import { ComboboxDemo } from './demo/combobox';
 import { InputDemo } from './demo/input';
+import { PaginationDemo } from './demo/pagination';
+import { RatingDemo } from './demo/rating';
 import { SliderDemo } from './demo/slider';
 import { StepperDemo } from './demo/stepper';
 import { TableDemo } from './demo/table';
@@ -55,17 +58,6 @@ const components = [
     demo: ButtonDemo,
   }),
   createDemoConfig({
-    key: 'input',
-    label: 'Input',
-    rootId: 'input-examples',
-    items: [
-      { id: 'input-default', label: 'Default' },
-      { id: 'input-password', label: 'Password' },
-      { id: 'input-disabled', label: 'Disabled' },
-    ],
-    demo: InputDemo,
-  }),
-  createDemoConfig({
     key: 'card',
     label: 'Card',
     rootId: 'card-examples',
@@ -76,6 +68,29 @@ const components = [
       { id: 'card-nested', label: 'Nested cards' },
     ],
     demo: CardDemo,
+  }),
+  createDemoConfig({
+    key: 'combobox',
+    label: 'Combobox',
+    rootId: 'combobox-examples',
+    items: [
+      { id: 'combobox-basic', label: 'Basic (Uncontrolled)' },
+      { id: 'combobox-controlled', label: 'Controlled' },
+      { id: 'combobox-disabled-items', label: 'Disabled Items' },
+      { id: 'combobox-empty', label: 'Empty State' },
+    ],
+    demo: ComboboxDemo,
+  }),
+  createDemoConfig({
+    key: 'input',
+    label: 'Input',
+    rootId: 'input-examples',
+    items: [
+      { id: 'input-default', label: 'Default' },
+      { id: 'input-password', label: 'Password' },
+      { id: 'input-disabled', label: 'Disabled' },
+    ],
+    demo: InputDemo,
   }),
   createDemoConfig({
     key: 'text',
@@ -113,6 +128,31 @@ const components = [
       { id: 'stepper-custom-step', label: 'Custom Step' },
     ],
     demo: StepperDemo,
+  }),
+  createDemoConfig({
+    key: 'pagination',
+    label: 'Pagination',
+    rootId: 'pagination-examples',
+    items: [
+      { id: 'pagination-basic', label: 'Basic (Uncontrolled)' },
+      { id: 'pagination-controlled', label: 'Controlled' },
+      { id: 'pagination-single', label: 'Single Page' },
+      { id: 'pagination-many', label: 'Many Pages' },
+    ],
+    demo: PaginationDemo,
+  }),
+  createDemoConfig({
+    key: 'rating',
+    label: 'Rating',
+    rootId: 'rating-examples',
+    items: [
+      { id: 'rating-static-filled', label: 'Static (All Filled)' },
+      { id: 'rating-static-empty', label: 'Static (All Empty)' },
+      { id: 'rating-partial', label: 'Partial Rating' },
+      { id: 'rating-interactive', label: 'Interactive (Controlled)' },
+      { id: 'rating-sizes', label: 'Custom Sizes' },
+    ],
+    demo: RatingDemo,
   }),
   createDemoConfig({
     key: 'slider',

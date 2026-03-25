@@ -149,61 +149,6 @@ export const SliderDemo = () => {
       </Example.Case>
 
       <Example.Case
-        id="slider-triple"
-        title="9) Multi-thumb (Three thumbs)"
-        description="Automatic thumb generation for 3-value controls."
-      >
-        <div className="space-y-4">
-          <Slider.Root
-            min={0}
-            max={100}
-            step={1}
-            value={tripleValue}
-            onValueChange={setTripleValue}
-            minStepsBetweenThumbs={5}
-            className="pt-7"
-            aria-label="Three thumbs slider"
-          >
-            <Slider.Track>
-              <Slider.Range />
-            </Slider.Track>
-            <Slider.Thumbs />
-          </Slider.Root>
-          <p className="b2">
-            Values: <strong>{tripleValue.join(' / ')}</strong>
-          </p>
-        </div>
-      </Example.Case>
-
-      <Example.Case
-        id="slider-manual"
-        title="10) Manual single-thumb"
-        description="Direct Thumb usage for explicit one-thumb composition."
-      >
-        <div className="space-y-4">
-          <Slider.Root
-            min={0}
-            max={100}
-            defaultValue={[35]}
-            className="pt-7"
-            aria-label="Manual single thumb slider"
-          >
-            <Slider.Track>
-              <Slider.Range />
-            </Slider.Track>
-            <Slider.Thumb
-              index={0}
-              showValueLabel
-              formatValueLabel={(value) => `${value}%`}
-            />
-          </Slider.Root>
-          <p className="b3">
-            Use this form when you need explicit thumb-level composition.
-          </p>
-        </div>
-      </Example.Case>
-
-      <Example.Case
         id="slider-disabled"
         title="5) Disabled"
         description="Read-only visual state for unavailable controls."
@@ -309,6 +254,61 @@ export const SliderDemo = () => {
           </Button>
           <p className="b2">{formResult}</p>
         </form>
+      </Example.Case>
+
+      <Example.Case
+        id="slider-triple"
+        title="9) Multi-thumb (Three thumbs)"
+        description="Automatic thumb generation for 3-value controls."
+      >
+        <div className="space-y-4">
+          <Slider.Root
+            min={0}
+            max={100}
+            step={1}
+            value={tripleValue}
+            onValueChange={setTripleValue}
+            minStepsBetweenThumbs={5}
+            className="pt-7"
+            aria-label="Three thumbs slider"
+          >
+            <Slider.Track>
+              <Slider.Range />
+            </Slider.Track>
+            <Slider.Thumbs />
+          </Slider.Root>
+          <p className="b2">
+            Values: <strong>{tripleValue.join(' / ')}</strong>
+          </p>
+        </div>
+      </Example.Case>
+
+      <Example.Case
+        id="slider-manual"
+        title="10) Manual single-thumb"
+        description="Direct Thumb usage for explicit one-thumb composition."
+      >
+        <div className="space-y-4">
+          <Slider.Root
+            min={0}
+            max={100}
+            defaultValue={[35]}
+            className="pt-7"
+            aria-label="Manual single thumb slider"
+          >
+            <Slider.Track>
+              <Slider.Range />
+            </Slider.Track>
+            <Slider.Thumb
+              index={0}
+              showValueLabel
+              formatValueLabel={(value) => `${value}%`}
+            />
+          </Slider.Root>
+          <p className="b3">
+            Use this form when you need explicit thumb-level composition.
+          </p>
+        </div>
       </Example.Case>
     </Example>
   );

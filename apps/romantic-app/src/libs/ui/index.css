@@ -274,6 +274,104 @@
   );
   --stepper-btn-disabled-text: var(--color-text-tertiary);
 
+  /* Rating semantic tokens */
+  --rating-star-empty: color-mix(
+    in srgb,
+    var(--color-secondary-300) 35%,
+    transparent
+  );
+  --rating-star-filled-from: var(--color-primary-500);
+  --rating-star-filled-to: var(--color-primary-300);
+  --rating-star-glow: color-mix(
+    in srgb,
+    var(--color-primary-400) 50%,
+    transparent
+  );
+  --rating-star-focus: color-mix(
+    in srgb,
+    var(--color-primary-300) 70%,
+    transparent
+  );
+  --rating-star-disabled: color-mix(
+    in srgb,
+    var(--color-secondary-300) 18%,
+    transparent
+  );
+
+  /* Pagination semantic tokens */
+  --pagination-btn-border: color-mix(
+    in srgb,
+    var(--color-secondary-300) 55%,
+    transparent
+  );
+  --pagination-btn-bg: color-mix(
+    in srgb,
+    var(--color-secondary-500) 18%,
+    transparent
+  );
+  --pagination-btn-bg-hover: color-mix(
+    in srgb,
+    var(--color-secondary-400) 30%,
+    transparent
+  );
+  --pagination-btn-text: var(--color-secondary-50);
+  --pagination-btn-disabled-border: color-mix(
+    in srgb,
+    var(--color-secondary-300) 22%,
+    transparent
+  );
+  --pagination-btn-disabled-bg: color-mix(
+    in srgb,
+    var(--color-secondary-500) 8%,
+    transparent
+  );
+  --pagination-btn-disabled-text: var(--color-text-tertiary);
+  --pagination-btn-focus: color-mix(
+    in srgb,
+    var(--color-primary-300) 70%,
+    transparent
+  );
+  --pagination-page-text: var(--color-text-primary);
+
+  /* Combobox semantic tokens */
+  --combobox-border: color-mix(
+    in srgb,
+    var(--color-secondary-300) 45%,
+    transparent
+  );
+  --combobox-bg: color-mix(in srgb, var(--color-surface-50) 80%, transparent);
+  --combobox-text: var(--color-text-primary);
+  --combobox-search-placeholder: var(--color-text-tertiary);
+  --combobox-search-border: color-mix(
+    in srgb,
+    var(--color-secondary-300) 45%,
+    transparent
+  );
+  --combobox-search-focus-border: var(--color-primary-300);
+  --combobox-search-focus-ring: color-mix(
+    in srgb,
+    var(--color-primary-300) 45%,
+    transparent
+  );
+  --combobox-search-focus-glow: color-mix(
+    in srgb,
+    var(--color-primary-400) 50%,
+    transparent
+  );
+  --combobox-item-hover: color-mix(
+    in srgb,
+    var(--color-surface-200) 40%,
+    transparent
+  );
+  --combobox-item-selected-bg: color-mix(
+    in srgb,
+    var(--color-primary-500) 25%,
+    transparent
+  );
+  --combobox-item-selected-text: var(--color-text-primary);
+  --combobox-item-text: var(--color-text-secondary);
+  --combobox-item-disabled-text: var(--color-text-tertiary);
+
   /* Text semantic tokens (per variant colors) */
   --text-h1-color: var(--color-text-primary);
   --text-h2-color: var(--color-text-primary);

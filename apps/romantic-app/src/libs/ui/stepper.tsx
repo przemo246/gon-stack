@@ -20,7 +20,6 @@ type StepperContextValue = {
   max: number;
   step: number;
   disabled: boolean;
-  variant: 'primary' | 'secondary';
   atMin: boolean;
   atMax: boolean;
   increment: () => void;
@@ -59,7 +58,6 @@ const getResolvedValue = (
  * ============================================================================= */
 
 export type StepperRootProps = Omit<ComponentProps<'div'>, 'onChange'> & {
-  variant?: 'primary' | 'secondary';
   value?: number;
   defaultValue?: number;
   onChange?: (value: number) => void;
@@ -82,7 +80,6 @@ export type StepperInputProps = Omit<ComponentProps<'input'>, 'value'> & {
  * ============================================================================= */
 
 export const StepperRoot = ({
-  variant = 'primary',
   value: controlledValue,
   defaultValue,
   onChange,
@@ -159,7 +156,6 @@ export const StepperRoot = ({
         max,
         step,
         disabled,
-        variant,
         atMin,
         atMax,
         increment,
@@ -213,16 +209,9 @@ export const StepperButton = ({
         'transition-all duration-160 ease-in-out',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--btn-focus) focus-visible:ring-offset-0',
         'disabled:cursor-not-allowed',
-        ctx.variant === 'primary' && [
-          'border border-(--stepper-btn-border) bg-(--stepper-btn-bg) text-(--stepper-btn-text)',
-          'enabled:hover:bg-(--stepper-btn-bg-hover)',
-          'disabled:border-(--stepper-btn-disabled-border) disabled:bg-(--stepper-btn-disabled-bg) disabled:text-(--stepper-btn-disabled-text)',
-        ],
-        ctx.variant === 'secondary' && [
-          'border border-(--btn-secondary-border) bg-(--btn-secondary-bg) text-(--btn-secondary-text)',
-          'enabled:hover:bg-(--btn-secondary-bg-hover)',
-          'disabled:border-(--btn-secondary-disabled-border) disabled:bg-(--btn-secondary-disabled-bg) disabled:text-(--btn-secondary-disabled-text)',
-        ],
+        'border border-(--stepper-btn-border) bg-(--stepper-btn-bg) text-(--stepper-btn-text)',
+        'enabled:hover:bg-(--stepper-btn-bg-hover)',
+        'disabled:border-(--stepper-btn-disabled-border) disabled:bg-(--stepper-btn-disabled-bg) disabled:text-(--stepper-btn-disabled-text)',
         className,
       )}
       {...props}
