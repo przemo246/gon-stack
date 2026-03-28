@@ -10,8 +10,8 @@ export const StepperDemo = () => {
   return (
     <Example
       id="stepper-examples"
-      title="Stepper Demo"
-      description="Numeric stepper — usage examples"
+      title="Stepper"
+      description="A numeric input control that allows users to increment or decrement a value in defined steps."
     >
       <Example.Case
         id="stepper-default"

@@ -4,8 +4,8 @@ export const TextDemo = () => {
   return (
     <Example
       id="text-examples"
-      title="Text Demo"
-      description="UI primitive - usage examples"
+      title="Text"
+      description="A typography system component that exposes the design system's type scale and text styles."
     >
       <Example.Case
         id="text-headings"

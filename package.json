@@ -16,6 +16,8 @@
     "format": "prettier --write \"**/*.{ts,tsx,md,json,yaml,css,js,jsx}\"",
     "prepare": "husky",
     "check-deps": "ncu --workspaces",
+    "update-deps:patch": "ncu -u --workspaces --target patch",
+    "update-deps:minor": "ncu -u --workspaces --target minor",
     "update-deps": "ncu -u --workspaces",
     "update-deps-i": "ncu -i --workspaces",
     "ci:is-working": "pnpm lint && pnpm check-types && pnpm build",
@@ -23,7 +25,8 @@
     "ci:check-updates": "pnpm check-deps",
     "db:start": "turbo run db:start",
     "db:stop": "turbo run db:stop",
-    "db:gen-types": "turbo run db:gen-types"
+    "db:gen-types": "turbo run db:gen-types",
+    "db:reset": "turbo run db:reset"
   },
   "commitlint": {
     "extends": [

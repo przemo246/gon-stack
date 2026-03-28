@@ -6,8 +6,8 @@ export const BadgeDemo = () => {
   return (
     <Example
       id="badge-examples"
-      title="Badge Demo"
-      description="Badge - usage examples"
+      title="Badge"
+      description="A small label or tag that highlights status, count, or category information."
     >
       <Example.Case
         id="badge-primary"

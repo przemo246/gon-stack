@@ -8,12 +8,31 @@ import { cn } from './cn';
 
 export type SeparatorProps = ComponentProps<'hr'> & {
   variant?: 'primary' | 'secondary';
+  orientation?: 'horizontal' | 'vertical';
 };
 
 /* =============================================================================
  * Component
  * ============================================================================= */
 
-export const Separator = ({ className, ...props }: SeparatorProps) => {
-  return <hr className={cn('w-full border-t', className)} {...props} />;
+export const Separator = ({
+  variant,
+  orientation = 'horizontal',
+  className,
+  ...props
+}: SeparatorProps) => {
+  return (
+    <hr
+      aria-orientation={orientation}
+      className={cn(
+        orientation === 'horizontal' && 'w-full border-t',
+        orientation === 'vertical' && 'h-full border-l self-stretch',
+        !variant && 'border-(--separator-default)',
+        variant === 'primary' && 'border-(--separator-primary)',
+        variant === 'secondary' && 'border-(--separator-secondary)',
+        className,
+      )}
+      {...props}
+    />
+  );
 };

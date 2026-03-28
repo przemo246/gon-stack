@@ -6,8 +6,8 @@ export const InputDemo = () => {
   return (
     <Example
       id="input-examples"
-      title="Input Demo"
-      description="Input - usage examples"
+      title="Input"
+      description="A text field that accepts user input for entering information like text, numbers, or email."
     >
       <Example.Case
         id="input-default"

@@ -28,8 +28,8 @@ export const ComboboxDemo = () => {
   return (
     <Example
       id="combobox-examples"
-      title="Combobox Demo"
-      description="Compound Combobox — usage examples"
+      title="Combobox"
+      description="A text input field combined with a dropdown list that filters options as the user types."
     >
       <Example.Case
         id="combobox-basic"

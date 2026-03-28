@@ -31,8 +31,8 @@ export const SliderDemo = () => {
   return (
     <Example
       id="slider-examples"
-      title="Slider Demo"
-      description="Radix Slider - usage examples"
+      title="Slider"
+      description="A form control that allows users to select a value or range by dragging along a track."
     >
       <Example.Case
         id="slider-basic"

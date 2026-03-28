@@ -6,8 +6,8 @@ export const TableDemo = () => {
   return (
     <Example
       id="table-examples"
-      title="Table Demo"
-      description="Table - usage examples"
+      title="Table"
+      description="A structured container for displaying data in rows and columns with optional sorting and pagination."
     >
       <Example.Case
         id="table-basic"

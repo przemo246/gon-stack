@@ -10,8 +10,8 @@ export const PaginationDemo = () => {
   return (
     <Example
       id="pagination-examples"
-      title="Pagination Demo"
-      description="Compound Pagination — usage examples"
+      title="Pagination"
+      description="A control that divides large sets of content into pages and allows users to navigate between them."
     >
       <Example.Case
         id="pagination-basic"

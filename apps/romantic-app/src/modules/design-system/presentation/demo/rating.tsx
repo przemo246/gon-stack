@@ -10,8 +10,8 @@ export const RatingDemo = () => {
   return (
     <Example
       id="rating-examples"
-      title="Rating Demo"
-      description="Star rating - usage examples"
+      title="Rating"
+      description="A control that lets users provide feedback by selecting a rating value, often displayed as stars."
     >
       <Example.Case
         id="rating-static-filled"

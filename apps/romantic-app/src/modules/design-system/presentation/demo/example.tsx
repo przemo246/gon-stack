@@ -24,10 +24,13 @@ const ExampleRoot = ({
         .filter(Boolean)
         .join(' ')}
     >
-      <div className="text-center space-y-2">
-        {description ? <p className="v1">{description}</p> : null}
+      <div className="text-center space-y-3">
         {/* Demo root title: page already has h1, so we use h2 here. */}
         <h2 className="t2">{title}</h2>
+        <p className="v1">Usage examples &amp; demo</p>
+        {description ? (
+          <p className="b2 mx-auto max-w-xl">{description}</p>
+        ) : null}
       </div>
 
       <div className="space-y-4">{children}</div>

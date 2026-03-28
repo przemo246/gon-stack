@@ -34,88 +34,62 @@ export type Database = {
   };
   public: {
     Tables: {
-      profile_question_groups: {
-        Row: {
-          created_at: string;
-          description: string;
-          id: number;
-          key: string;
-          label: string;
-        };
-        Insert: {
-          created_at?: string;
-          description: string;
-          id: number;
-          key: string;
-          label: string;
-        };
-        Update: {
-          created_at?: string;
-          description?: string;
-          id?: number;
-          key?: string;
-          label?: string;
-        };
-        Relationships: [];
-      };
       profile_questions: {
         Row: {
-          badges: Json | null;
-          category: string;
-          constraints_max: number;
-          constraints_min: number;
-          constraints_required: boolean;
+          badge_max: string | null;
+          badge_min: string | null;
           created_at: string;
-          default_value_number: number | null;
-          default_value_text: string | null;
-          group_id: number;
+          default_numeric: number | null;
+          default_text: string | null;
+          group_description: string;
+          group_key: string;
+          group_label: string;
           id: number;
           key: string;
           label: string;
-          options: Json | null;
-          question_type: string;
+          max_value: number | null;
+          min_value: number | null;
+          question_type: Database['public']['Enums']['question_type'];
+          required: boolean;
+          select_options: Json | null;
         };
         Insert: {
-          badges?: Json | null;
-          category: string;
-          constraints_max: number;
-          constraints_min: number;
-          constraints_required: boolean;
+          badge_max?: string | null;
+          badge_min?: string | null;
           created_at?: string;
-          default_value_number?: number | null;
-          default_value_text?: string | null;
-          group_id: number;
-          id: number;
+          default_numeric?: number | null;
+          default_text?: string | null;
+          group_description: string;
+          group_key: string;
+          group_label: string;
+          id?: never;
           key: string;
           label: string;
-          options?: Json | null;
-          question_type: string;
+          max_value?: number | null;
+          min_value?: number | null;
+          question_type: Database['public']['Enums']['question_type'];
+          required?: boolean;
+          select_options?: Json | null;
         };
         Update: {
-          badges?: Json | null;
-          category?: string;
-          constraints_max?: number;
-          constraints_min?: number;
-          constraints_required?: boolean;
+          badge_max?: string | null;
+          badge_min?: string | null;
           created_at?: string;
-          default_value_number?: number | null;
-          default_value_text?: string | null;
-          group_id?: number;
-          id?: number;
+          default_numeric?: number | null;
+          default_text?: string | null;
+          group_description?: string;
+          group_key?: string;
+          group_label?: string;
+          id?: never;
           key?: string;
           label?: string;
-          options?: Json | null;
-          question_type?: string;
+          max_value?: number | null;
+          min_value?: number | null;
+          question_type?: Database['public']['Enums']['question_type'];
+          required?: boolean;
+          select_options?: Json | null;
         };
-        Relationships: [
-          {
-            foreignKeyName: 'profile_questions_group_id_fkey';
-            columns: ['group_id'];
-            isOneToOne: false;
-            referencedRelation: 'profile_question_groups';
-            referencedColumns: ['id'];
-          },
-        ];
+        Relationships: [];
       };
     };
     Views: {
@@ -125,7 +99,7 @@ export type Database = {
       [_ in never]: never;
     };
     Enums: {
-      [_ in never]: never;
+      question_type: 'numeric' | 'select' | 'text' | 'slide';
     };
     CompositeTypes: {
       [_ in never]: never;
@@ -258,6 +232,8 @@ export const Constants = {
     Enums: {},
   },
   public: {
-    Enums: {},
+    Enums: {
+      question_type: ['numeric', 'select', 'text', 'slide'],
+    },
   },
 } as const;

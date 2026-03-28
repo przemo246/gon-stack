@@ -26,11 +26,11 @@ export const Navigation = ({
   onNavigate,
 }: NavigationProps) => {
   return (
-    <aside className="xl:sticky xl:top-6 xl:self-start">
-      <Card className="p-5 space-y-5">
-        <div>
-          <p className="v2">On this page</p>
-          <nav className="mt-3 space-y-4 text-sm">
+    <aside className="xl:sticky xl:top-6 xl:self-start xl:max-h-[calc(100vh-3rem)]">
+      <Card className="p-5 space-y-5 flex flex-col xl:max-h-[calc(100vh-3rem)]">
+        <div className="flex flex-col min-h-0 flex-1">
+          <p className="v2 shrink-0">On this page</p>
+          <nav className="mt-3 text-sm overflow-y-auto flex-1 space-y-4 pr-1">
             {groups.map((group) => (
               <div key={group.key} className="space-y-2">
                 <button

@@ -14,6 +14,29 @@ export type TextareaProps = ComponentProps<'textarea'> & {
  * Component
  * ============================================================================= */
 
-export const Textarea = ({ className, ...props }: TextareaProps) => {
-  return <textarea className={cn('flex w-full', className)} {...props} />;
+export const Textarea = ({
+  variant: _variant,
+  className,
+  ...props
+}: TextareaProps) => {
+  return (
+    <textarea
+      className={cn(
+        'w-full px-3 py-2.5',
+        'min-h-[80px] resize-y',
+        'rounded-(--input-radius)',
+        'border border-(--input-border) bg-(--input-bg)',
+        'text-sm text-(--input-text)',
+        'placeholder:text-(--input-placeholder)',
+        'transition-all duration-160 ease-in-out',
+        'outline-none',
+        'focus:border-(--input-focus-border) focus:shadow-(--input-focus-shadow)',
+        'disabled:cursor-not-allowed',
+        'disabled:border-(--input-disabled-border) disabled:bg-(--input-disabled-bg) disabled:text-(--input-disabled-text)',
+        'disabled:placeholder:text-(--input-disabled-placeholder)',
+        className,
+      )}
+      {...props}
+    />
+  );
 };

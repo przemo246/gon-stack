@@ -7,8 +7,8 @@ export const CardDemo = () => {
   return (
     <Example
       id="card-examples"
-      title="Card Demo"
-      description="UI primitive - usage examples"
+      title="Card"
+      description="A container component that holds related content and actions, often used in grids or lists."
     >
       <Example.Case
         id="card-basic"

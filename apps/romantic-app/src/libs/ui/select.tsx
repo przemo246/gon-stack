@@ -14,8 +14,27 @@ export type SelectProps = ComponentProps<'select'> & {
  * Component
  * ============================================================================= */
 
-export const Select = ({ className, ...props }: SelectProps) => {
+export const Select = ({
+  variant: _variant,
+  className,
+  ...props
+}: SelectProps) => {
   return (
-    <select className={cn('inline-flex items-center', className)} {...props} />
+    <select
+      className={cn(
+        'w-full px-3 py-2.5',
+        'rounded-(--input-radius)',
+        'border border-(--input-border) bg-(--input-bg)',
+        'text-sm text-(--input-text)',
+        'transition-all duration-160 ease-in-out',
+        'outline-none',
+        'appearance-none',
+        'focus:border-(--input-focus-border) focus:shadow-(--input-focus-shadow)',
+        'disabled:cursor-not-allowed',
+        'disabled:border-(--input-disabled-border) disabled:bg-(--input-disabled-bg) disabled:text-(--input-disabled-text)',
+        className,
+      )}
+      {...props}
+    />
   );
 };

@@ -6,8 +6,8 @@ export const ButtonDemo = () => {
   return (
     <Example
       id="button-examples"
-      title="Button Demo"
-      description="Button - usage examples"
+      title="Button"
+      description="An interactive element that triggers an action or navigates to a new location when clicked."
     >
       <Example.Case
         id="button-primary"

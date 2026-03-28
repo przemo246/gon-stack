@@ -39,6 +39,9 @@
     "db:stop": {
       "cache": false
     },
+    "db:reset": {
+      "cache": false
+    },
     "db:gen-types": {
       "cache": false
     }
