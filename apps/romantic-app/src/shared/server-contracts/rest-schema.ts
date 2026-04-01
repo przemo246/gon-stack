@@ -46,13 +46,26 @@ type UserProfileQuestion =
 
 export type GetUserProfile = {
   path: '/config/user-profile';
-  response: {
-    groups: {
-      id: number;
-      key: string;
-      label: string;
-      description: string;
-      questions: UserProfileQuestion[];
-    }[];
+  responses: {
+    200: {
+      code: 200;
+      groups: {
+        id: number;
+        key: string;
+        label: string;
+        description: string;
+        questions: UserProfileQuestion[];
+      }[];
+    };
+    401: {
+      code: 401;
+      type: 'unauthorized';
+      message: string;
+    };
+    500: {
+      code: 500;
+      type: 'internal-server-error';
+      message: string;
+    };
   };
 };

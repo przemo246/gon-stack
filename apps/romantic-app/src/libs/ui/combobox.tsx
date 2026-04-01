@@ -1,5 +1,7 @@
 import { useState, type ComponentProps } from 'react';
 
+import { Check } from 'lucide-react';
+
 import { createHookContext } from '../power-context';
 import { cn } from './cn';
 
@@ -199,18 +201,7 @@ export const ComboboxListItem = ({
           )}
           aria-hidden="true"
         >
-          {/* checkmark */}
-          <svg
-            viewBox="0 0 12 12"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="size-3"
-          >
-            <polyline points="2,6 5,9 10,3" />
-          </svg>
+          <Check className="size-3" />
         </span>
         {children}
       </button>

@@ -1,7 +1,10 @@
 import type { APIRoute } from 'astro';
-import type { GetUserProfile } from '../../../shared/contracts/backend/open-schema';
+import type { GetUserProfile } from '../../../shared/server-contracts/rest-schema';
+import { astroAdapter, getUserProfileQuestions } from '../../../server';
 
-type Response = GetUserProfile['response'];
+export const prerender = false;
+
+type Response = GetUserProfile['responses'][200];
 
 const GROUPS: Response['groups'] = [
   {
@@ -303,14 +306,21 @@ const GROUPS: Response['groups'] = [
   },
 ];
 
-export const GET: APIRoute = async () => {
-  const response: GetUserProfile['response'] = { groups: GROUPS };
+export const GET: APIRoute = async (context) => {
+  // await getUserProfileQuestions(astroAdapter(context));
+
+  // // const response: GetUserProfile['responses'][200] = { groups: GROUPS };
 
   await new Promise((resolve) => {
     setTimeout(() => {
       resolve(true);
     }, 2300);
   });
+
+  const response: GetUserProfile['responses'][200] = {
+    groups: GROUPS,
+    code: 200,
+  };
 
   return new Response(JSON.stringify(response), {
     status: 200,

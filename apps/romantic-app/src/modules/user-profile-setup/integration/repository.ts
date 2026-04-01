@@ -1,4 +1,4 @@
-import type { GetUserProfile } from '../../../shared/contracts/backend/open-schema';
+import type { GetUserProfile } from '../../../shared/server-contracts/rest-schema';
 import {
   type Question,
   QuestionId,
@@ -10,7 +10,7 @@ import {
 } from '../contracts/models';
 
 const toQuestion = (
-  question: GetUserProfile['response']['groups'][number]['questions'][number],
+  question: GetUserProfile['responses'][200]['groups'][number]['questions'][number],
 ): Question => {
   const baseQuestion = {
     id: question.id as QuestionId,
@@ -62,7 +62,7 @@ export const getConfig = async (signal: AbortSignal): Promise<Step[]> => {
     throw new Error('Failed to fetch config');
   }
 
-  const data = (await response.json()) as GetUserProfile['response'];
+  const data = (await response.json()) as GetUserProfile['responses'][200];
 
   return data.groups.map((group) => ({
     id: group.id as StepId,
