@@ -1,8 +1,23 @@
 import { Supabase } from '../integration/supabase';
 
-export type ProcedureContext = {
-  db: Supabase;
+export type RequestContract = {
+  searchParams: Record<string, string | undefined>;
+  pathParams: Record<string, string | undefined>;
+  payload: unknown;
+  headers: Record<string, string | undefined>;
 };
-export type Procedure<TResponse = void> = (context: {
+
+export type ProcedureContext<
+  TRequest extends RequestContract = RequestContract,
+> = {
   db: Supabase;
-}) => Promise<TResponse>;
+  searchParams: TRequest['searchParams'];
+  pathParams: TRequest['pathParams'];
+  payload: TRequest['payload'];
+  headers: TRequest['headers'];
+};
+
+export type Procedure<
+  TResponse = void,
+  TRequest extends RequestContract = RequestContract,
+> = (context: ProcedureContext<TRequest>) => Promise<TResponse>;

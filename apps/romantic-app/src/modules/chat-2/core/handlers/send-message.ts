@@ -5,7 +5,7 @@ import type { OfType } from '../registry';
 import type { Store } from '../store';
 
 export const sendMessage = (store: Store, ofType: OfType) =>
-  ofType('[TRIGGER]_CHAT2_SEND_MESSAGE').pipe(
+  ofType('[TRIGGER]_SEND_MESSAGE').pipe(
     exhaustMap(() => {
       const draft = store.$draft.get().trim();
       const threadId = store.$selectedThreadId.get();

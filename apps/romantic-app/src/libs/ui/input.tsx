@@ -12,9 +12,10 @@ export type InputProps = ComponentProps<'input'>;
  * Input
  * ============================================================================= */
 
-export const Input = ({ className, ...props }: InputProps) => {
+export const Input = ({ className, ref, ...props }: InputProps) => {
   return (
     <input
+      ref={ref}
       className={cn(
         'w-full px-3 py-2.5',
         'rounded-(--input-radius)',
@@ -23,7 +24,7 @@ export const Input = ({ className, ...props }: InputProps) => {
         'placeholder:text-(--input-placeholder)',
         'transition-all duration-160 ease-in-out',
         'outline-none',
-        'focus:border-(--input-focus-border) focus:shadow-(--input-focus-shadow)',
+        'focus-visible:border-(--input-focus-border) focus-visible:shadow-(--input-focus-shadow)',
         'disabled:cursor-not-allowed',
         'disabled:border-(--input-disabled-border) disabled:bg-(--input-disabled-bg) disabled:text-(--input-disabled-text)',
         'disabled:placeholder:text-(--input-disabled-placeholder)',

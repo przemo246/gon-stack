@@ -1,9 +1,9 @@
 import { catchError, EMPTY, finalize, from, map, switchMap, tap } from 'rxjs';
-import type { OfType } from '../registry';
 import type { Store } from '../store';
 import { getConfig } from '../../integration/repository';
+import { Bus } from '../bus';
 
-export const init = (store: Store, ofType: OfType) =>
+export const init = (store: Store, { ofType }: Bus) =>
   ofType('[TRIGGER]_INIT').pipe(
     tap(() => {
       store.$isIdle.set(false);

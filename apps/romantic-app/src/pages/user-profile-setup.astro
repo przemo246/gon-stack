@@ -1,14 +1,8 @@
 ---
 import Layout from '../core/layouts/main.astro';
-import { Main } from '../modules/user-profile-setup';
+import { Main } from '@/modules/user-profile-setup/presentation/main';
 ---
 
-<Layout
-	title="Profile setup · Amoria"
->
-	<main
-		class="page-bg min-h-screen flex items-center justify-center p-4 md:p-8"
-	>
-		<Main client:load />
-	</main>
+<Layout title="Profile setup · Amoria">
+  <Main client:load />
 </Layout>

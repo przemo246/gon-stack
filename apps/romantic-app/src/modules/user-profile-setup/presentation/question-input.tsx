@@ -1,7 +1,9 @@
 import { Controller, useWatch } from 'react-hook-form';
 import { createFieldConfig } from '../configuration/validation';
 import type { QuestionInputProps } from '../contracts/props';
-import { Slider } from '../../../libs/ui/slider';
+import { Button } from '@/libs/ui/button';
+import { Input } from '@/libs/ui/input';
+import { Slider } from '@/libs/ui/slider';
 
 export const QuestionInput = ({
   question,
@@ -21,14 +23,14 @@ export const QuestionInput = ({
   switch (question.type) {
     case 'text': {
       return (
-        <input
+        <Input
           type="text"
           {...register(fieldName, createFieldConfig({ required, min, max }))}
           minLength={min}
           maxLength={max}
           placeholder="Your answer"
           autoComplete="off"
-          className="variant-input w-full px-3 py-2.5 b2 rounded-md border border-surface-300 bg-surface-100 text-text-primary focus:outline-none focus:ring-2 focus:ring-primary-400/50"
+          className="b2"
         />
       );
     }
@@ -48,9 +50,10 @@ export const QuestionInput = ({
               createFieldConfig({ required, min, max, valueAsNumber: true }),
             )}
           />
-          <button
+          <Button
             type="button"
-            className="variant-icon-button"
+            variant="secondary"
+            className="min-w-10 px-0"
             onClick={() =>
               setValue(fieldName, Math.max(min, numericValue - 1), {
                 shouldDirty: true,
@@ -60,8 +63,8 @@ export const QuestionInput = ({
             aria-label="Decrease value"
           >
             -
-          </button>
-          <input
+          </Button>
+          <Input
             type="number"
             min={min}
             max={max}
@@ -82,11 +85,12 @@ export const QuestionInput = ({
                 shouldValidate: true,
               });
             }}
-            className="variant-input w-20 px-3 py-2 b2 text-center"
+            className="w-20 b2 text-center"
           />
-          <button
+          <Button
             type="button"
-            className="variant-icon-button"
+            variant="secondary"
+            className="min-w-10 px-0"
             onClick={() =>
               setValue(fieldName, Math.min(max, numericValue + 1), {
                 shouldDirty: true,
@@ -96,7 +100,7 @@ export const QuestionInput = ({
             aria-label="Increase value"
           >
             +
-          </button>
+          </Button>
         </div>
       );
     }
@@ -153,13 +157,12 @@ export const QuestionInput = ({
             {...register(fieldName, createFieldConfig({ required }))}
           />
           {question.options.map((option) => (
-            <button
+            <Button
               key={option.value}
               type="button"
-              className={`w-full text-left px-3 py-2.5 text-sm rounded-md transition-colors ${
-                watchedValue === option.value
-                  ? 'variant-option-active'
-                  : 'variant-option'
+              variant={watchedValue === option.value ? 'primary' : 'secondary'}
+              className={`w-full justify-start text-left normal-case tracking-normal ${
+                watchedValue === option.value ? '' : 'opacity-90'
               }`}
               onClick={() =>
                 setValue(fieldName, option.value, {
@@ -169,7 +172,7 @@ export const QuestionInput = ({
               }
             >
               {option.label}
-            </button>
+            </Button>
           ))}
         </div>
       );

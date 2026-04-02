@@ -3,7 +3,7 @@ import { createStore } from './store';
 
 export const createMediator = () => {
   const store = createStore();
-  const { trigger, registry } = createRegistry(store);
+  const { trigger, register } = createRegistry(store);
 
-  return [store, trigger, registry] as const;
+  return [store, trigger, register] as const;
 };

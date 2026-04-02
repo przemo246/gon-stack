@@ -93,19 +93,23 @@ User: "Craft a pure UI DateRangePicker."
 Assistant:
 "Before implementation I need a few missing details:
 
-1) API signature:
+1. API signature:
+
 - What is the exact props interface?
 - Should it support controlled mode (`value` + `onChange`)?
 
-2) Features and behaviors:
+2. Features and behaviors:
+
 - Which states are required (loading, disabled, invalid, empty)?
 - Keyboard behavior requirements?
 
-3) Branding and code style:
+3. Branding and code style:
+
 - Where are branding tokens/guidelines stored?
 - Where is your code style/convention source?
 
-4) Demo page:
+4. Demo page:
+
 - Should I create a demo page for all variants?
 - If yes, where should it live?
 - Should the demo use your design-system primitives, and where are they located?"
@@ -120,28 +124,33 @@ Component: DateRangePicker
 Destination: src/components/date-range-picker.tsx
 
 API:
+
 - value?: { from: Date | null; to: Date | null }
 - defaultValue?: { from: Date | null; to: Date | null }
 - onChange?: (next) => void
 
 Behavior:
+
 - Supports keyboard navigation, disabled dates, and invalid range guard.
 - Renders loading and disabled states.
 
 Styling:
+
 - Uses tokens from `src/styles/tokens.css`.
 - Follows conventions from `.eslintrc` and project component patterns.
 
 Demo:
+
 - Create `src/pages/demo/date-range-picker-demo.tsx`.
 - Show all states/variants: default, disabled, loading, invalid, and controlled.
 - Use primitives from `src/modules/design-system/*`.
 
 Verification:
+
 - Check controlled/uncontrolled flows.
 - Check keyboard and focus behavior.
 - Check all demo variants render correctly.
-────────────────────────────────────────
+  ────────────────────────────────────────
 
 Approve plan? (yes / no / edit)"
 
@@ -220,3 +229,4 @@ I need a few missing details before implementation:
 - Do not invent branding tokens, code conventions, or API behavior when missing.
 - Do not invent demo-page path, variant set, or primitive source when missing.
 - Keep generated components pure UI-focused (presentation and interaction only) unless user asks otherwise.
+- Use conventions from `.claude\skills\react-best-practices`

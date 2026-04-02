@@ -10,10 +10,10 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   adapter: cloudflare({
     platformProxy: {
-      enabled: true
+      enabled: true,
     },
 
-    imageService: "cloudflare"
+    imageService: 'cloudflare',
   }),
 
   integrations: [react()],
@@ -21,7 +21,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
     optimizeDeps: {
-      exclude: ['msw', 'msw/node', '@mswjs/interceptors']
-    }
-  }
+      exclude: ['msw', 'msw/node', '@mswjs/interceptors'],
+    },
+  },
 });

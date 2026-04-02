@@ -31,7 +31,7 @@ export const Chat = () => {
   const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
       e.preventDefault();
-      trigger('[TRIGGER]_CHAT2_SEND_MESSAGE');
+      trigger('[TRIGGER]_SEND_MESSAGE');
     }
   };
 
@@ -44,7 +44,7 @@ export const Chat = () => {
           <button
             type="button"
             className="rounded-[0.625rem] bg-gradient-to-br from-primary-500 to-primary-400 px-5 py-2.5 text-sm font-semibold text-text-primary transition hover:from-primary-400 hover:to-primary-300 focus:outline-none focus:ring-2 focus:ring-primary-300/45"
-            onClick={() => trigger('[TRIGGER]_CHAT2_BOOTSTRAP')}
+            onClick={() => trigger('[TRIGGER]_BOOTSTRAP')}
           >
             Retry
           </button>
@@ -101,7 +101,7 @@ export const Chat = () => {
                 autoComplete="off"
                 value={searchQuery}
                 onChange={(e) =>
-                  trigger('[TRIGGER]_CHAT2_UPDATE_SEARCH', {
+                  trigger('[TRIGGER]_UPDATE_SEARCH', {
                     query: e.target.value,
                   })
                 }
@@ -136,7 +136,7 @@ export const Chat = () => {
                         : 'border-secondary-300/20 hover:border-secondary-300/40 hover:bg-surface-200/30',
                     ].join(' ')}
                     onClick={() =>
-                      trigger('[TRIGGER]_CHAT2_SELECT_THREAD', {
+                      trigger('[TRIGGER]_SELECT_THREAD', {
                         threadId: thread.id,
                       })
                     }
@@ -295,7 +295,7 @@ export const Chat = () => {
                 <button
                   type="button"
                   className="b3 font-medium text-primary-300 underline hover:text-primary-200 focus:outline-none focus:ring-2 focus:ring-primary-300/45"
-                  onClick={() => trigger('[TRIGGER]_CHAT2_RETRY_CONNECTION')}
+                  onClick={() => trigger('[TRIGGER]_RETRY_CONNECTION')}
                 >
                   Retry
                 </button>
@@ -314,7 +314,7 @@ export const Chat = () => {
                   isSending || isBootstrapping || connection === 'disconnected'
                 }
                 onChange={(e) =>
-                  trigger('[TRIGGER]_CHAT2_UPDATE_DRAFT', {
+                  trigger('[TRIGGER]_UPDATE_DRAFT', {
                     body: e.target.value,
                   })
                 }
@@ -329,7 +329,7 @@ export const Chat = () => {
                   !draft.trim() ||
                   connection === 'disconnected'
                 }
-                onClick={() => trigger('[TRIGGER]_CHAT2_SEND_MESSAGE')}
+                onClick={() => trigger('[TRIGGER]_SEND_MESSAGE')}
                 className="inline-flex h-[42px] items-center gap-1 rounded-[0.625rem] bg-gradient-to-br from-primary-500 to-primary-400 px-4 text-sm font-semibold text-text-primary transition hover:from-primary-400 hover:to-primary-300 focus:outline-none focus:ring-2 focus:ring-primary-300/45 disabled:cursor-not-allowed disabled:from-primary-700 disabled:to-primary-600 disabled:text-text-tertiary"
                 aria-label="Send message"
               >

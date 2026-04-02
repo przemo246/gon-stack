@@ -1,8 +1,8 @@
 import { tap } from 'rxjs';
-import type { OfType } from '../registry';
 import type { Store } from '../store';
+import { Bus } from '../bus';
 
-export const prev = (store: Store, ofType: OfType) =>
+export const prev = (store: Store, { ofType }: Bus) =>
   ofType('[TRIGGER]_PREV').pipe(
     tap(() => {
       store.$activeStepIndex.set(Math.max(0, store.$activeStepIndex.get() - 1));

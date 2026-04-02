@@ -29,7 +29,7 @@ export const Select = ({
         'transition-all duration-160 ease-in-out',
         'outline-none',
         'appearance-none',
-        'focus:border-(--input-focus-border) focus:shadow-(--input-focus-shadow)',
+        'focus-visible:border-(--input-focus-border) focus-visible:shadow-(--input-focus-shadow)',
         'disabled:cursor-not-allowed',
         'disabled:border-(--input-disabled-border) disabled:bg-(--input-disabled-bg) disabled:text-(--input-disabled-text)',
         className,

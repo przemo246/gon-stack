@@ -1,8 +1,8 @@
 import { tap } from 'rxjs';
-import type { OfType } from '../registry';
 import type { Store } from '../store';
+import { Bus } from '../bus';
 
-export const start = (store: Store, ofType: OfType) =>
+export const start = (store: Store, { ofType }: Bus) =>
   ofType('[TRIGGER]_START').pipe(
     tap(() => {
       store.$error.reset();

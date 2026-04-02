@@ -1,4 +1,4 @@
-import { type TriggerEvent } from '../../../libs/eda';
+import { type TriggerEvent } from '@/libs/eda';
 import { type Answers } from './models';
 
 export type Event =

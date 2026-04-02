@@ -46,6 +46,12 @@ type UserProfileQuestion =
 
 export type GetUserProfile = {
   path: '/config/user-profile';
+  request: {
+    searchParams: { page?: string; limit?: string };
+    pathParams: Record<string, never>;
+    payload: never;
+    headers: Record<string, never>;
+  };
   responses: {
     200: {
       code: 200;

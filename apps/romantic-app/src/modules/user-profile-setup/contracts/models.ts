@@ -1,4 +1,5 @@
-import { Brand, Prettify } from '../../../libs/ts-more';
+import { Brand } from '@repo/type-beast/brand';
+import { Prettify } from '@repo/type-beast/prettify';
 
 export type StepId = Brand<number, 'StepId'>;
 export type StepKey = Brand<string, 'StepKey'>;
@@ -47,4 +48,3 @@ export type Step = {
 };
 
 export type Answers = Record<string, string | number>;
-

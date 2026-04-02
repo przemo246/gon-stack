@@ -1,4 +1,4 @@
-import { atom, computed } from '../../../libs/supa-store';
+import { atom, computed } from '@/libs/supa-store';
 import type { Answers, Step } from '../contracts/models';
 
 export const createStore = () => {
@@ -35,12 +35,15 @@ export const createStore = () => {
       (activeStepIndex, steps) => (activeStepIndex / steps.length) * 100,
     ),
     $steps,
-    $stepAnswers: computed([$activeStepIndex, $steps], (activeStepIndex, steps) =>
-      steps[activeStepIndex].questions.reduce<Answers>((acc, question) => {
-        acc[question.key] = question.value;
-        return acc;
-      }, {}),
+    $stepAnswers: computed(
+      [$activeStepIndex, $steps],
+      (activeStepIndex, steps) =>
+        steps[activeStepIndex].questions.reduce<Answers>((acc, question) => {
+          acc[question.key] = question.value;
+          return acc;
+        }, {}),
     ),
+    $hasError: computed([$error], (error) => Boolean(error)),
   };
 };
 

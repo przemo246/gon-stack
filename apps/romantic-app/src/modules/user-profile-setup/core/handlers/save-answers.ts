@@ -1,9 +1,9 @@
 import { catchError, EMPTY, exhaustMap, finalize, from, map, tap } from 'rxjs';
 import { saveUserProfileAnswers } from '../../integration/repository';
-import type { OfType } from '../registry';
 import type { Store } from '../store';
+import { Bus } from '../bus';
 
-export const saveAnswers = (store: Store, ofType: OfType) =>
+export const saveAnswers = (store: Store, { ofType }: Bus) =>
   ofType('[TRIGGER]_SAVE_ANSWERS').pipe(
     map(() => new AbortController()),
     tap(() => {

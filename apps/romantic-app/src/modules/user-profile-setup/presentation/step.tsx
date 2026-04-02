@@ -1,4 +1,7 @@
 import { useForm } from 'react-hook-form';
+import { Button } from '@/libs/ui/button';
+import { Card } from '@/libs/ui/card';
+import { Heading } from '@/libs/ui/heading';
 import { useContext } from './context';
 import { QuestionInput } from './question-input';
 
@@ -23,19 +26,14 @@ const StepForm = () => {
       noValidate
     >
       <div className="flex flex-col gap-2">
-        <h4 className="t4">{activeStep.label}</h4>
+        <Heading level={4}>{activeStep.label}</Heading>
         <p className="b2">{activeStep.description}</p>
       </div>
 
       {activeStep.questions.map((question) => {
         return (
-          <div
-            key={question.key}
-            className="variant-option p-4 flex flex-col gap-3"
-          >
-            <p className="b2">
-              {question.label}
-            </p>
+          <Card key={question.key} className="flex flex-col gap-3">
+            <p className="b2">{question.label}</p>
 
             <QuestionInput
               question={question}
@@ -43,7 +41,7 @@ const StepForm = () => {
               control={form.control}
               setValue={form.setValue}
             />
-          </div>
+          </Card>
         );
       })}
 
@@ -53,21 +51,21 @@ const StepForm = () => {
         }`}
       >
         {hasPreviousStep && (
-          <button
+          <Button
             type="button"
-            className="variant-button-ghost py-2.5 px-4 text-sm font-semibold"
+            variant="secondary"
             onClick={() => ctx.trigger('[TRIGGER]_PREV')}
           >
             Back
-          </button>
+          </Button>
         )}
-        <button
+        <Button
           type="submit"
-          className="variant-button-primary py-2.5 px-4 text-sm font-semibold uppercase tracking-[0.14em] disabled:opacity-50 disabled:cursor-not-allowed"
+          className="disabled:opacity-50"
           disabled={!form.formState.isValid || form.formState.isSubmitting}
         >
           Continue
-        </button>
+        </Button>
       </footer>
     </form>
   );

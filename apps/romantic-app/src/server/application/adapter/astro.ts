@@ -1,15 +1,44 @@
-import { AstroCookies } from 'astro';
+import type { APIContext, APIRoute } from 'astro';
 import { supabase } from '../integration/supabase';
-import { ProcedureContext } from '../models/procedure';
+import type {
+  Procedure,
+  ProcedureContext,
+  RequestContract,
+} from '../models/procedure';
 
-export const adapter = (context: {
-  request: Request;
-  cookies: AstroCookies;
-}): ProcedureContext => {
-  return {
-    db: supabase({
-      request: context.request,
-      cookies: context.cookies,
-    }),
+type ProcedureResponse = { code: number };
+
+export const astroAdapter =
+  <TResponse extends ProcedureResponse, TRequest extends RequestContract>(
+    procedure: Procedure<TResponse, TRequest>,
+  ): APIRoute =>
+  async (context: APIContext) => {
+    const url = new URL(context.request.url);
+
+    let payload: unknown = undefined;
+    if (!['GET', 'HEAD'].includes(context.request.method)) {
+      try {
+        payload = await context.request.json();
+      } catch {
+        payload = undefined;
+      }
+    }
+
+    const procedureContext = {
+      db: supabase({
+        request: context.request,
+        cookies: context.cookies,
+      }),
+      searchParams: Object.fromEntries(url.searchParams.entries()),
+      pathParams: context.params,
+      payload,
+      headers: {},
+    } as ProcedureContext<TRequest>;
+
+    const response = await procedure(procedureContext);
+
+    return new Response(JSON.stringify(response), {
+      status: response.code,
+      headers: { 'Content-Type': 'application/json' },
+    });
   };
-};

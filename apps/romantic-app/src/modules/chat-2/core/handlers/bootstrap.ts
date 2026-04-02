@@ -4,7 +4,7 @@ import type { OfType } from '../registry';
 import type { Store } from '../store';
 
 export const bootstrap = (store: Store, ofType: OfType) =>
-  ofType('[TRIGGER]_CHAT2_BOOTSTRAP').pipe(
+  ofType('[TRIGGER]_BOOTSTRAP').pipe(
     tap(() => {
       store.$isBootstrapping.set(true);
       store.$bootstrapError.reset();

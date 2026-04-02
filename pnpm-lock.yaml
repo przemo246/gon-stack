@@ -107,6 +107,9 @@ importers:
       '@radix-ui/react-slot':
         specifier: ^1.2.4
         version: 1.2.4(@types/react@19.2.13)(react@19.2.4)
+      '@repo/type-beast':
+        specifier: workspace:*
+        version: link:../../packages/type-beast
       '@repo/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -301,6 +304,21 @@ importers:
       tailwindcss:
         specifier: ^4.1.18
         version: 4.1.18
+
+  packages/type-beast:
+    devDependencies:
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      eslint:
+        specifier: ^9.39.1
+        version: 9.39.1(jiti@2.6.1)
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
 
   packages/typescript-config: {}
 

@@ -4,7 +4,7 @@ import type { OfType } from '../registry';
 import type { Store } from '../store';
 
 export const retryConnection = (store: Store, ofType: OfType) =>
-  ofType('[TRIGGER]_CHAT2_RETRY_CONNECTION').pipe(
+  ofType('[TRIGGER]_RETRY_CONNECTION').pipe(
     tap(() => {
       store.$connection.set('reconnecting');
       store.$errorMessage.reset();

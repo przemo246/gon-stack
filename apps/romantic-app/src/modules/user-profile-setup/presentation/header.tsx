@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { ProgressBar } from '@/libs/ui/progress-bar';
 import { useContext } from './context';
 
 export const Header = memo(
@@ -17,14 +18,7 @@ export const Header = memo(
             Step {activeStepIndex + 1} of {totalSteps} - {activeStep.label}
           </p>
         </div>
-        <div className="h-2 rounded-full bg-surface-200 overflow-hidden">
-          <div
-            className="h-full bg-linear-to-r from-primary-400 to-secondary-400 transition-all duration-300"
-            style={{
-              width: `${progressPercentage}%`,
-            }}
-          />
-        </div>
+        <ProgressBar value={progressPercentage} max={100} />
       </header>
     );
   },
@@ -32,4 +26,3 @@ export const Header = memo(
 );
 
 Header.displayName = 'Header';
-

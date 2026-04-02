@@ -6,7 +6,7 @@ const Content = () => {
   const { trigger } = useContext();
 
   useEffect(() => {
-    trigger('[TRIGGER]_CHAT2_BOOTSTRAP');
+    trigger('[TRIGGER]_BOOTSTRAP');
   }, [trigger]);
 
   return <Chat />;

@@ -3,7 +3,7 @@ import type { OfType } from '../registry';
 import type { Store } from '../store';
 
 export const selectThread = (store: Store, ofType: OfType) =>
-  ofType('[TRIGGER]_CHAT2_SELECT_THREAD').pipe(
+  ofType('[TRIGGER]_SELECT_THREAD').pipe(
     tap(({ threadId }) => {
       store.$threads.set(
         store.$threads.get().map((t) => ({

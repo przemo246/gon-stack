@@ -1,4 +1,8 @@
 import { useContext } from './context';
+import { Alert } from '@/libs/ui/alert';
+import { Button } from '@/libs/ui/button';
+import { Card } from '@/libs/ui/card';
+import { Heading } from '@/libs/ui/heading';
 
 export const Final = () => {
   const ctx = useContext();
@@ -25,21 +29,18 @@ export const Final = () => {
 
   return (
     <div className="flex flex-col gap-5">
-      <h4 className="t4">Here&apos;s your romantic vibe</h4>
+      <Heading level={4}>Here&apos;s your romantic vibe</Heading>
       <p className="b2">
         This is how we&apos;ll describe your relationship style in the game. You
         can change this later if you want.
       </p>
 
-      <div className="variant-option p-4 flex flex-col gap-3">
+      <Card className="flex flex-col gap-3">
         <p className="l1">Full profile summary</p>
         <div className="max-h-80 overflow-y-auto pr-1">
           <ul className="flex flex-col gap-2.5">
             {summaryItems.map((item) => (
-              <li
-                key={item.id}
-                className="variant-option p-3 flex flex-col gap-2"
-              >
+              <Card key={item.id} className="flex flex-col gap-2">
                 <p className="c1">{item.stepLabel}</p>
                 <p className="b3 capitalize">
                   {item.questionKey.replace(/[-_]+/g, ' ')}
@@ -51,34 +52,33 @@ export const Final = () => {
                       ? item.answer
                       : 'Not set'}
                 </p>
-              </li>
+              </Card>
             ))}
           </ul>
         </div>
-      </div>
+      </Card>
 
       {isSaved && (
-        <p className="b2 text-success">
+        <Alert variant="success" className="b2">
           Profile saved. You are ready to start playing.
-        </p>
+        </Alert>
       )}
 
       <div className="flex items-center justify-between gap-3">
-        <button
+        <Button
           type="button"
-          className="variant-button-ghost py-2.5 px-4 text-sm font-semibold"
+          variant="secondary"
           onClick={() => ctx.trigger('[TRIGGER]_EDIT_ANSWERS')}
         >
           Edit answers
-        </button>
-        <button
+        </Button>
+        <Button
           type="button"
-          className="variant-button-primary py-2.5 px-4 text-sm font-semibold uppercase tracking-[0.14em]"
           disabled={isSaving}
           onClick={() => ctx.trigger('[TRIGGER]_SAVE_ANSWERS')}
         >
           Save profile &amp; start playing
-        </button>
+        </Button>
       </div>
     </div>
   );
