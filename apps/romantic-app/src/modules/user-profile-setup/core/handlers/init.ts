@@ -1,7 +1,7 @@
 import { catchError, EMPTY, finalize, from, map, switchMap, tap } from 'rxjs';
 import type { Store } from '../store';
 import { getConfig } from '../../integration/repository';
-import { Bus } from '../bus';
+import type { Bus } from '../bus';
 
 export const init = (store: Store, { ofType }: Bus) =>
   ofType('[TRIGGER]_INIT').pipe(

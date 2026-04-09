@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Main } from '..';
+import { Main } from '../presentation/main';
 import { backendFixture } from '../../../__tests__/backend-fixture';
 
 describe('User profile setup works when', () => {

@@ -1,13 +1,13 @@
 import type { GetUserProfile } from '../../../shared/server-contracts/rest-schema';
 import {
   type Question,
-  QuestionId,
-  QuestionKey,
+  type QuestionId,
+  type QuestionKey,
   type Answers,
-  Step,
-  StepId,
-  StepKey,
-} from '../contracts/models';
+  type Step,
+  type StepId,
+  type StepKey,
+} from '../domain/models';
 
 const toQuestion = (
   question: GetUserProfile['responses'][200]['groups'][number]['questions'][number],
@@ -56,7 +56,9 @@ const toQuestion = (
 };
 
 export const getConfig = async (signal: AbortSignal): Promise<Step[]> => {
-  const response = await fetch('/api/config/user-profile', { signal });
+  const response = await fetch('/api/config/user-profile', {
+    signal,
+  });
 
   if (!response.ok) {
     throw new Error('Failed to fetch config');

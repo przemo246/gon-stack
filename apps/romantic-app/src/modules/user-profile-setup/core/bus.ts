@@ -1,5 +1,5 @@
 import { eda } from '@/libs/eda';
-import { Event } from '../contracts/events';
+import type { Event } from '../domain/events';
 
 export const createBus = () => eda<Event>();
 

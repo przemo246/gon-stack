@@ -1,6 +1,11 @@
-export function RegisterForm() {
+export const RegisterForm = () => {
   return (
-    <section id="register" className="auth-panel flex flex-col gap-4">
+    <form
+      id="register"
+      className="auth-panel flex flex-col gap-4"
+      method="post"
+      action="/api/auth/register"
+    >
       <h2 className="sr-only">Create account</h2>
       <div className="flex flex-col gap-1">
         <label htmlFor="register-email" className="text-xs uppercase tracking-[0.14em] text-text-tertiary">
@@ -8,10 +13,12 @@ export function RegisterForm() {
         </label>
         <input
           id="register-email"
+          name="email"
           type="email"
           placeholder="you@example.com"
           className="variant-input w-full px-3 py-2.5 text-sm"
           autoComplete="email"
+          required
         />
       </div>
       <div className="flex flex-col gap-1">
@@ -20,10 +27,13 @@ export function RegisterForm() {
         </label>
         <input
           id="register-password"
+          name="password"
           type="password"
           placeholder="••••••••"
           className="variant-input w-full px-3 py-2.5 text-sm"
           autoComplete="new-password"
+          minLength={8}
+          required
         />
       </div>
       <div className="flex flex-col gap-1">
@@ -36,14 +46,16 @@ export function RegisterForm() {
           placeholder="••••••••"
           className="variant-input w-full px-3 py-2.5 text-sm"
           autoComplete="new-password"
+          minLength={8}
+          required
         />
       </div>
       <button
-        type="button"
+        type="submit"
         className="variant-button-primary w-full py-2.5 px-4 text-sm font-semibold uppercase tracking-[0.14em]"
       >
         Create account
       </button>
-    </section>
+    </form>
   );
 }

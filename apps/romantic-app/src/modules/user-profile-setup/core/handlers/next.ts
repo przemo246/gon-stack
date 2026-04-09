@@ -1,6 +1,6 @@
 import { tap } from 'rxjs';
 import type { Store } from '../store';
-import { Bus } from '../bus';
+import type { Bus } from '../bus';
 
 export const next = (store: Store, { ofType }: Bus) =>
   ofType('[TRIGGER]_NEXT').pipe(

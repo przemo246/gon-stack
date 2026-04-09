@@ -7,6 +7,44 @@ import type {
 } from '../models/procedure';
 
 type ProcedureResponse = { code: number };
+type RedirectResponse = ProcedureResponse & { location: string };
+
+const isRedirectResponse = (
+  response: ProcedureResponse,
+): response is RedirectResponse => {
+  return (
+    response.code >= 300 &&
+    response.code < 400 &&
+    'location' in response &&
+    typeof response.location === 'string'
+  );
+};
+
+const getPayload = async (request: Request): Promise<unknown> => {
+  if (['GET', 'HEAD'].includes(request.method)) return undefined;
+
+  const contentType = request.headers.get('content-type') ?? '';
+
+  if (contentType.includes('application/json')) {
+    return await request.json();
+  }
+
+  if (
+    contentType.includes('multipart/form-data') ||
+    contentType.includes('application/x-www-form-urlencoded')
+  ) {
+    const formData = await request.formData();
+    const payload: Record<string, string> = {};
+
+    formData.forEach((value, key) => {
+      payload[key] = value.toString();
+    });
+
+    return payload;
+  }
+
+  return undefined;
+};
 
 export const astroAdapter =
   <TResponse extends ProcedureResponse, TRequest extends RequestContract>(
@@ -14,15 +52,7 @@ export const astroAdapter =
   ): APIRoute =>
   async (context: APIContext) => {
     const url = new URL(context.request.url);
-
-    let payload: unknown = undefined;
-    if (!['GET', 'HEAD'].includes(context.request.method)) {
-      try {
-        payload = await context.request.json();
-      } catch {
-        payload = undefined;
-      }
-    }
+    const payload = await getPayload(context.request);
 
     const procedureContext = {
       db: supabase({
@@ -32,10 +62,23 @@ export const astroAdapter =
       searchParams: Object.fromEntries(url.searchParams.entries()),
       pathParams: context.params,
       payload,
-      headers: {},
+      headers: (() => {
+        const headers: Record<string, string> = {};
+        context.request.headers.forEach((value, key) => {
+          headers[key] = value;
+        });
+        return headers;
+      })(),
     } as ProcedureContext<TRequest>;
 
     const response = await procedure(procedureContext);
+
+    if (isRedirectResponse(response)) {
+      return new Response(null, {
+        status: response.code,
+        headers: { Location: response.location },
+      });
+    }
 
     return new Response(JSON.stringify(response), {
       status: response.code,

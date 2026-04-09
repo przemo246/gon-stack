@@ -42,7 +42,11 @@ const SOCIAL_PROOF = [
   },
 ];
 
-export function Main() {
+type Props = {
+  userEmail?: string | null;
+};
+
+export function Main({ userEmail = null }: Props) {
   return (
     <div className="min-h-screen font-sans text-text-primary bg-[repeating-linear-gradient(0deg,rgba(255,255,255,0.02)_0,rgba(255,255,255,0.02)_1px,transparent_1px,transparent_4px),linear-gradient(180deg,#0a0718_0%,#120c24_46%,#1a1133_100%)]">
       <nav className="sticky top-0 z-40 border-b border-[color-mix(in_srgb,var(--color-primary-500)_45%,transparent)] bg-[color-mix(in_srgb,var(--color-surface-0)_88%,transparent)] shadow-[0_0_14px_color-mix(in_srgb,var(--color-primary-500)_30%,transparent)] backdrop-blur-md">
@@ -75,18 +79,39 @@ export function Main() {
           </div>
 
           <div className="flex items-center gap-2">
-            <a
-              href="/login"
-              className="inline-flex items-center justify-center rounded-lg px-3 py-1.5 text-center text-xs font-semibold text-text-tertiary uppercase tracking-[0.12em] transition-all duration-150 hover:bg-[color-mix(in_srgb,var(--color-primary-500)_24%,transparent)] hover:text-white hover:shadow-[0_0_10px_color-mix(in_srgb,var(--color-primary-500)_55%,transparent)]"
-            >
-              Log in
-            </a>
-            <a
-              href="/register"
-              className="inline-flex items-center justify-center rounded-[10px] bg-[linear-gradient(120deg,var(--color-primary-500),#ff4fe3)] px-3 py-1.5 text-center text-xs font-semibold uppercase tracking-[0.12em] text-white shadow-[0_0_12px_color-mix(in_srgb,var(--color-primary-400)_50%,transparent)] transition-all duration-150 hover:saturate-[1.2]"
-            >
-              Sign up
-            </a>
+            {userEmail ? (
+              <>
+                <span
+                  className="max-w-[180px] truncate rounded-lg border border-[color-mix(in_srgb,#ffffff_16%,transparent)] bg-[color-mix(in_srgb,#ffffff_5%,transparent)] px-3 py-1.5 text-xs font-semibold text-text-tertiary"
+                  title={userEmail}
+                >
+                  {userEmail}
+                </span>
+                <form method="post" action="/api/auth/logout">
+                  <button
+                    type="submit"
+                    className="inline-flex items-center justify-center rounded-lg px-3 py-1.5 text-center text-xs font-semibold text-text-tertiary uppercase tracking-[0.12em] transition-all duration-150 hover:bg-[color-mix(in_srgb,var(--color-primary-500)_24%,transparent)] hover:text-white hover:shadow-[0_0_10px_color-mix(in_srgb,var(--color-primary-500)_55%,transparent)]"
+                  >
+                    Log out
+                  </button>
+                </form>
+              </>
+            ) : (
+              <>
+                <a
+                  href="/login"
+                  className="inline-flex items-center justify-center rounded-lg px-3 py-1.5 text-center text-xs font-semibold text-text-tertiary uppercase tracking-[0.12em] transition-all duration-150 hover:bg-[color-mix(in_srgb,var(--color-primary-500)_24%,transparent)] hover:text-white hover:shadow-[0_0_10px_color-mix(in_srgb,var(--color-primary-500)_55%,transparent)]"
+                >
+                  Log in
+                </a>
+                <a
+                  href="/register"
+                  className="inline-flex items-center justify-center rounded-[10px] bg-[linear-gradient(120deg,var(--color-primary-500),#ff4fe3)] px-3 py-1.5 text-center text-xs font-semibold uppercase tracking-[0.12em] text-white shadow-[0_0_12px_color-mix(in_srgb,var(--color-primary-400)_50%,transparent)] transition-all duration-150 hover:saturate-[1.2]"
+                >
+                  Sign up
+                </a>
+              </>
+            )}
           </div>
         </div>
       </nav>

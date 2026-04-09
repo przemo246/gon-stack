@@ -1,4 +1,5 @@
 import { Example } from './example';
+import { Text } from '@/libs/ui/text';
 
 export const TextDemo = () => {
   return (
@@ -13,12 +14,12 @@ export const TextDemo = () => {
         description="Within this page section, H1-H6 map to their typography styles."
       >
         <div className="space-y-3">
-          <h1 className="t1">Heading 1</h1>
-          <h2 className="t2">Heading 2</h2>
-          <h3 className="t3">Heading 3</h3>
-          <h4 className="t4">Heading 4</h4>
-          <h5 className="t5">Heading 5</h5>
-          <h6 className="t6">Heading 6</h6>
+          <Text.T1>Heading 1</Text.T1>
+          <Text.T2>Heading 2</Text.T2>
+          <Text.T3>Heading 3</Text.T3>
+          <Text.T4>Heading 4</Text.T4>
+          <Text.T5>Heading 5</Text.T5>
+          <Text.T6>Heading 6</Text.T6>
         </div>
       </Example.Case>
 
@@ -28,15 +29,15 @@ export const TextDemo = () => {
         description="Body scales for content blocks, helper text, and compact paragraphs."
       >
         <div className="space-y-3">
-          <p className="b1">
+          <Text.B1>
             B1: Primary body copy for core content in cards and sections.
-          </p>
-          <p className="b2">
+          </Text.B1>
+          <Text.B2>
             B2: Secondary body text for supporting descriptions and details.
-          </p>
-          <p className="b3">
+          </Text.B2>
+          <Text.B3>
             B3: Compact body style for dense layouts and low-priority copy.
-          </p>
+          </Text.B3>
         </div>
       </Example.Case>
 
@@ -48,32 +49,32 @@ export const TextDemo = () => {
         <div className="space-y-4">
           <div className="space-y-1">
             <div>
-              <span className="c1">
+              <Text.C1>
                 C1 caption - timestamp, helper metadata, tiny notes.
-              </span>
+              </Text.C1>
             </div>
             <div>
-              <span className="c2">
+              <Text.C2>
                 C2 caption - compact metadata for constrained spaces.
-              </span>
+              </Text.C2>
             </div>
           </div>
           <div className="space-y-1">
             <div>
-              <span className="l1">L1 label - uppercase field label</span>
+              <Text.L1>L1 label - uppercase field label</Text.L1>
             </div>
             <div>
-              <span className="l2">L2 label - compact uppercase label</span>
+              <Text.L2>L2 label - compact uppercase label</Text.L2>
             </div>
           </div>
           <div className="space-y-1">
             <div>
-              <span className="v1">Overline V1 for subtle section context</span>
+              <Text.V1>Overline V1 for subtle section context</Text.V1>
             </div>
             <div>
-              <span className="v2">
+              <Text.V2>
                 Overline V2 for emphasized meta context
-              </span>
+              </Text.V2>
             </div>
           </div>
         </div>
@@ -85,13 +86,13 @@ export const TextDemo = () => {
         description="Expressive text styles for quotes, decorative subtitles, and accents."
       >
         <div className="space-y-3">
-          <p className="o1">
+          <Text.O1>
             O1: &quot;Love grows best in the little moments we choose each
             day.&quot;
-          </p>
-          <p className="o2">
+          </Text.O1>
+          <Text.O2>
             O2: &quot;Tiny ornamental style for subtle romantic accents.&quot;
-          </p>
+          </Text.O2>
         </div>
       </Example.Case>
     </Example>

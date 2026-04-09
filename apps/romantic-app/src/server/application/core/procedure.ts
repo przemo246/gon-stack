@@ -1,5 +1,5 @@
-import { APIError, AllErrors, InternalServer } from './error-handling';
-import { Procedure, RequestContract } from '../models/procedure';
+import { APIError, type AllErrors, InternalServer } from './error-handling';
+import { type Procedure, type RequestContract } from '../models/procedure';
 
 type AllErrorsJson = ReturnType<AllErrors['json']>;
 type ResponsesUnion<TResponses extends Record<PropertyKey, unknown>> =

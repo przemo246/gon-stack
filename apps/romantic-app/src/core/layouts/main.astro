@@ -1,13 +1,13 @@
 ---
 import '../style/index.css';
 
-interface Props {
+type Props = {
 	title?: string;
 }
 
 const { title = 'Amoria' } = Astro.props;
 ---
-
+<!-- [TODO](1): migrate to font-family in UI library apps\romantic-app\src\libs\ui and remove this link with direct spec here, leave just preload if possible -->
 <!doctype html>
 <html lang="en">
 	<head>

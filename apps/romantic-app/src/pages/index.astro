@@ -1,13 +1,20 @@
 ---
 import Layout from '../core/layouts/main.astro';
 import { Main } from '../modules/landing';
+import { supabase } from '@/server/application/integration/supabase';
+
+export const prerender = false;
+
+const db = supabase({ request: Astro.request, cookies: Astro.cookies });
+const { data } = await db.auth.getUser();
+const userEmail = data.user?.email ?? null;
 ---
 
 <Layout
 	title="Amoria · Home"
 >
 	<div class="landing-page-bg">
-		<Main client:load />
+		<Main userEmail={userEmail} />
 	</div>
 </Layout>
 

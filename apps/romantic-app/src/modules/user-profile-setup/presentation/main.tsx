@@ -1,14 +1,13 @@
 import { useEffect } from 'react';
-import { Provider, useContext } from './context';
+import { useContext } from './context';
 import { Router } from './router';
 
-const Content = () => {
+export const Main = () => {
   const ctx = useContext();
-  const { trigger } = ctx;
 
   useEffect(() => {
-    trigger('[TRIGGER]_INIT');
-  }, [trigger]);
+    ctx.init();
+  }, [ctx]);
 
   return (
     <main className="page-bg min-h-screen flex items-center justify-center p-4 md:p-8">
@@ -18,9 +17,3 @@ const Content = () => {
     </main>
   );
 };
-
-export const Main = () => (
-  <Provider>
-    <Content />
-  </Provider>
-);

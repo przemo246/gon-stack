@@ -1,9 +1,17 @@
-import { Controller, useWatch } from 'react-hook-form';
+import { type Control, Controller, type UseFormRegister, type UseFormSetValue, useWatch } from 'react-hook-form';
 import { createFieldConfig } from '../configuration/validation';
-import type { QuestionInputProps } from '../contracts/props';
 import { Button } from '@/libs/ui/button';
 import { Input } from '@/libs/ui/input';
 import { Slider } from '@/libs/ui/slider';
+import type { Question } from '../domain/models';
+import type { Answers } from '../domain/models';
+
+export type QuestionInputProps = {
+  question: Question;
+  control: Control<Answers>;
+  register: UseFormRegister<Answers>;
+  setValue: UseFormSetValue<Answers>;
+};
 
 export const QuestionInput = ({
   question,

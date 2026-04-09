@@ -1,30 +1,30 @@
 import { useContext } from './context';
 import { Alert } from '@/libs/ui/alert';
 import { Button } from '@/libs/ui/button';
-import { Heading } from '@/libs/ui/heading';
+import { Text } from '@/libs/ui/text';
 
 export const ErrorTemplate = () => {
   const ctx = useContext();
-  const error = ctx.$error.use();
+  const error = ctx.useError();
 
   return (
     <div className="flex flex-col gap-5" role="alert" aria-live="assertive">
       <header className="flex items-center justify-between gap-3">
         <div className="variant-pill">SETUP UNAVAILABLE</div>
-        <span className="c2 text-error">Error</span>
+        <Text.C2 className="text-error">Error</Text.C2>
       </header>
-      <Heading level={4}>We couldn&apos;t load your profile setup</Heading>
-      <p className="b1">
+      <Text.T4>We couldn&apos;t load your profile setup</Text.T4>
+      <Text.B1>
         There was a problem loading the configuration for this room.
-      </p>
-      <Alert variant="error" className="b2">
-        {error}
+      </Text.B1>
+      <Alert variant="error">
+        <Text.B2>{error}</Text.B2>
       </Alert>
       <div className="flex justify-end">
         <Button
           variant="secondary"
           className="w-full md:w-auto"
-          onClick={() => ctx.trigger('[TRIGGER]_INIT')}
+          onClick={ctx.init}
         >
           Retry
         </Button>

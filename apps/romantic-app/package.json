@@ -6,6 +6,7 @@
     "lint": "eslint --max-warnings 0",
     "dev": "astro dev",
     "build": "astro build",
+    "check-types": "astro check",
     "preview": "astro build && wrangler dev",
     "astro": "astro",
     "deploy": "astro build && wrangler deploy",
@@ -27,6 +28,7 @@
     "test:e2e:report": "playwright show-report"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.8",
     "@astrojs/cloudflare": "^12.6.12",
     "@astrojs/react": "^4.4.2",
     "@hookform/resolvers": "^5.2.2",
@@ -49,7 +51,8 @@
     "react-hook-form": "^7.71.2",
     "rxjs": "^7.8.2",
     "tailwind-merge": "^3.5.0",
-    "tailwindcss": "^4.1.18"
+    "tailwindcss": "^4.1.18",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.2",
@@ -65,7 +68,6 @@
     "msw": "^2.12.13",
     "supabase": "^2.76.16",
     "vitest": "^4.0.18",
-    "wrangler": "^4.64.0",
-    "zod": "^4.3.6"
+    "wrangler": "^4.64.0"
   }
 }

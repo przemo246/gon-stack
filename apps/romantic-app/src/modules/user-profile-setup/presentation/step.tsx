@@ -1,15 +1,15 @@
 import { useForm } from 'react-hook-form';
 import { Button } from '@/libs/ui/button';
 import { Card } from '@/libs/ui/card';
-import { Heading } from '@/libs/ui/heading';
+import { Text } from '@/libs/ui/text';
 import { useContext } from './context';
 import { QuestionInput } from './question-input';
 
 const StepForm = () => {
   const ctx = useContext();
-  const activeStep = ctx.$activeStep.use();
-  const hasPreviousStep = ctx.$hasPreviousStep.use();
-  const stepAnswers = ctx.$stepAnswers.use();
+  const activeStep = ctx.useActiveStep();
+  const hasPreviousStep = ctx.useHasPreviousStep();
+  const stepAnswers = ctx.useStepAnswers();
 
   const form = useForm({
     mode: 'onChange',
@@ -21,19 +21,19 @@ const StepForm = () => {
     <form
       className="flex flex-col gap-4"
       onSubmit={form.handleSubmit((values) => {
-        ctx.trigger('[TRIGGER]_NEXT', values);
+        ctx.next(values);
       })}
       noValidate
     >
       <div className="flex flex-col gap-2">
-        <Heading level={4}>{activeStep.label}</Heading>
-        <p className="b2">{activeStep.description}</p>
+        <Text.T4>{activeStep.label}</Text.T4>
+        <Text.B2>{activeStep.description}</Text.B2>
       </div>
 
       {activeStep.questions.map((question) => {
         return (
           <Card key={question.key} className="flex flex-col gap-3">
-            <p className="b2">{question.label}</p>
+            <Text.B2>{question.label}</Text.B2>
 
             <QuestionInput
               question={question}
@@ -54,7 +54,7 @@ const StepForm = () => {
           <Button
             type="button"
             variant="secondary"
-            onClick={() => ctx.trigger('[TRIGGER]_PREV')}
+            onClick={ctx.prev}
           >
             Back
           </Button>
@@ -73,7 +73,7 @@ const StepForm = () => {
 
 export const Step = () => {
   const ctx = useContext();
-  const activeStepIndex = ctx.$activeStepIndex.use();
+  const activeStepIndex = ctx.useActiveStepIndex();
 
   return <StepForm key={activeStepIndex} />;
 };

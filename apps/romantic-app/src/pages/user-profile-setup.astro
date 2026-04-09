@@ -1,8 +1,8 @@
 ---
+import { Module } from '../core/modules/user-profile-setup';
 import Layout from '../core/layouts/main.astro';
-import { Main } from '@/modules/user-profile-setup/presentation/main';
 ---
 
 <Layout title="Profile setup · Amoria">
-  <Main client:load />
+  <Module client:load />
 </Layout>

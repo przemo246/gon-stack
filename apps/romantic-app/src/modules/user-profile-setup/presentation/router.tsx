@@ -6,8 +6,8 @@ import { Step } from './step';
 
 export const Router = () => {
   const ctx = useContext();
-  const isStarted = ctx.$isStarted.use();
-  const isFinished = ctx.$isFinished.use();
+  const isStarted = ctx.useIsStarted();
+  const isFinished = ctx.useIsFinished();
 
   return !isStarted ? (
     <Welcome />

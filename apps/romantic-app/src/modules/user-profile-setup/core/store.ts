@@ -1,5 +1,5 @@
 import { atom, computed } from '@/libs/supa-store';
-import type { Answers, Step } from '../contracts/models';
+import type { Answers, Step } from '../domain/models';
 
 export const createStore = () => {
   const $isIdle = atom(true);

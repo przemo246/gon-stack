@@ -1,9 +1,10 @@
 {
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"],
+  "exclude": ["dist", "test-results", "supabase", "./worker-configuration.d.ts"],
   "compilerOptions": {
     "moduleResolution": "bundler",
     "module": "ESNext",
+    "verbatimModuleSyntax": true,
     "types": ["./worker-configuration.d.ts", "node", "vitest/globals"],
     "strictNullChecks": true,
     "jsx": "react-jsx",

@@ -13,7 +13,10 @@ abstract class BaseError extends Error {
 export class BadRequest extends BaseError {
   type = 'bad-request' as const;
   code = 400 as const;
-  message = 'Bad Request';
+
+  constructor(public message = 'Bad Request') {
+    super(message);
+  }
 
   static is = (error: unknown): error is BadRequest => {
     return error instanceof BadRequest;
@@ -29,7 +32,10 @@ export class BadRequest extends BaseError {
 export class Unauthorized extends BaseError {
   type = 'unauthorized' as const;
   code = 401 as const;
-  message = 'Unauthorized';
+
+  constructor(public message = 'Unauthorized') {
+    super(message);
+  }
 
   static is = (error: unknown): error is Unauthorized => {
     return error instanceof Unauthorized;
@@ -45,7 +51,10 @@ export class Unauthorized extends BaseError {
 export class Forbidden extends BaseError {
   type = 'forbidden' as const;
   code = 403 as const;
-  message = 'Forbidden';
+
+  constructor(public message = 'Forbidden') {
+    super(message);
+  }
 
   static is = (error: unknown): error is Forbidden => {
     return error instanceof Forbidden;
@@ -61,7 +70,10 @@ export class Forbidden extends BaseError {
 export class NotFound extends BaseError {
   type = 'not-found' as const;
   code = 404 as const;
-  message = 'Not Found';
+
+  constructor(public message = 'Not Found') {
+    super(message);
+  }
 
   static is = (error: unknown): error is NotFound => {
     return error instanceof NotFound;
@@ -75,9 +87,12 @@ export class NotFound extends BaseError {
 }
 
 export class InternalServer extends BaseError {
-  type = 'internal-server-error' as const;
+  type = 'internal-server' as const;
   code = 500 as const;
-  message = 'Internal Server Error';
+
+  constructor(public message = 'Internal Server Error') {
+    super(message);
+  }
 
   static is = (error: unknown): error is InternalServer => {
     return error instanceof InternalServer;
@@ -93,7 +108,10 @@ export class InternalServer extends BaseError {
 export class ServiceUnavailable extends BaseError {
   type = 'service-unavailable' as const;
   code = 503 as const;
-  message = 'Service Unavailable';
+
+  constructor(public message = 'Service Unavailable') {
+    super(message);
+  }
 
   static is = (error: unknown): error is ServiceUnavailable => {
     return error instanceof ServiceUnavailable;
@@ -109,7 +127,10 @@ export class ServiceUnavailable extends BaseError {
 export class GatewayTimeout extends BaseError {
   type = 'gateway-timeout' as const;
   code = 504 as const;
-  message = 'Gateway Timeout';
+
+  constructor(public message = 'Gateway Timeout') {
+    super(message);
+  }
 
   static is = (error: unknown): error is GatewayTimeout => {
     return error instanceof GatewayTimeout;

@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, type SubmitEventHandler } from 'react';
 
-import { Select } from '../../../../libs/ui/select';
-import { Button } from '../../../../libs/ui/button';
+import { Select } from '@/libs/ui/select';
+import { Button } from '@/libs/ui/button';
 
 import { Example } from './example';
 
@@ -9,7 +9,7 @@ export const SelectDemo = () => {
   const [language, setLanguage] = useState('');
   const [formResult, setFormResult] = useState('');
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit: SubmitEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     setFormResult(`Destination: ${data.get('destination') ?? '—'}`);

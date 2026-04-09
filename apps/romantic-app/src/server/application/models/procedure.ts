@@ -1,4 +1,4 @@
-import { Supabase } from '../integration/supabase';
+import type { Supabase } from '../integration/supabase';
 
 export type RequestContract = {
   searchParams: Record<string, string | undefined>;
