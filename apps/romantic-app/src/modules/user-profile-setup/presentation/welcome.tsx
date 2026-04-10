@@ -19,7 +19,7 @@ export const Welcome = () => {
   return (
     <div className="flex flex-col gap-4">
       <header className="flex items-center justify-between gap-3">
-        <div className="variant-pill">PROFILE SETUP</div>
+        <Text.V1>PROFILE SETUP</Text.V1>
       </header>
       <Text.T4>Let&apos;s set up your relationship profile</Text.T4>
       <Text.B1>
@@ -27,8 +27,8 @@ export const Welcome = () => {
       </Text.B1>
       <Card>
         <Text.B2>
-          We&apos;ll start with a few basics, then some quick questions about how
-          you are in relationships. Ready?
+          We&apos;ll start with a few basics, then some quick questions about
+          how you are in relationships. Ready?
         </Text.B2>
       </Card>
       <div className="flex flex-col-reverse gap-2 md:flex-row md:justify-end">

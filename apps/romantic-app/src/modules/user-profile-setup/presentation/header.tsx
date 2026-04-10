@@ -14,7 +14,7 @@ export const Header = memo(
     return (
       <header className="flex flex-col gap-3">
         <div className="flex items-center justify-between gap-3">
-          <div className="variant-pill">PROFILE SETUP</div>
+          <Text.V1>PROFILE SETUP</Text.V1>
           <Text.L1>
             Step {activeStepIndex + 1} of {totalSteps} - {activeStep.label}
           </Text.L1>

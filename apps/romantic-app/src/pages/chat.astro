@@ -1,13 +1,9 @@
 ---
-import '../libs/ui/index.css';
-import VariantLayout from '../layouts/VariantLayout.astro';
-import { Main as ChatComponent } from '../modules/chat-2';
+import Layout from '@/core/layouts/main.astro';
+import { Module } from '@/core/modules/chat';
 
 ---
 
-<VariantLayout
-  title="Chat UI"
-  fontsUrl="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Chakra+Petch:wght@400;600&display=swap"
->
-  <ChatComponent client:load />
-</VariantLayout>
+<Layout title="Chat UI · Amoria">
+  <Module client:load />
+</Layout>

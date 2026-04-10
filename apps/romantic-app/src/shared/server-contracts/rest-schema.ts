@@ -1,6 +1,5 @@
 import { z } from 'zod';
 
-const emptyRecordSchema = z.record(z.string(), z.never());
 const locationResponseSchema = z.object({
   code: z.literal(303),
   location: z.string(),
@@ -12,16 +11,20 @@ const badRequestResponseSchema = z.object({
 });
 const internalServerErrorResponseSchema = z.object({
   code: z.literal(500),
-  type: z.literal('internal-server-error'),
+  type: z.literal('internal-server'),
+  message: z.string(),
+});
+const unauthorizedResponseSchema = z.object({
+  code: z.literal(401),
+  type: z.literal('unauthorized'),
   message: z.string(),
 });
 
-export const questionConstraintsSchema = z.object({
+const questionConstraintsSchema = z.object({
   min: z.number(),
   max: z.number(),
   required: z.boolean(),
 });
-export type QuestionConstraints = z.infer<typeof questionConstraintsSchema>;
 
 const questionBaseSchema = z.object({
   id: z.number(),
@@ -57,120 +60,102 @@ const slideQuestionSchema = questionBaseSchema.extend({
   value: z.number(),
 });
 
-export const userProfileQuestionSchema = z.discriminatedUnion('type', [
+const userProfileQuestionSchema = z.discriminatedUnion('type', [
   numericQuestionSchema,
   selectQuestionSchema,
   textQuestionSchema,
   slideQuestionSchema,
 ]);
-export type UserProfileQuestion = z.infer<typeof userProfileQuestionSchema>;
 
-export const getUserProfileSchema = z.object({
-  path: z.literal('/config/user-profile'),
-  request: z.object({
-    searchParams: z.object({
+const getUserProfileSuccessResponseSchema = z.object({
+  code: z.literal(200),
+  groups: z.array(
+    z.object({
+      id: z.number(),
+      key: z.string(),
+      label: z.string(),
+      description: z.string(),
+      questions: z.array(userProfileQuestionSchema),
+    }),
+  ),
+});
+
+export const getUserProfileSchema = () =>
+  z.object({
+    in: z.object({
       page: z.string().optional(),
       limit: z.string().optional(),
     }),
-    pathParams: emptyRecordSchema,
-    payload: z.never(),
-    headers: emptyRecordSchema,
-  }),
-  responses: z.object({
-    200: z.object({
-      code: z.literal(200),
-      groups: z.array(
-        z.object({
-          id: z.number(),
-          key: z.string(),
-          label: z.string(),
-          description: z.string(),
-          questions: z.array(userProfileQuestionSchema),
-        }),
-      ),
-    }),
-    401: z.object({
-      code: z.literal(401),
-      type: z.literal('unauthorized'),
-      message: z.string(),
-    }),
-    500: internalServerErrorResponseSchema,
-  }),
-});
-export type GetUserProfile = z.infer<typeof getUserProfileSchema>;
+    out: z.union([
+      getUserProfileSuccessResponseSchema,
+      unauthorizedResponseSchema,
+      internalServerErrorResponseSchema,
+    ]),
+  });
 
-export const registerUserSchema = z.object({
-  path: z.literal('/auth/register'),
-  request: z.object({
-    searchParams: emptyRecordSchema,
-    pathParams: emptyRecordSchema,
-    payload: z.object({
-      email: z.string(),
-      password: z.string(),
-    }),
-    headers: emptyRecordSchema,
-  }),
-  responses: z.object({
-    303: locationResponseSchema,
-    400: badRequestResponseSchema,
-    500: internalServerErrorResponseSchema,
-  }),
-});
-export type RegisterUser = z.infer<typeof registerUserSchema>;
+type GetUserProfileSchema = z.infer<ReturnType<typeof getUserProfileSchema>>;
+export type GetUserProfileOutput = GetUserProfileSchema['out'];
+export type GetUserProfileSuccess = Extract<
+  GetUserProfileOutput,
+  { code: 200 }
+>;
 
-export const loginUserSchema = z.object({
-  path: z.literal('/auth/login'),
-  request: z.object({
-    searchParams: emptyRecordSchema,
-    pathParams: emptyRecordSchema,
-    payload: z.union([
+export const registerUserSchema = () =>
+  z.object({
+    in: z.object({
+      email: z.string().min(1),
+      password: z.string().min(1),
+    }),
+    out: z.union([
+      locationResponseSchema,
+      badRequestResponseSchema,
+      internalServerErrorResponseSchema,
+    ]),
+  });
+
+export const loginUserSchema = () =>
+  z.object({
+    in: z.union([
       z.object({
-        email: z.string(),
-        password: z.string(),
+        email: z.string().min(1),
+        password: z.string().min(1),
       }),
       z.object({
         provider: z.literal('google'),
       }),
     ]),
-    headers: emptyRecordSchema,
-  }),
-  responses: z.object({
-    303: locationResponseSchema,
-    400: badRequestResponseSchema,
-    500: internalServerErrorResponseSchema,
-  }),
-});
-export type LoginUser = z.infer<typeof loginUserSchema>;
+    out: z.union([
+      locationResponseSchema,
+      badRequestResponseSchema,
+      internalServerErrorResponseSchema,
+    ]),
+  });
 
-export const logoutUserSchema = z.object({
-  path: z.literal('/auth/logout'),
-  request: z.object({
-    searchParams: emptyRecordSchema,
-    pathParams: emptyRecordSchema,
-    payload: z.never(),
-    headers: emptyRecordSchema,
-  }),
-  responses: z.object({
-    303: locationResponseSchema,
-    500: internalServerErrorResponseSchema,
-  }),
-});
-export type LogoutUser = z.infer<typeof logoutUserSchema>;
+export const logoutUserSchema = () =>
+  z.object({
+    in: z.object({}),
+    out: z.union([locationResponseSchema, internalServerErrorResponseSchema]),
+  });
 
-export const authCallbackSchema = z.object({
-  path: z.literal('/auth/callback'),
-  request: z.object({
-    searchParams: z.object({
-      code: z.string().optional(),
+export const authCallbackSchema = () =>
+  z.object({
+    in: z.object({
+      code: z.string(),
     }),
-    pathParams: emptyRecordSchema,
-    payload: z.never(),
-    headers: emptyRecordSchema,
-  }),
-  responses: z.object({
-    303: locationResponseSchema,
-    400: badRequestResponseSchema,
-    500: internalServerErrorResponseSchema,
-  }),
-});
-export type AuthCallback = z.infer<typeof authCallbackSchema>;
+    out: z.union([
+      z.object({
+        code: z.literal(303),
+        location: z.string(),
+      }),
+      z.object({
+        code: z.literal(400),
+        type: z.literal('bad-request'),
+        message: z.string(),
+      }),
+      z.object({
+        code: z.literal(500),
+        type: z.literal('internal-server'),
+        message: z.string(),
+      }),
+    ]),
+  });

@@ -1,15 +1,12 @@
-import type { AuthCallback } from '@/shared/server-contracts/rest-schema';
-import { BadRequest, InternalServer } from '../../core/error-handling';
+import { authCallbackSchema } from '@/shared/server-contracts/rest-schema';
 import { createProcedure } from '../../core/procedure';
+import { InternalServer } from '../../core/error-handling';
+import { withZodSchema } from '../../adapter/zod';
 
-export const authCallback = createProcedure<AuthCallback>(
-  async ({ db, searchParams }) => {
-    const code = searchParams.code;
-
-    if (!code) {
-      throw new BadRequest();
-    }
-
+export const authCallback = createProcedure({
+  schema: withZodSchema({ schema: authCallbackSchema }),
+})({
+  handler: async ({ code }, { db }) => {
     const { error } = await db.auth.exchangeCodeForSession(code);
 
     if (error) {
@@ -21,4 +18,4 @@ export const authCallback = createProcedure<AuthCallback>(
       location: '/user-profile-setup',
     };
   },
-);
+});

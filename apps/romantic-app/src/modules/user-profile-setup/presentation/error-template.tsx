@@ -10,7 +10,7 @@ export const ErrorTemplate = () => {
   return (
     <div className="flex flex-col gap-5" role="alert" aria-live="assertive">
       <header className="flex items-center justify-between gap-3">
-        <div className="variant-pill">SETUP UNAVAILABLE</div>
+        <Text.V1>SETUP UNAVAILABLE</Text.V1>
         <Text.C2 className="text-error">Error</Text.C2>
       </header>
       <Text.T4>We couldn&apos;t load your profile setup</Text.T4>

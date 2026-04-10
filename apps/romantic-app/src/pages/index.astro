@@ -1,6 +1,6 @@
 ---
-import Layout from '../core/layouts/main.astro';
-import { Main } from '../modules/landing';
+import Layout from '@/core/layouts/main.astro';
+import { Module } from '@/core/modules/landing';
 import { supabase } from '@/server/application/integration/supabase';
 
 export const prerender = false;
@@ -13,23 +13,5 @@ const userEmail = data.user?.email ?? null;
 <Layout
 	title="Amoria · Home"
 >
-	<div class="landing-page-bg">
-		<Main userEmail={userEmail} />
-	</div>
+	<Module userEmail={userEmail} />
 </Layout>
-
-<style>
-	.landing-page-bg {
-		background:
-			radial-gradient(circle at 10% 50%, color-mix(in srgb, var(--color-secondary-400) 35%, transparent) 0%, transparent 28%),
-			radial-gradient(circle at 90% 30%, color-mix(in srgb, var(--color-primary-400) 35%, transparent) 0%, transparent 30%),
-			repeating-linear-gradient(
-				0deg,
-				rgba(255, 255, 255, 0.03) 0,
-				rgba(255, 255, 255, 0.03) 1px,
-				transparent 1px,
-				transparent 4px
-			),
-			linear-gradient(180deg, #0a0718 0%, #120c24 46%, #1a1133 100%);
-	}
-</style>

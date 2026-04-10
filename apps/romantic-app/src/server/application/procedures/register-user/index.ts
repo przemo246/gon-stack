@@ -1,33 +1,12 @@
-import type { RegisterUser } from '@/shared/server-contracts/rest-schema';
-import { BadRequest, InternalServer } from '../../core/error-handling';
+import { registerUserSchema } from '@/shared/server-contracts/rest-schema';
+import { InternalServer } from '../../core/error-handling';
 import { createProcedure } from '../../core/procedure';
+import { withZodSchema } from '../../adapter/zod';
 
-const validatePayload = (
-  payload: unknown,
-): { email: string; password: string } => {
-  if (typeof payload !== 'object' || payload === null) throw new BadRequest();
-
-  const { email, password } = payload as {
-    email?: unknown;
-    password?: unknown;
-  };
-
-  if (
-    typeof email !== 'string' ||
-    email.length === 0 ||
-    typeof password !== 'string' ||
-    password.length === 0
-  ) {
-    throw new BadRequest();
-  }
-
-  return { email, password };
-};
-
-export const registerUser = createProcedure<RegisterUser>(
-  async ({ db, payload }) => {
-    const { email, password } = validatePayload(payload);
-
+export const registerUser = createProcedure({
+  schema: withZodSchema({ schema: registerUserSchema }),
+})({
+  handler: async ({ email, password }, { db }) => {
     const signUpResult = await db.auth.signUp({
       email,
       password,
@@ -42,4 +21,4 @@ export const registerUser = createProcedure<RegisterUser>(
       location: '/user-profile-setup',
     };
   },
-);
+});

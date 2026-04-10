@@ -51,11 +51,7 @@ const StepForm = () => {
         }`}
       >
         {hasPreviousStep && (
-          <Button
-            type="button"
-            variant="secondary"
-            onClick={ctx.prev}
-          >
+          <Button type="button" variant="secondary" onClick={ctx.prev}>
             Back
           </Button>
         )}

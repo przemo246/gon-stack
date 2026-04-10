@@ -1,9 +1,9 @@
 import type { Database, Json } from '@/shared/server-contracts/db-schema';
-import type { GetUserProfile } from '@/shared/server-contracts/rest-schema';
+import type { GetUserProfileSuccess } from '@/shared/server-contracts/rest-schema';
 import { InternalServer } from '../../core/error-handling';
 import type { Supabase } from '../../integration/supabase';
 
-type UserProfileGroup = GetUserProfile['responses'][200]['groups'][number];
+type UserProfileGroup = GetUserProfileSuccess['groups'][number];
 type UserProfileQuestion = UserProfileGroup['questions'][number];
 type ProfileQuestionRow =
   Database['public']['Tables']['profile_questions']['Row'];
@@ -74,7 +74,7 @@ const mapQuestion = (question: ProfileQuestionRow): UserProfileQuestion => {
 
 export const getProfileQuestions = async (
   db: Supabase,
-): Promise<GetUserProfile['responses'][200]['groups']> => {
+): Promise<GetUserProfileSuccess['groups']> => {
   const questionsResult = await db.from('profile_questions').select('*');
 
   if (questionsResult.error) {

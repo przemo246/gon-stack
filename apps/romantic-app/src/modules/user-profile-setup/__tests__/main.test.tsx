@@ -2,12 +2,17 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Main } from '../presentation/main';
 import { backendFixture } from '../../../__tests__/backend-fixture';
+import { Provider } from '../presentation/context';
 
 describe('User profile setup works when', () => {
   const mockBackend = backendFixture({ beforeAll, afterAll, afterEach });
 
   it('displays welcome screen', () => {
-    const { asFragment } = render(<Main />);
+    const { asFragment } = render(
+      <Provider>
+        <Main />
+      </Provider>,
+    );
     expect(asFragment()).toMatchSnapshot();
   });
 
@@ -16,7 +21,11 @@ describe('User profile setup works when', () => {
 
     const user = userEvent.setup();
 
-    render(<Main />);
+    render(
+      <Provider>
+        <Main />
+      </Provider>,
+    );
 
     await user.click(screen.getByRole('button', { name: /let's go/i }));
 
