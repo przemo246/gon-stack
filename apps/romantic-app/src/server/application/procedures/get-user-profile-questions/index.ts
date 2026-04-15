@@ -1,11 +1,11 @@
-import { getUserProfileSchema } from '@/shared/server-contracts/rest-schema';
+import { schema } from '@schemas/get-user-profile-questions';
 import { createProcedure } from '../../core/procedure';
 import { authenticate } from './authenticate';
 import { getProfileQuestions } from './get-profile-questions';
 import { withZodSchema } from '../../adapter/zod';
 
 export const getUserProfileQuestions = createProcedure({
-  schema: withZodSchema({ schema: getUserProfileSchema }),
+  schema: withZodSchema({ schema }),
 })({
   handler: async (_, { db }) => {
     await authenticate(db);

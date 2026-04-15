@@ -1,9 +1,10 @@
 import { useLayoutEffect, useState } from 'react';
 import { createHookContext } from '@/libs/power-context';
 import { createMediator } from '../core/mediator';
+import { FEATURE_NAME } from '../configuration/constraints';
 
-export const [Provider, useContext] = createHookContext('UserProfile', () => {
-  const { facade, register } = useState(createMediator)[0];
+export const [Provider, useContext] = createHookContext(FEATURE_NAME, () => {
+  const [{ facade, register }] = useState(createMediator);
 
   useLayoutEffect(() => {
     const unsub = register();

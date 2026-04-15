@@ -1,11 +1,11 @@
 import type { Provider } from '@supabase/supabase-js';
-import { loginUserSchema } from '@/shared/server-contracts/rest-schema';
+import { schema } from '@schemas/login-user';
 import { InternalServer } from '../../core/error-handling';
 import { createProcedure } from '../../core/procedure';
 import { withZodSchema } from '../../adapter/zod';
 
 export const loginUser = createProcedure({
-  schema: withZodSchema({ schema: loginUserSchema }),
+  schema: withZodSchema({ schema }),
 })({
   handler: async (input, { db }) => {
     if ('provider' in input) {

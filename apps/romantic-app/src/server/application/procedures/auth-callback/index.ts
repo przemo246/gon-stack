@@ -1,10 +1,10 @@
-import { authCallbackSchema } from '@/shared/server-contracts/rest-schema';
+import { schema } from '@schemas/auth-callback';
 import { createProcedure } from '../../core/procedure';
 import { InternalServer } from '../../core/error-handling';
 import { withZodSchema } from '../../adapter/zod';
 
 export const authCallback = createProcedure({
-  schema: withZodSchema({ schema: authCallbackSchema }),
+  schema: withZodSchema({ schema }),
 })({
   handler: async ({ code }, { db }) => {
     const { error } = await db.auth.exchangeCodeForSession(code);

@@ -4,24 +4,12 @@ import type { Store } from './store';
 
 export const createFacade = (store: Store, trigger: Registry['trigger']) => {
   return {
-    init: () => {
-      trigger('[TRIGGER]_INIT');
-    },
-    start: () => {
-      trigger('[TRIGGER]_START');
-    },
-    prev: () => {
-      trigger('[TRIGGER]_PREV');
-    },
-    next: (payload: Answers) => {
-      trigger('[TRIGGER]_NEXT', payload);
-    },
-    saveAnswers: () => {
-      trigger('[TRIGGER]_SAVE_ANSWERS');
-    },
-    editAnswers: () => {
-      trigger('[TRIGGER]_EDIT_ANSWERS');
-    },
+    init: () => trigger('[TRIGGER]_INIT'),
+    start: () => trigger('[TRIGGER]_START'),
+    prev: () => trigger('[TRIGGER]_PREV'),
+    next: (payload: Answers) => trigger('[TRIGGER]_NEXT', payload),
+    saveAnswers: () => trigger('[TRIGGER]_SAVE_ANSWERS'),
+    editAnswers: () => trigger('[TRIGGER]_EDIT_ANSWERS'),
     useIsLoading: () => store.$isLoading.use(),
     useIsIdle: () => store.$isIdle.use(),
     useIsStarted: () => store.$isStarted.use(),
