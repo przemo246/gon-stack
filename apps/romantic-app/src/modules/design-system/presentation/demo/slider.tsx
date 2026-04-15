@@ -1,4 +1,4 @@
-import { useMemo, useState, type FormEvent } from 'react';
+import { useMemo, useState, type SubmitEventHandler } from 'react';
 
 import { Slider } from '../../../../libs/ui/slider';
 
@@ -20,7 +20,7 @@ export const SliderDemo = () => {
     [rangeValue],
   );
 
-  const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit: SubmitEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const moodRaw = formData.getAll('mood');

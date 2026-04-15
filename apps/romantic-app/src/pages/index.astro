@@ -1,11 +1,11 @@
 ---
 import Layout from '@/core/layouts/main.astro';
 import { Module } from '@/core/modules/landing';
-import { supabase } from '@/server/application/integration/supabase';
+import { supabaseServer } from '@/shared/data-sources/supabase-server';
 
 export const prerender = false;
 
-const db = supabase({ request: Astro.request, cookies: Astro.cookies });
+const db = supabaseServer({ request: Astro.request, cookies: Astro.cookies });
 const { data } = await db.auth.getUser();
 const userEmail = data.user?.email ?? null;
 ---

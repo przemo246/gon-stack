@@ -13,7 +13,7 @@
     "cf-typegen": "wrangler types",
     "db:init": "pnpx supabase init",
     "db:start": "pnpx supabase start",
-    "db:gen-types": "pnpx supabase gen types typescript --local > src/shared/server-contracts/db-schema.ts",
+    "db:gen-types": "pnpx supabase gen types typescript --local > src/shared/data-sources/db-schema.ts",
     "db:reset": "pnpx supabase db reset",
     "db:stop": "pnpx supabase stop",
     "db:migration:new": "pnpx supabase migration new",

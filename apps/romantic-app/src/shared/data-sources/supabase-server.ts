@@ -1,8 +1,8 @@
 import { createServerClient, parseCookieHeader } from '@supabase/ssr';
 import type { AstroCookies } from 'astro';
-import type { Database } from '@/shared/server-contracts/db-schema';
+import type { Database } from '@/shared/data-sources/db-schema';
 
-export const supabase = ({
+export const supabaseServer = ({
   request,
   cookies,
 }: {
@@ -33,4 +33,4 @@ export const supabase = ({
   );
 };
 
-export type Supabase = ReturnType<typeof supabase>;
+export type SupabaseServer = ReturnType<typeof supabaseServer>;

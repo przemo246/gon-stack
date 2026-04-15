@@ -1,12 +1,13 @@
-import type { GetUserProfileSuccess } from '@/shared/server-contracts/rest-schema';
+import type { Schema } from '@/shared/server-contracts/schemas/get-user-profile-questions';
 import {
   type Question,
   type QuestionId,
   type QuestionKey,
 } from '../domain/models';
+import type { InferOut } from '@/shared/server-contracts/extraction';
 
 export const toQuestion = (
-  question: GetUserProfileSuccess['groups'][number]['questions'][number],
+  question: InferOut<Schema['out'], 200>['groups'][number]['questions'][number],
 ): Question => {
   const baseQuestion = {
     id: question.id as QuestionId,

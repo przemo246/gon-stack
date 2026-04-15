@@ -1,7 +1,7 @@
-import type { Database, Json } from '@/shared/server-contracts/db-schema';
+import type { Database, Json } from '@/shared/data-sources/db-schema';
 import type { Schema } from '@schemas/get-user-profile-questions';
 import { InternalServer } from '../../core/error-handling';
-import type { Supabase } from '../../integration/supabase';
+import type { SupabaseServer } from '@/shared/data-sources/supabase-server';
 import type { InferOut } from '@/shared/server-contracts/extraction';
 
 type UserProfileGroup = InferOut<Schema['out'], 200>['groups'][number];
@@ -74,7 +74,7 @@ const mapQuestion = (question: ProfileQuestionRow): UserProfileQuestion => {
 };
 
 export const getProfileQuestions = async (
-  db: Supabase,
+  db: SupabaseServer,
 ): Promise<InferOut<Schema['out'], 200>['groups']> => {
   const questionsResult = await db.from('profile_questions').select('*');
 

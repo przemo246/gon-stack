@@ -1,5 +1,8 @@
 import { APIError, InternalServer } from './error-handling';
-import { supabase, type Supabase } from '../integration/supabase';
+import {
+  supabaseServer,
+  type SupabaseServer,
+} from '@/shared/data-sources/supabase-server';
 import type { APIContext } from 'astro';
 
 export type ProcedureSchema<TIn, TOut> = {
@@ -15,12 +18,14 @@ export const createProcedure = <TIn, TOut>({
   return ({
     handler,
   }: {
-    handler: (input: TIn, extra: { db: Supabase }) => Promise<TOut>;
+    handler: (input: TIn, extra: { db: SupabaseServer }) => Promise<TOut>;
   }) => {
     return async (input: unknown, context: APIContext): Promise<TOut> => {
       try {
         const parsedInput = await schema.parseInput(input);
-        const result = await handler(parsedInput, { db: supabase(context) });
+        const result = await handler(parsedInput, {
+          db: supabaseServer(context),
+        });
         return await schema.parseOutput(result);
       } catch (error) {
         if (APIError.is(error)) {
