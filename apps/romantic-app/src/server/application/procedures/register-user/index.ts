@@ -1,9 +1,9 @@
 import { schema } from '@schemas/register-user';
 import { InternalServer } from '../../core/error-handling';
-import { createProcedure } from '../../core/procedure';
 import { withZodSchema } from '../../adapter/zod';
+import { publicProcedure } from '../../core/procedure';
 
-export const registerUser = createProcedure({
+export const registerUser = publicProcedure({
   schema: withZodSchema({ schema }),
 })({
   handler: async ({ email, password }, { db }) => {

@@ -1,5 +1,7 @@
-export type Email = string;
-export type Username = string;
+import type { Brand } from '@repo/type-beast/brand';
+
+export type Email = Brand<string, 'Email'>;
+export type Username = Brand<string, 'Username'>;
 
 export class KnownUser {
   type: 'known';

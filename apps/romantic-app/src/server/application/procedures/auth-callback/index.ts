@@ -1,9 +1,9 @@
 import { schema } from '@schemas/auth-callback';
-import { createProcedure } from '../../core/procedure';
 import { InternalServer } from '../../core/error-handling';
 import { withZodSchema } from '../../adapter/zod';
+import { publicProcedure } from '../../core/procedure';
 
-export const authCallback = createProcedure({
+export const authCallback = publicProcedure({
   schema: withZodSchema({ schema }),
 })({
   handler: async ({ code }, { db }) => {
