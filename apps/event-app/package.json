@@ -10,6 +10,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "lint": "eslint .",
     "db:gen-types": "pnpx supabase gen types typescript --local > src/shared/data-sources/db-schema.ts"
   },
   "dependencies": {
@@ -36,6 +37,7 @@
   "devDependencies": {
     "eslint": "^9.39.1",
     "supabase": "^2.76.16",
-    "vite-tsconfig-paths": "^6.1.1"
+    "vite-tsconfig-paths": "^6.1.1",
+    "@repo/eslint-config": "workspace:*"
   }
 }
