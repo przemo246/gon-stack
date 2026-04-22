@@ -4,6 +4,7 @@ import tseslint from 'typescript-eslint';
 import pluginReactHooks from 'eslint-plugin-react-hooks';
 import pluginReact from 'eslint-plugin-react';
 import globals from 'globals';
+import unusedImports from 'eslint-plugin-unused-imports';
 import { config as baseConfig } from './base.js';
 
 /**
@@ -28,6 +29,7 @@ export const config = [
   {
     plugins: {
       'react-hooks': pluginReactHooks,
+      'unused-imports': unusedImports,
     },
     settings: { react: { version: 'detect' } },
     rules: {
@@ -35,7 +37,9 @@ export const config = [
       // React scope no longer necessary with new JSX transform.
       'react/react-in-jsx-scope': 'off',
       // Allow stripping props with `_prefixed` names (e.g. `variant: _variant`).
-      '@typescript-eslint/no-unused-vars': [
+      '@typescript-eslint/no-unused-vars': 'off',
+      'unused-imports/no-unused-imports': 'error',
+      'unused-imports/no-unused-vars': [
         'warn',
         {
           argsIgnorePattern: '^_',
