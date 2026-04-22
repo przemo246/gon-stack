@@ -91,15 +91,110 @@ export type Database = {
         };
         Relationships: [];
       };
+      room_participants: {
+        Row: {
+          is_ready: boolean;
+          joined_at: string;
+          left_at: string | null;
+          role: string;
+          room_id: string;
+          score: number;
+          user_id: string;
+        };
+        Insert: {
+          is_ready?: boolean;
+          joined_at?: string;
+          left_at?: string | null;
+          role: string;
+          room_id: string;
+          score?: number;
+          user_id: string;
+        };
+        Update: {
+          is_ready?: boolean;
+          joined_at?: string;
+          left_at?: string | null;
+          role?: string;
+          room_id?: string;
+          score?: number;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'room_participants_room_id_fkey';
+            columns: ['room_id'];
+            isOneToOne: false;
+            referencedRelation: 'rooms';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      rooms: {
+        Row: {
+          code: string;
+          created_at: string;
+          ended_at: string | null;
+          expires_at: string;
+          host_user_id: string;
+          id: string;
+          max_players: number;
+          min_players: number;
+          settings: Json;
+          started_at: string | null;
+          status: Database['public']['Enums']['room_status'];
+          target_score: number;
+          updated_at: string;
+        };
+        Insert: {
+          code: string;
+          created_at?: string;
+          ended_at?: string | null;
+          expires_at?: string;
+          host_user_id: string;
+          id?: string;
+          max_players?: number;
+          min_players?: number;
+          settings?: Json;
+          started_at?: string | null;
+          status?: Database['public']['Enums']['room_status'];
+          target_score?: number;
+          updated_at?: string;
+        };
+        Update: {
+          code?: string;
+          created_at?: string;
+          ended_at?: string | null;
+          expires_at?: string;
+          host_user_id?: string;
+          id?: string;
+          max_players?: number;
+          min_players?: number;
+          settings?: Json;
+          started_at?: string | null;
+          status?: Database['public']['Enums']['room_status'];
+          target_score?: number;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      is_room_host: { Args: { p_room_id: string }; Returns: boolean };
+      is_room_member: { Args: { p_room_id: string }; Returns: boolean };
     };
     Enums: {
       question_type: 'numeric' | 'select' | 'text' | 'slide';
+      room_status:
+        | 'waiting'
+        | 'ready'
+        | 'active'
+        | 'paused'
+        | 'finished'
+        | 'cancelled'
+        | 'expired';
     };
     CompositeTypes: {
       [_ in never]: never;
@@ -234,6 +329,15 @@ export const Constants = {
   public: {
     Enums: {
       question_type: ['numeric', 'select', 'text', 'slide'],
+      room_status: [
+        'waiting',
+        'ready',
+        'active',
+        'paused',
+        'finished',
+        'cancelled',
+        'expired',
+      ],
     },
   },
 } as const;
