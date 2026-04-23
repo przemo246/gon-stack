@@ -59,6 +59,10 @@ function reducer(state: State, action: Action): State {
       else next.add(action.payload);
       return { ...state, saved: next };
     }
+    default: {
+      const exhaustiveCheck: never = action;
+      throw new Error(`Unhandled action type: ${exhaustiveCheck}`);
+    }
   }
 }
 
