@@ -1,7 +1,0 @@
-{
-  "permissions": {
-    "allow": ["Bash(*)", "Read", "Edit", "Write", "WebFetch"],
-    "deny": ["Bash(git push *)"],
-    "ask": ["Bash(git commit *)"]
-  }
-}
