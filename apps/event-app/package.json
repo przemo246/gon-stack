@@ -14,6 +14,7 @@
     "db:gen-types": "pnpx supabase gen types typescript --local > src/shared/data-sources/db-schema.ts"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^12.6.12",
     "@astrojs/react": "^5.0.3",
     "@hookform/resolvers": "^5.2.2",
     "@nanostores/react": "^1.0.0",
