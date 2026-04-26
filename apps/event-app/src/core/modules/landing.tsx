@@ -1,5 +1,10 @@
 import { Landing } from '@/modules/landing/presentation/main';
+import type { User } from '@supabase/supabase-js';
 
-export const Module = () => {
-  return <Landing />;
+type ModuleProps = {
+  user: User | null;
+};
+
+export const Module = ({ user }: ModuleProps) => {
+  return <Landing user={user} />;
 };

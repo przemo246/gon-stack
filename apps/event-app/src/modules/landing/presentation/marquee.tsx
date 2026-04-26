@@ -1,8 +1,8 @@
 import { MOCK_MARQUEE_ITEMS } from './mock-data';
 
-export const Marquee = () => {
-  const line = [...MOCK_MARQUEE_ITEMS, ...MOCK_MARQUEE_ITEMS];
+const line = [...MOCK_MARQUEE_ITEMS, ...MOCK_MARQUEE_ITEMS];
 
+export const Marquee = () => {
   return (
     <div className="border-t border-b border-border-default overflow-hidden bg-bg-surface mt-9">
       <div className="flex gap-11 py-3.5 whitespace-nowrap animate-[slide_55s_linear_infinite] font-mono text-xs tracking-[.12em] text-text-primary">

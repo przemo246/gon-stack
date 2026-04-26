@@ -25,7 +25,7 @@ export const Button = ({
         'inline-flex items-center justify-center',
         'rounded-full px-6 py-3.5',
         'font-sans text-sm font-medium',
-        'cursor-pointer disabled:cursor-not-allowed',
+        'disabled:cursor-not-allowed',
         variant === 'primary' && [
           'bg-accent text-text-inverse',
           'disabled:bg-bg-surface-alt disabled:text-text-muted disabled:shadow-none',

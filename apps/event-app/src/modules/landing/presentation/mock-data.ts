@@ -88,7 +88,7 @@ export const MOCK_DATE_CHIPS: DateChip[] = [
   { id: 'weekend', label: 'W weekend' },
   { id: 'week', label: 'Ten tydzień' },
   { id: 'month', label: 'Ten miesiąc' },
-  { id: 'free', label: 'Za darmo' },
+  { id: 'bank-holiday', label: 'Majówka' },
 ];
 
 export const MOCK_CITIES = [
@@ -403,7 +403,7 @@ export const MOCK_HERO_STATUS = '1 284 wydarzeń w tym tygodniu';
 export const MOCK_HERO_TICKER_TIME = '18:42';
 export const MOCK_HERO_SUBTITLE =
   'Afisz to mapa wydarzeń w 92 polskich miastach — koncerty, wernisaże, spektakle, festiwale kuchni i wszystko pomiędzy. Znajdź, zarezerwuj, idź.';
-export const MOCK_HERO_CTA_PRIMARY = 'Przeglądaj afisz →';
+export const MOCK_HERO_CTA_PRIMARY = 'Przeglądaj';
 export const MOCK_HERO_CTA_SECONDARY = 'Jak to działa';
 
 export const MOCK_TICKET_TITLE = 'Noc afisza';
@@ -412,11 +412,11 @@ export const MOCK_TICKET_NUM = '№ 00 142 / A';
 export const MOCK_TICKET_SEAT = 'SEAT · K 14';
 export const MOCK_TICKET_URL = 'AFISZ.PL/142A';
 
-export const MOCK_EVENTS_SECTION_EYEBROW = '№ 01 · POLECANE';
+export const MOCK_EVENTS_SECTION_EYEBROW = '01 · POLECANE';
 export const MOCK_EVENTS_SECTION_TITLE = 'Co dzieje się w Polsce';
-export const MOCK_CITIES_SECTION_EYEBROW = '№ 02 · GDZIE';
+export const MOCK_CITIES_SECTION_EYEBROW = '02 · GDZIE';
 export const MOCK_CITIES_SECTION_TITLE = 'Miasta, w których się dzieje';
-export const MOCK_HOW_SECTION_EYEBROW = '№ 03 · JAK';
+export const MOCK_HOW_SECTION_EYEBROW = '03 · JAK';
 export const MOCK_HOW_SECTION_TITLE = 'Cztery kroki, zero zgadywanki';
 
 export const MOCK_FEATURED_COPY =

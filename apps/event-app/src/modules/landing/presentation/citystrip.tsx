@@ -4,11 +4,11 @@ import {
   MOCK_CITY_DATA,
 } from './mock-data';
 
-interface Props {
+type CityStripProps = {
   onPickCity: (city: string) => void;
-}
+};
 
-export const CityStrip = ({ onPickCity }: Props) => {
+export const CityStrip = ({ onPickCity }: CityStripProps) => {
   return (
     <section className="max-w-350 mx-auto mt-15 px-9 py-20 bg-bg-inverse text-text-inverse rounded-[28px]">
       <div className="flex justify-between items-end gap-6 mb-7 flex-wrap">

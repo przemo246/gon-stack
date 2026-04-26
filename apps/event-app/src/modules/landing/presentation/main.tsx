@@ -1,4 +1,6 @@
 import { useMemo, useReducer } from 'react';
+import type { User } from '@supabase/supabase-js';
+
 import { CityStrip } from './citystrip';
 import { Cta } from './cta';
 import { EventCard } from './eventcard';
@@ -8,12 +10,13 @@ import { Footer } from './footer';
 import { Hero } from './hero';
 import { How } from './how';
 import { Marquee } from './marquee';
-import { Nav } from './nav';
+import { Header } from './header';
 import {
   MOCK_EVENTS,
   MOCK_EVENTS_SECTION_EYEBROW,
   MOCK_EVENTS_SECTION_TITLE,
 } from './mock-data';
+import { Sort } from './sort';
 
 type State = {
   query: string;
@@ -66,7 +69,11 @@ function reducer(state: State, action: Action): State {
   }
 }
 
-export const Landing = () => {
+type LandingProps = {
+  user: User | null;
+};
+
+export const Landing = ({ user }: LandingProps) => {
   const [{ query, city, date, cat, sort, saved }, dispatch] = useReducer(
     reducer,
     initialState,
@@ -108,7 +115,7 @@ export const Landing = () => {
 
   return (
     <>
-      <Nav />
+      <Header user={user} />
       <Hero
         query={query}
         setQuery={(v) => dispatch({ type: 'SET_QUERY', payload: v })}
@@ -125,8 +132,6 @@ export const Landing = () => {
         setCat={(v) => dispatch({ type: 'SET_CAT', payload: v })}
         date={date}
         setDate={(v) => dispatch({ type: 'SET_DATE', payload: v })}
-        sort={sort}
-        setSort={(v) => dispatch({ type: 'SET_SORT', payload: v })}
       />
 
       <main className="max-w-350 mx-auto px-9 pt-8 pb-20">
@@ -139,9 +144,10 @@ export const Landing = () => {
               {MOCK_EVENTS_SECTION_TITLE}
             </h2>
           </div>
-          <a className="font-mono text-[11px] tracking-[.14em] text-text-muted cursor-pointer hover:text-text-primary transition-colors">
-            PEŁEN AFISZ →
-          </a>
+          <Sort
+            sort={sort}
+            setSort={(v) => dispatch({ type: 'SET_SORT', payload: v })}
+          />
         </div>
 
         {filtered.length === 0 ? (

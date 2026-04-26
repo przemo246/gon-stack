@@ -67,3 +67,34 @@
   --box-shadow-1: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   --box-shadow-2: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
+
+@layer components {
+  /* Typography utilities */
+  .t1 {
+    @apply font-serif text-8xl leading-[.92] font-normal tracking-[-0.02em];
+  }
+
+  .t2 {
+    @apply font-serif italic text-[88px] leading-[.95] tracking-tight;
+  }
+
+  .t3 {
+    @apply font-serif italic text-[60px] leading-none tracking-tight;
+  }
+
+  .t4 {
+    @apply font-serif italic text-[52px] leading-none tracking-tight;
+  }
+
+  .t5 {
+    @apply text-[17px] leading-tight font-medium tracking-[-0.005em];
+  }
+
+  .t6 {
+    @apply font-mono text-[11px] tracking-[.14em] font-normal uppercase;
+  }
+
+  button {
+    @apply cursor-pointer;
+  }
+}

@@ -1,11 +1,13 @@
 import { MOCK_POSTERS } from './mock-data';
 
-interface Props {
+type PosterProps = {
   idx: number;
   title: string;
-}
+  saved: boolean;
+  onToggleSave: () => void;
+};
 
-export const Poster = ({ idx, title }: Props) => {
+export const Poster = ({ idx, title, saved, onToggleSave }: PosterProps) => {
   const p = MOCK_POSTERS[idx % MOCK_POSTERS.length];
   const id = `poster-${idx}`;
 
@@ -14,6 +16,26 @@ export const Poster = ({ idx, title }: Props) => {
       className="relative w-full h-full overflow-hidden"
       style={{ background: p.bg }}
     >
+      <button
+        onClick={onToggleSave}
+        aria-label="Zapisz"
+        className={`absolute top-3.5 right-3.5 w-8.5 h-8.5 rounded-full flex items-center justify-center border border-black/6 transition-all hover:scale-[1.08] cursor-pointer ${
+          saved
+            ? 'bg-accent text-white border-accent'
+            : 'bg-white/95 text-text-primary'
+        }`}
+      >
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 14 14"
+          fill={saved ? 'currentColor' : 'none'}
+          stroke="currentColor"
+          strokeWidth="1.6"
+        >
+          <path d="M3 2h8v10l-4-2.5L3 12V2z" />
+        </svg>
+      </button>
       <svg
         viewBox="0 0 400 500"
         preserveAspectRatio="xMidYMid slice"

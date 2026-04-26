@@ -1,8 +1,6 @@
 import {
   MOCK_CITIES,
   MOCK_DATE_CHIPS,
-  MOCK_HERO_CTA_PRIMARY,
-  MOCK_HERO_CTA_SECONDARY,
   MOCK_HERO_SUBTITLE,
   MOCK_TICKET_DATE_LABEL,
   MOCK_TICKET_NUM,
@@ -12,7 +10,7 @@ import {
   MOCK_TICKET_URL,
 } from './mock-data';
 
-interface Props {
+type HeroProps = {
   query: string;
   setQuery: (v: string) => void;
   city: string;
@@ -20,7 +18,7 @@ interface Props {
   date: string;
   setDate: (v: string) => void;
   onSearch: () => void;
-}
+};
 
 export const Hero = ({
   query,
@@ -30,7 +28,7 @@ export const Hero = ({
   date,
   setDate,
   onSearch,
-}: Props) => {
+}: HeroProps) => {
   return (
     <section className="max-w-350 mx-auto px-9 pt-10 pb-6 relative">
       <div className="grid grid-cols-[1.1fr_.9fr] gap-20 place-items-center">
@@ -40,17 +38,9 @@ export const Hero = ({
             <br />w ten
             <span className="italic text-accent"> weekend?</span>
           </h1>
-          <p className="text-[17px] leading-[1.55] text-text-muted max-w-115 m-0 mb-9">
+          <p className="text-[17px] leading-[1.55] text-text-muted max-w-115">
             {MOCK_HERO_SUBTITLE}
           </p>
-          <div className="flex gap-3.5 mb-10">
-            <button className="px-6.5 py-3.5 rounded-full text-[15px] font-medium bg-accent text-white transition-transform hover:-translate-y-px cursor-pointer inline-flex items-center gap-2">
-              {MOCK_HERO_CTA_PRIMARY}
-            </button>
-            <button className="px-5.5 py-3.5 rounded-full text-[15px] border border-border-default cursor-pointer hover:bg-black/3">
-              {MOCK_HERO_CTA_SECONDARY}
-            </button>
-          </div>
         </div>
 
         {/* ticket */}
@@ -127,7 +117,7 @@ export const Hero = ({
 
       {/* search bar */}
       <div className="mt-14 bg-bg-inverse rounded-[22px] p-2 grid grid-cols-[1fr_1fr_1fr_auto] gap-0.5 items-stretch text-text-inverse shadow-[0_20px_60px_-25px_rgba(0,0,0,.3)]">
-        <label className="flex flex-col gap-0.75 px-5 py-3.5 rounded-2xl cursor-text transition-colors hover:bg-white/4">
+        <label className="flex flex-col gap-0.75 px-3 py-2 rounded-2xl cursor-text transition-colors hover:bg-white/4">
           <span className="font-mono text-[10px] tracking-[.16em] text-white/50">
             SZUKAJ
           </span>
@@ -138,7 +128,7 @@ export const Hero = ({
             className="bg-transparent border-0 outline-none text-white text-[15px] py-0.5 w-full min-w-0"
           />
         </label>
-        <label className="flex flex-col gap-0.75 px-5 py-3.5 rounded-2xl cursor-pointer transition-colors hover:bg-white/4">
+        <label className="flex flex-col gap-0.75 px-3 py-2 rounded-2xl cursor-pointer transition-colors hover:bg-white/4">
           <span className="font-mono text-[10px] tracking-[.16em] text-white/50">
             MIASTO
           </span>
@@ -155,7 +145,7 @@ export const Hero = ({
             ))}
           </select>
         </label>
-        <label className="flex flex-col gap-0.75 px-5 py-3.5 rounded-2xl cursor-pointer transition-colors hover:bg-white/4">
+        <label className="flex flex-col gap-0.75 px-3 py-2 rounded-2xl cursor-pointer transition-colors hover:bg-white/4">
           <span className="font-mono text-[10px] tracking-[.16em] text-white/50">
             KIEDY
           </span>

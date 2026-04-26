@@ -1,6 +1,8 @@
 import { useState, type ComponentType } from 'react';
 
 import { ButtonDemo } from './demo/button';
+import { ModalDemo } from './demo/modal';
+import { TextDemo } from './demo/text';
 import { Layout } from './layout';
 import {
   Navigation,
@@ -34,6 +36,31 @@ const components = [
       { id: 'button-disabled', label: 'Disabled states' },
     ],
     demo: ButtonDemo,
+  }),
+  createDemoConfig({
+    key: 'modal',
+    label: 'Modal',
+    rootId: 'modal-examples',
+    items: [
+      { id: 'modal-basic', label: 'Basic' },
+      { id: 'modal-body-only', label: 'Body only' },
+      { id: 'modal-scrollable', label: 'Scrollable body' },
+    ],
+    demo: ModalDemo,
+  }),
+  createDemoConfig({
+    key: 'text',
+    label: 'Text',
+    rootId: 'text-examples',
+    items: [
+      { id: 'text-titles', label: 'Title scale — T1–T6' },
+      { id: 'text-body', label: 'Body — B1–B3' },
+      { id: 'text-captions', label: 'Captions — C1–C2' },
+      { id: 'text-labels', label: 'Labels — L1–L2' },
+      { id: 'text-overline', label: 'Overline & Verbose' },
+      { id: 'text-polymorphic', label: 'Polymorphic rendering' },
+    ],
+    demo: TextDemo,
   }),
 ];
 
