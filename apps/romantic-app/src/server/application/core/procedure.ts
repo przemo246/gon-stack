@@ -4,7 +4,12 @@ import {
   type SupabaseServer,
 } from '@/shared/data-sources/supabase-server';
 import type { APIContext } from 'astro';
-import { KnownUser, type Email, type Username } from '../../domain/user';
+import {
+  KnownUser,
+  type Email,
+  type UserId,
+  type Username,
+} from '../../domain/user';
 
 export type ProcedureSchema<TIn, TOut> = {
   parseInput: (input: unknown) => Promise<TIn>;
@@ -25,7 +30,7 @@ const getUser = async (db: SupabaseServer): Promise<KnownUser> => {
 
   if (!email) throw new Unauthorized();
 
-  return new KnownUser(email as Email, username as Username);
+  return new KnownUser(user.id as UserId, email as Email, username as Username);
 };
 
 const createProcedureFactory = <TIn, TOut, TExtra>({

@@ -34,6 +34,186 @@ export type Database = {
   };
   public: {
     Tables: {
+      game_answers: {
+        Row: {
+          answer_json: Json;
+          answer_text: string | null;
+          created_at: string;
+          game_question_id: string;
+          is_skipped: boolean;
+          is_timeout: boolean;
+          submitted_at: string | null;
+          updated_at: string;
+          user_id: string;
+        };
+        Insert: {
+          answer_json?: Json;
+          answer_text?: string | null;
+          created_at?: string;
+          game_question_id: string;
+          is_skipped?: boolean;
+          is_timeout?: boolean;
+          submitted_at?: string | null;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          answer_json?: Json;
+          answer_text?: string | null;
+          created_at?: string;
+          game_question_id?: string;
+          is_skipped?: boolean;
+          is_timeout?: boolean;
+          submitted_at?: string | null;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'game_answers_game_question_id_fkey';
+            columns: ['game_question_id'];
+            isOneToOne: false;
+            referencedRelation: 'game_questions';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      game_participants: {
+        Row: {
+          game_id: string;
+          joined_at: string;
+          left_at: string | null;
+          score: number;
+          user_id: string;
+        };
+        Insert: {
+          game_id: string;
+          joined_at?: string;
+          left_at?: string | null;
+          score?: number;
+          user_id: string;
+        };
+        Update: {
+          game_id?: string;
+          joined_at?: string;
+          left_at?: string | null;
+          score?: number;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'game_participants_game_id_fkey';
+            columns: ['game_id'];
+            isOneToOne: false;
+            referencedRelation: 'games';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      game_questions: {
+        Row: {
+          closed_at: string | null;
+          created_at: string;
+          game_id: string;
+          id: string;
+          opened_at: string | null;
+          ordinal: number;
+          question_id: string;
+          status: Database['public']['Enums']['game_question_status'];
+          time_limit_sec: number;
+          updated_at: string;
+        };
+        Insert: {
+          closed_at?: string | null;
+          created_at?: string;
+          game_id: string;
+          id?: string;
+          opened_at?: string | null;
+          ordinal: number;
+          question_id: string;
+          status?: Database['public']['Enums']['game_question_status'];
+          time_limit_sec?: number;
+          updated_at?: string;
+        };
+        Update: {
+          closed_at?: string | null;
+          created_at?: string;
+          game_id?: string;
+          id?: string;
+          opened_at?: string | null;
+          ordinal?: number;
+          question_id?: string;
+          status?: Database['public']['Enums']['game_question_status'];
+          time_limit_sec?: number;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'game_questions_game_id_fkey';
+            columns: ['game_id'];
+            isOneToOne: false;
+            referencedRelation: 'games';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'game_questions_question_id_fkey';
+            columns: ['question_id'];
+            isOneToOne: false;
+            referencedRelation: 'quiz_questions';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      games: {
+        Row: {
+          created_at: string;
+          created_by_user_id: string;
+          ended_at: string | null;
+          id: string;
+          room_id: string;
+          settings: Json;
+          started_at: string | null;
+          status: Database['public']['Enums']['game_status'];
+          target_score: number;
+          updated_at: string;
+          winner_user_id: string | null;
+        };
+        Insert: {
+          created_at?: string;
+          created_by_user_id: string;
+          ended_at?: string | null;
+          id?: string;
+          room_id: string;
+          settings?: Json;
+          started_at?: string | null;
+          status?: Database['public']['Enums']['game_status'];
+          target_score?: number;
+          updated_at?: string;
+          winner_user_id?: string | null;
+        };
+        Update: {
+          created_at?: string;
+          created_by_user_id?: string;
+          ended_at?: string | null;
+          id?: string;
+          room_id?: string;
+          settings?: Json;
+          started_at?: string | null;
+          status?: Database['public']['Enums']['game_status'];
+          target_score?: number;
+          updated_at?: string;
+          winner_user_id?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'games_room_id_fkey';
+            columns: ['room_id'];
+            isOneToOne: false;
+            referencedRelation: 'rooms';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       profile_questions: {
         Row: {
           badge_max: string | null;
@@ -88,6 +268,39 @@ export type Database = {
           question_type?: Database['public']['Enums']['question_type'];
           required?: boolean;
           select_options?: Json | null;
+        };
+        Relationships: [];
+      };
+      quiz_questions: {
+        Row: {
+          created_at: string;
+          difficulty: Database['public']['Enums']['quiz_question_difficulty'];
+          id: string;
+          is_active: boolean;
+          options: Json;
+          prompt: string;
+          question_type: Database['public']['Enums']['quiz_question_type'];
+          updated_at: string;
+        };
+        Insert: {
+          created_at?: string;
+          difficulty?: Database['public']['Enums']['quiz_question_difficulty'];
+          id?: string;
+          is_active?: boolean;
+          options?: Json;
+          prompt: string;
+          question_type: Database['public']['Enums']['quiz_question_type'];
+          updated_at?: string;
+        };
+        Update: {
+          created_at?: string;
+          difficulty?: Database['public']['Enums']['quiz_question_difficulty'];
+          id?: string;
+          is_active?: boolean;
+          options?: Json;
+          prompt?: string;
+          question_type?: Database['public']['Enums']['quiz_question_type'];
+          updated_at?: string;
         };
         Relationships: [];
       };
@@ -182,11 +395,29 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
+      is_game_host: { Args: { p_game_id: string }; Returns: boolean };
+      is_game_question_host: {
+        Args: { p_game_question_id: string };
+        Returns: boolean;
+      };
+      is_game_question_member: {
+        Args: { p_game_question_id: string };
+        Returns: boolean;
+      };
+      is_game_question_open: {
+        Args: { p_game_question_id: string };
+        Returns: boolean;
+      };
+      is_game_room_member: { Args: { p_game_id: string }; Returns: boolean };
       is_room_host: { Args: { p_room_id: string }; Returns: boolean };
       is_room_member: { Args: { p_room_id: string }; Returns: boolean };
     };
     Enums: {
+      game_question_status: 'pending' | 'open' | 'closed' | 'evaluated';
+      game_status: 'pending' | 'active' | 'paused' | 'finished' | 'cancelled';
       question_type: 'numeric' | 'select' | 'text' | 'slide';
+      quiz_question_difficulty: 'easy' | 'medium' | 'hard';
+      quiz_question_type: 'single_choice' | 'yes_no' | 'scale' | 'text';
       room_status:
         | 'waiting'
         | 'ready'
@@ -328,7 +559,11 @@ export const Constants = {
   },
   public: {
     Enums: {
+      game_question_status: ['pending', 'open', 'closed', 'evaluated'],
+      game_status: ['pending', 'active', 'paused', 'finished', 'cancelled'],
       question_type: ['numeric', 'select', 'text', 'slide'],
+      quiz_question_difficulty: ['easy', 'medium', 'hard'],
+      quiz_question_type: ['single_choice', 'yes_no', 'scale', 'text'],
       room_status: [
         'waiting',
         'ready',

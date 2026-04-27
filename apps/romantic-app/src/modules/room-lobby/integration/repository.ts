@@ -1,21 +1,28 @@
+import type { Schema as CreateRoomSchema } from '@/shared/server-contracts/schemas/create-room';
+
 const pause = (ms: number) =>
   new Promise<void>((resolve) => {
     setTimeout(resolve, ms);
   });
 
-const randomCode = () => {
-  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  return Array.from(
-    { length: 6 },
-    () => chars[Math.floor(Math.random() * chars.length)],
-  ).join('');
-};
-
 export const createRoom = async (signal?: AbortSignal): Promise<string> => {
-  signal?.throwIfAborted();
-  await pause(700);
-  signal?.throwIfAborted();
-  return randomCode();
+  const response = await fetch('/api/rooms/create', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({}),
+    signal,
+  });
+  const data = (await response.json()) as CreateRoomSchema['out'];
+
+  if (data.code !== 201) {
+    throw new Error(
+      'message' in data ? data.message : 'Could Not Create Room. Try Again.',
+    );
+  }
+
+  return data.roomCode;
 };
 
 export const joinRoom = async (

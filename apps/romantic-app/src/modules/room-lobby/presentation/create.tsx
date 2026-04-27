@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Alert } from '@/libs/ui/alert';
 import { Button } from '@/libs/ui/button';
 import { Heading } from '@/libs/ui/heading';
@@ -9,6 +10,10 @@ export const Create = () => {
   const isLoading = ctx.$isLoading.use();
   const hasError = ctx.$hasError.use();
   const error = ctx.$error.use();
+
+  useEffect(() => {
+    ctx.trigger('[TRIGGER]_CREATE_ROOM');
+  }, [ctx]);
 
   return (
     <div className="flex flex-col gap-5">
@@ -25,18 +30,16 @@ export const Create = () => {
         >
           Back
         </Button>
-        <Button
-          disabled={isLoading}
-          onClick={() => ctx.trigger('[TRIGGER]_CREATE_ROOM')}
-        >
-          {isLoading ? (
-            <span className="inline-flex items-center gap-2">
-              <Spinner size="sm" /> Creating Room...
-            </span>
-          ) : (
-            'Create Room'
-          )}
-        </Button>
+        {hasError ? (
+          <Button onClick={() => ctx.trigger('[TRIGGER]_CREATE_ROOM')}>
+            Try Again
+          </Button>
+        ) : (
+          <div className="inline-flex items-center gap-2 text-sm font-medium">
+            <Spinner size="sm" />
+            {isLoading ? 'Creating Room...' : 'Preparing Room...'}
+          </div>
+        )}
       </div>
 
       {hasError && error && <Alert variant="error">{error}</Alert>}
