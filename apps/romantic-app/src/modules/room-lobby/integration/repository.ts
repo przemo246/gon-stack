@@ -1,4 +1,5 @@
 import type { Schema as CreateRoomSchema } from '@/shared/server-contracts/schemas/create-room';
+import type { Schema as JoinRoomSchema } from '@/shared/server-contracts/schemas/join-room';
 
 const pause = (ms: number) =>
   new Promise<void>((resolve) => {
@@ -29,23 +30,31 @@ export const joinRoom = async (
   roomCode: string,
   signal?: AbortSignal,
 ): Promise<string> => {
-  signal?.throwIfAborted();
-  await pause(700);
-  signal?.throwIfAborted();
-
   const code = roomCode.trim().toUpperCase();
 
   if (!/^[A-Z0-9]{6}$/.test(code)) {
     throw new Error('Room Code Is Invalid. Check the Code and Try Again.');
   }
 
-  if (code === 'FULL00') {
+  const response = await fetch('/api/rooms/join', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ roomCode: code }),
+    signal,
+  });
+  const data = (await response.json()) as JoinRoomSchema['out'];
+
+  if (data.code !== 200) {
     throw new Error(
-      'Room Is Not Available. Create a New Room or Use Another Code.',
+      'message' in data
+        ? data.message
+        : 'Room Is Not Available. Create a New Room or Use Another Code.',
     );
   }
 
-  return code;
+  return data.roomCode;
 };
 
 export const waitForPartner = async (signal?: AbortSignal): Promise<void> => {
