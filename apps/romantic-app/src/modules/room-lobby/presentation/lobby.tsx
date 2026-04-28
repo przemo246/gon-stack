@@ -16,8 +16,7 @@ import { Heading } from '@/libs/ui/heading';
 import { Link } from '@/libs/ui/link';
 import { Separator } from '@/libs/ui/separator';
 import { Text } from '@/libs/ui/text';
-
-const roomCode = 'X7K3PQ';
+import { useContext } from './context';
 
 const roomInfo = [
   { icon: Gamepad2, label: 'Category', value: 'Couples - Deep Connection' },
@@ -45,6 +44,9 @@ const steps = [
 ] as const;
 
 export const Lobby = () => {
+  const ctx = useContext();
+  const roomCode = ctx.useRoomCode() ?? '------';
+
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-[1280px] flex-col">
       <div className="flex-1 px-3 pb-8 pt-6 tn:px-4 sm:px-6 sm:pt-8 lg:px-8 lg:pt-10">

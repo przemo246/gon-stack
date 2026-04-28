@@ -1,6 +1,9 @@
 import { ArrowRight, Gamepad2, Heart, Plus, Users } from 'lucide-react';
+import { useState } from 'react';
 import { Heading } from '@/libs/ui/heading';
 import { Text } from '@/libs/ui/text';
+import type { RoomCode } from '../domain/models';
+import { useContext } from './context';
 
 const steps = [
   {
@@ -21,6 +24,9 @@ const steps = [
 ] as const;
 
 export const Starter = () => {
+  const ctx = useContext();
+  const [roomCode, setRoomCode] = useState('');
+
   return (
     <div className="relative">
       <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
@@ -79,6 +85,7 @@ export const Starter = () => {
                 </Text.B2>
                 <button
                   type="button"
+                  onClick={ctx.createRoom}
                   className="mt-1 inline-flex h-11 items-center gap-2 rounded-[10px] bg-linear-to-r from-fuchsia-500 to-pink-500 px-5 text-white shadow-[0_0_14px_rgba(236,72,153,0.45)] transition hover:brightness-110"
                 >
                   <Plus size={16} />
@@ -112,11 +119,20 @@ export const Starter = () => {
                   <input
                     type="text"
                     placeholder="Enter 6-character code"
+                    value={roomCode}
+                    maxLength={6}
+                    onChange={(event) =>
+                      setRoomCode(event.target.value.toUpperCase().slice(0, 6))
+                    }
                     className="h-11 w-full rounded-[10px] border border-cyan-300/25 bg-slate-950/40 px-4 text-slate-100 placeholder:text-slate-400 focus:border-fuchsia-300/70 focus:outline-none"
                   />
                   <button
                     type="button"
                     aria-label="Join room"
+                    disabled={roomCode.trim().length !== 6}
+                    onClick={() =>
+                      ctx.joinRoom(roomCode.trim().toUpperCase() as RoomCode)
+                    }
                     className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[10px] border border-cyan-300/25 bg-slate-950/40 text-slate-200 transition hover:border-fuchsia-300/70 hover:text-white"
                   >
                     <ArrowRight size={18} />

@@ -1,9 +1,11 @@
+import { createFacade } from './facade';
 import { createRegistry } from './registry';
 import { createStore } from './store';
 
 export const createMediator = () => {
   const store = createStore();
-  const { trigger, registry } = createRegistry(store);
+  const { trigger, register } = createRegistry(store);
+  const facade = createFacade(store, trigger);
 
-  return [store, trigger, registry] as const;
+  return { facade, register };
 };
