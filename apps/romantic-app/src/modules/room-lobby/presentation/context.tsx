@@ -2,14 +2,16 @@ import { useLayoutEffect, useState } from 'react';
 import { createHookContext } from '@/libs/power-context';
 import { createMediator } from '../core/mediator';
 
-export const [Provider, useContext] = createHookContext('RoomLobby', () => {
-  const [store, trigger, registry] = useState(createMediator)[0];
-  const value = useState(() => ({ ...store, trigger }))[0];
+export const [Provider, useContext] = createHookContext(
+  'RoomLobby2',
+  ({ mediatorFactory } = { mediatorFactory: createMediator }) => {
+    const [{ facade, register }] = useState(mediatorFactory);
 
-  useLayoutEffect(() => {
-    const unsub = registry();
-    return () => unsub();
-  }, [registry]);
+    useLayoutEffect(() => {
+      const unsub = register();
+      return () => unsub();
+    }, [register]);
 
-  return value;
-});
+    return facade;
+  },
+);

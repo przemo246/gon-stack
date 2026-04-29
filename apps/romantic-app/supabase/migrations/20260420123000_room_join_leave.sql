@@ -52,13 +52,16 @@ alter table public.room_participants enable row level security;
 alter table public.rooms force row level security;
 alter table public.room_participants force row level security;
 
--- Deny by default.
-revoke all on public.rooms from public, anon, authenticated;
-revoke all on public.room_participants from public, anon, authenticated;
+-- Deny anonymous/default access. Authenticated access is controlled below.
+revoke all on public.rooms from public, anon;
+revoke all on public.room_participants from public, anon;
 
--- Only backend service role can access room tables directly.
+-- Service role keeps full access for trusted backend flows.
 grant all on public.rooms to service_role;
 grant all on public.room_participants to service_role;
+-- Authenticated users access through RLS policies.
+grant select, insert, update, delete on public.rooms to authenticated;
+grant select, insert, update, delete on public.room_participants to authenticated;
 
 -- RLS helpers avoid self-referencing policy recursion and keep policies readable.
 create or replace function public.is_room_member(p_room_id uuid)
@@ -96,6 +99,8 @@ revoke all on function public.is_room_member(uuid) from public;
 revoke all on function public.is_room_host(uuid) from public;
 grant execute on function public.is_room_member(uuid) to service_role;
 grant execute on function public.is_room_host(uuid) to service_role;
+grant execute on function public.is_room_member(uuid) to authenticated;
+grant execute on function public.is_room_host(uuid) to authenticated;
 
 -- Host can create room only for own user id.
 create policy "rooms_insert_host_only"

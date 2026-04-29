@@ -116,16 +116,19 @@ alter table public.quiz_questions force row level security;
 alter table public.game_questions force row level security;
 alter table public.game_answers force row level security;
 
--- Deny by default.
-revoke all on public.quiz_questions from public, anon, authenticated;
-revoke all on public.game_questions from public, anon, authenticated;
-revoke all on public.game_answers from public, anon, authenticated;
+-- Deny anonymous/default access. Authenticated access is controlled below.
+revoke all on public.quiz_questions from public, anon;
+revoke all on public.game_questions from public, anon;
+revoke all on public.game_answers from public, anon;
 
--- Only backend service role can access quiz tables directly.
 -- Backend can seed/update content and run scoring workflows.
 grant all on public.quiz_questions to service_role;
 grant all on public.game_questions to service_role;
 grant all on public.game_answers to service_role;
+-- Authenticated users access through RLS policies.
+grant select on public.quiz_questions to authenticated;
+grant select, insert, update, delete on public.game_questions to authenticated;
+grant select, insert, update, delete on public.game_answers to authenticated;
 
 -- Helper checks if question instance is open.
 -- Used by answer policies so writes stop immediately when host closes question.
@@ -186,6 +189,9 @@ revoke all on function public.is_game_question_member(uuid) from public;
 grant execute on function public.is_game_question_open(uuid) to service_role;
 grant execute on function public.is_game_question_host(uuid) to service_role;
 grant execute on function public.is_game_question_member(uuid) to service_role;
+grant execute on function public.is_game_question_open(uuid) to authenticated;
+grant execute on function public.is_game_question_host(uuid) to authenticated;
+grant execute on function public.is_game_question_member(uuid) to authenticated;
 
 -- Authenticated users can read active quiz questions.
 -- No direct write for clients; content management belongs to backend.

@@ -65,14 +65,16 @@ alter table public.game_participants enable row level security;
 alter table public.games force row level security;
 alter table public.game_participants force row level security;
 
--- Deny by default.
-revoke all on public.games from public, anon, authenticated;
-revoke all on public.game_participants from public, anon, authenticated;
+-- Deny anonymous/default access. Authenticated access is controlled below.
+revoke all on public.games from public, anon;
+revoke all on public.game_participants from public, anon;
 
--- Only backend service role can access game tables directly.
 -- Service role handles trusted orchestration tasks and moderation actions.
 grant all on public.games to service_role;
 grant all on public.game_participants to service_role;
+-- Authenticated users access through RLS policies.
+grant select, insert, update, delete on public.games to authenticated;
+grant select, insert, update, delete on public.game_participants to authenticated;
 
 -- RLS helper: true if caller is active member of room that owns game.
 -- Used to gate reads and self-join actions.
@@ -117,6 +119,8 @@ revoke all on function public.is_game_host(uuid) from public;
 -- Service role keeps execute for backend flows.
 grant execute on function public.is_game_room_member(uuid) to service_role;
 grant execute on function public.is_game_host(uuid) to service_role;
+grant execute on function public.is_game_room_member(uuid) to authenticated;
+grant execute on function public.is_game_host(uuid) to authenticated;
 
 -- Room host can create game in own room only.
 -- Prevents impersonation by forcing creator id = auth.uid().

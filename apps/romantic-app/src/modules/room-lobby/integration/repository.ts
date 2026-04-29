@@ -1,48 +1,55 @@
-const pause = (ms: number) =>
-  new Promise<void>((resolve) => {
-    setTimeout(resolve, ms);
+import type { Schema as JoinRoomSchema } from '@/shared/server-contracts/schemas/join-room';
+import type { Schema as CreateRoomSchema } from '@/shared/server-contracts/schemas/create-room';
+import type { InferOut } from '@/shared/server-contracts/extraction';
+
+type JoinRoomSuccess = InferOut<JoinRoomSchema['out'], 200>;
+type CreateRoomSuccess = InferOut<CreateRoomSchema['out'], 201>;
+
+export const createRoom = async (
+  signal?: AbortSignal,
+): Promise<CreateRoomSuccess> => {
+  const response = await fetch('/api/rooms/create', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({}),
+    signal,
   });
 
-const randomCode = () => {
-  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-  return Array.from(
-    { length: 6 },
-    () => chars[Math.floor(Math.random() * chars.length)],
-  ).join('');
-};
+  const data = (await response.json()) as CreateRoomSchema['out'];
 
-export const createRoom = async (signal?: AbortSignal): Promise<string> => {
-  signal?.throwIfAborted();
-  await pause(700);
-  signal?.throwIfAborted();
-  return randomCode();
+  if (data.code !== 201) {
+    throw new Error(
+      'message' in data ? data.message : 'Could not create room. Try again.',
+    );
+  }
+
+  return data;
 };
 
 export const joinRoom = async (
   roomCode: string,
   signal?: AbortSignal,
-): Promise<string> => {
-  signal?.throwIfAborted();
-  await pause(700);
-  signal?.throwIfAborted();
+): Promise<JoinRoomSuccess> => {
+  const response = await fetch('/api/rooms/join', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ roomCode }),
+    signal,
+  });
 
-  const code = roomCode.trim().toUpperCase();
+  const data = (await response.json()) as JoinRoomSchema['out'];
 
-  if (!/^[A-Z0-9]{6}$/.test(code)) {
-    throw new Error('Room Code Is Invalid. Check the Code and Try Again.');
-  }
-
-  if (code === 'FULL00') {
+  if (data.code !== 200) {
     throw new Error(
-      'Room Is Not Available. Create a New Room or Use Another Code.',
+      'message' in data
+        ? data.message
+        : 'Room is not available. Create a new room or use another code.',
     );
   }
 
-  return code;
-};
-
-export const waitForPartner = async (signal?: AbortSignal): Promise<void> => {
-  signal?.throwIfAborted();
-  await pause(1400);
-  signal?.throwIfAborted();
+  return data;
 };
