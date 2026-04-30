@@ -32,7 +32,6 @@ export const withZodSchema = <TSchema extends InOutSchema>({
 
   return {
     parseInput: async (input) => {
-      console.log(input);
       try {
         return await getSchema().shape.in.parseAsync(input);
       } catch (error) {
