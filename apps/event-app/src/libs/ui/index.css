@@ -64,8 +64,8 @@
   --font-mono: 'Geist Mono', ui-monospace, monospace;
 
   /* ── Shadows ──────────────────────────────────────────────── */
-  --box-shadow-1: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  --box-shadow-2: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  --shadow-1: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  --shadow-2: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 @layer components {
