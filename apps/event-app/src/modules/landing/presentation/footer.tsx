@@ -27,11 +27,13 @@ export const Footer = () => {
             </h4>
             <ul className="list-none p-0 m-0 flex flex-col gap-2 text-sm">
               {section.links.map((link) => (
-                <li
-                  key={link}
-                  className="cursor-pointer hover:text-accent transition-colors"
-                >
-                  {link}
+                <li key={link}>
+                  <button
+                    type="button"
+                    className="cursor-pointer hover:text-accent transition-colors duration-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 rounded-sm"
+                  >
+                    {link}
+                  </button>
                 </li>
               ))}
             </ul>

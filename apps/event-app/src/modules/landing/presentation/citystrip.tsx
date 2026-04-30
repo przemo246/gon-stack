@@ -30,7 +30,7 @@ export const CityStrip = ({ onPickCity }: CityStripProps) => {
           <button
             key={item.city}
             onClick={() => onPickCity(item.city)}
-            className="group text-left px-6.5 py-7 border-r border-b border-white/12 transition-colors hover:bg-white/4 grid grid-cols-[auto_1fr_auto] grid-rows-2 gap-1 gap-x-3 items-baseline cursor-pointer nth-[4n]:border-r-0 nth-[n+5]:border-b-0"
+            className="group text-left px-6.5 py-7 border-r border-b border-white/12 transition-colors duration-100 hover:bg-white/4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-text-inverse/40 focus-visible:ring-inset grid grid-cols-[auto_1fr_auto] grid-rows-2 gap-1 gap-x-3 items-baseline cursor-pointer nth-[4n]:border-r-0 nth-[n+5]:border-b-0"
           >
             <div className="font-mono text-[10px] tracking-[.14em] opacity-50 row-start-1 col-start-1">
               0{i + 1}

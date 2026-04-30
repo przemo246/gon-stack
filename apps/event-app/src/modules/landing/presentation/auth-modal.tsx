@@ -44,7 +44,7 @@ const Divider = () => (
 );
 
 const inputClassName =
-  'w-full rounded-xl border border-border-strong bg-bg-base px-4 py-3 font-sans text-sm text-text-primary outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-colors';
+  'w-full rounded-xl border border-border-strong bg-bg-base px-4 py-3 font-sans text-sm text-text-primary outline-none focus-visible:ring-2 focus-visible:ring-accent/30 focus-visible:border-accent transition-colors duration-160';
 
 const SwitchLink = ({
   prompt,
@@ -60,7 +60,7 @@ const SwitchLink = ({
     <button
       type="button"
       onClick={onSwitch}
-      className="font-medium text-text-primary underline-offset-2 hover:underline"
+      className="font-medium text-text-primary underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 rounded-sm"
     >
       {label}
     </button>
@@ -219,10 +219,14 @@ const RegisterForm = ({ onSwitch }: FormProps) => (
 
 type AuthModalProps = {
   setOpen: (v: boolean) => void;
+  initialView?: 'login' | 'register';
 };
 
-export const AuthModal = ({ setOpen }: AuthModalProps) => {
-  const [view, setView] = useState<'login' | 'register'>('login');
+export const AuthModal = ({
+  setOpen,
+  initialView = 'login',
+}: AuthModalProps) => {
+  const [view, setView] = useState<'login' | 'register'>(initialView);
 
   return (
     <Modal onClose={() => setOpen(false)}>

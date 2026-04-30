@@ -1,3 +1,5 @@
+import { cn } from '@/libs/ui/cn';
+
 import { MOCK_POSTERS } from './mock-data';
 
 type PosterProps = {
@@ -19,11 +21,12 @@ export const Poster = ({ idx, title, saved, onToggleSave }: PosterProps) => {
       <button
         onClick={onToggleSave}
         aria-label="Zapisz"
-        className={`absolute top-3.5 right-3.5 w-8.5 h-8.5 rounded-full flex items-center justify-center border border-black/6 transition-all hover:scale-[1.08] cursor-pointer ${
+        className={cn(
+          'absolute top-3.5 right-3.5 w-8.5 h-8.5 rounded-full flex items-center justify-center border border-black/6 transition-all duration-160 ease-in-out hover:scale-[1.08] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 cursor-pointer',
           saved
-            ? 'bg-accent text-white border-accent'
-            : 'bg-white/95 text-text-primary'
-        }`}
+            ? 'bg-accent text-text-inverse border-accent'
+            : 'bg-white/95 text-text-primary',
+        )}
       >
         <svg
           width="14"

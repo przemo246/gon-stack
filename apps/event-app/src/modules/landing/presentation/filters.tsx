@@ -1,3 +1,5 @@
+import { cn } from '@/libs/ui/cn';
+
 import { MOCK_CATEGORIES, MOCK_DATE_CHIPS } from './mock-data';
 
 type FiltersProps = {
@@ -19,11 +21,12 @@ export const Filters = ({ cat, setCat, date, setDate }: FiltersProps) => {
             <button
               key={d.id}
               onClick={() => setDate(d.id)}
-              className={`px-4 py-2 rounded-full border text-sm transition-all cursor-pointer flex items-center gap-1.75 ${
+              className={cn(
+                'px-4 py-2 rounded-full border text-sm transition-all duration-160 ease-in-out cursor-pointer flex items-center gap-1.75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40',
                 date === d.id
-                  ? 'bg-accent text-white border-accent'
-                  : 'bg-bg-base text-text-primary border-border-default hover:border-text-primary'
-              }`}
+                  ? 'bg-accent text-text-inverse border-accent'
+                  : 'bg-bg-base text-text-primary border-border-default hover:border-text-primary',
+              )}
             >
               {d.label}
             </button>
@@ -40,9 +43,10 @@ export const Filters = ({ cat, setCat, date, setDate }: FiltersProps) => {
             <button
               key={c}
               onClick={() => setCat(c)}
-              className={`py-2 px-3 rounded-full border-0 text-sm transition-all cursor-pointer flex items-center gap-1.75 ${
-                cat === c ? 'text-text-primary font-medium' : 'text-text-muted'
-              }`}
+              className={cn(
+                'py-2 px-3 rounded-full border-0 text-sm transition-all duration-160 ease-in-out cursor-pointer flex items-center gap-1.75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40',
+                cat === c ? 'text-text-primary font-medium' : 'text-text-muted',
+              )}
             >
               {cat === c && (
                 <span className="w-1.25 h-1.25 rounded-full bg-accent" />

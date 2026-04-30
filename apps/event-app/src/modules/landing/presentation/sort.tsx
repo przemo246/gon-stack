@@ -15,7 +15,7 @@ export const Sort = ({ sort, setSort }: SortProps) => {
         <select
           value={sort}
           onChange={(e) => setSort(e.target.value)}
-          className="appearance-none bg-transparent border border-border-default pl-3.5 pr-8 py-2 rounded-full text-sm cursor-pointer focus:outline-none"
+          className="appearance-none bg-transparent border border-border-default pl-3.5 pr-8 py-2 rounded-full text-sm cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
         >
           {MOCK_SORT_OPTIONS.map((opt) => (
             <option key={opt.value} value={opt.value}>
