@@ -31,10 +31,10 @@
     "@repo/eslint-config": "workspace:*",
     "@repo/tailwind-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "@tailwindcss/cli": "^4.1.18",
-    "@types/react": "^19.2.13",
+    "@tailwindcss/cli": "^4.2.4",
+    "@types/react": "^19.2.14",
     "eslint": "^9.39.1",
-    "tailwindcss": "^4.1.18",
+    "tailwindcss": "^4.2.4",
     "typescript": "5.9.3"
   }
 }

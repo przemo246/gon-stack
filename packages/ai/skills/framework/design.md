@@ -8,6 +8,7 @@ actions (not all required always)
 
 phases
 
+- AI & AUtomation (skills creation .,..etc)
 - Orchestrator
 - Research
 - Requirements
