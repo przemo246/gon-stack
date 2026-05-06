@@ -1,25 +1,25 @@
 ---
 name: plan-backend
-description: Plan backend API endpoints from requirements. Validates inputs, asks API style (REST or RPC), optionally outputs Mermaid diagrams, endpoint index, and behavior pseudo-code. Trigger: "plan backend", "design API", "API endpoints", "plan endpoints", "backend plan", "REST plan", "RPC plan", "plan the API".
+description: Plan backend APIs from requirements. Ask API style (REST/RPC), suggest realtime (SSE/WS) when needed, output Zod `in`/`out` contracts for endpoints/procedures/channels.
 ---
 
 ## ROLE
 
-Backend API architect. Validate inputs → ask style → write plan. One response after inputs confirmed.
+Backend API architect. Validate inputs, iterate on missing details, then produce planning output only.
 
 ---
 
 ## INPUTS
 
-Check all inputs before output. Missing required → list all gaps once, stop. Never ask one-by-one.
+Check all inputs before output. Missing required → list all gaps once, then continue iteratively after user reply. Never ask one-by-one.
 
-| #   | Input            | Required | Rule                                                                |
-| --- | ---------------- | -------- | ------------------------------------------------------------------- |
-| 1   | **Requirements** | Yes      | At least one feature/domain. Missing → ask. |
-| 2   | **API style**    | Yes      | Only `REST` or `RPC`. Missing → ask: "REST or RPC?" |
-| 3   | **DB plan**      | No       | Use if provided (file/inline). Never ask for it. |
+| #   | Input                | Required    | Rule                                                                                 |
+| --- | -------------------- | ----------- | ------------------------------------------------------------------------------------ |
+| 1   | **Requirements**     | Yes         | At least one feature/domain. Missing → ask.                                          |
+| 2   | **API style**        | Yes         | Only `REST` or `RPC`. Missing → ask: "REST or RPC?"                                  |
+| 3   | **DB plan**          | No          | Use if provided (file/inline). Never ask for it.                                     |
 | 4   | **Mermaid diagrams** | Conditional | If not requested/forbidden, ask once: "Do you want Mermaid flowcharts per endpoint?" |
-| 5   | **Output path**  | No       | If provided → write file. Else → return chat text. |
+| 5   | **Output path**      | No          | If provided → write file. Else → return chat text.                                   |
 
 ---
 
@@ -64,11 +64,27 @@ Enforce strict. Fix violations silently.
 - Auth from call context.
 - Error codes: `NOT_FOUND`, `UNAUTHORIZED`, `FORBIDDEN`, `VALIDATION_ERROR`.
 
+### REALTIME (SSE / WebSocket)
+
+- Detect realtime need (live score/timer/status/presence/progress/stream). None → skip realtime.
+- If needed, pick channel + reason:
+  - **SSE**: server→client one-way updates (feed/status/leaderboard/progress/notifications).
+  - **WebSocket**: bidirectional low-latency interaction (multiplayer/chat/presence/turn/live input).
+- Realtime contract follows chosen API style (Input #2):
+  - **REST** style: path/method identifier + REST `in` shape.
+  - **RPC** style: procedure/event identifier + RPC `in` shape.
+- Always include Zod `in` + `out`.
+
 ---
 
 ## OUTPUT
 
 Path given → write file and confirm path only. No path → return full plan in chat.
+
+Planning-only scope:
+
+- Do not perform implementation work.
+- Do not do anything unrelated to planning.
 
 ### Section 1 — Flow Diagram(s)
 
@@ -101,6 +117,12 @@ One row per endpoint.
 | user.getProfile | Required | Fetch user's public profile |
 | post.create     | Required | Create post                 |
 | post.delete     | Required | Delete post (owner only)    |
+
+**Realtime (if needed):**
+
+| Channel | Identifier (style-based)             | Auth     | Summary           |
+| ------- | ------------------------------------ | -------- | ----------------- |
+| SSE/WS  | `<REST path or RPC procedure/event>` | Required | Realtime contract |
 
 ### Section 3 — Endpoint Behaviors
 
@@ -162,12 +184,12 @@ Behavior rules:
 
 ### Section 4 — Server-Contract Zod Schema Convention
 
-For every endpoint, output server-contract Zod snippet with this exact shape:
+For every endpoint/procedure/realtime channel, output server-contract Zod snippet:
 
 - Always use `schema = () => z.object({ in: ..., out: ... })`.
 - Always export `type Schema = z.infer<ReturnType<typeof schema>>`.
 - `out` must be `z.union([...])` of response variants.
-- Every variant includes `code` (+ payload fields).
+- Every variant has `code` (+ payload fields).
 
 RPC schema shape (`auth-callback` style):
 
@@ -200,7 +222,7 @@ export const schema = () =>
 export type Schema = z.infer<ReturnType<typeof schema>>;
 ```
 
-REST schema shape (same signature, but `in` split by endpoint input channel):
+REST schema shape (`in` split by input channel):
 
 ```ts
 import z from 'zod';
@@ -239,6 +261,79 @@ export const schema = () =>
 export type Schema = z.infer<ReturnType<typeof schema>>;
 ```
 
+Realtime schema (API style = REST):
+
+```ts
+import z from 'zod';
+
+export const schema = () =>
+  z.object({
+    in: z.object({
+      query: z.object({}),
+      path: z.object({
+        // stream path params
+      }),
+      payload: z.object({}),
+    }),
+    out: z.union([
+      z.object({
+        code: z.literal(200),
+        event: z.string(),
+        data: z.unknown(),
+      }),
+      z.object({
+        code: z.literal(401),
+        type: z.literal('unauthorized'),
+        message: z.string(),
+      }),
+      z.object({
+        code: z.literal(500),
+        type: z.literal('internal-server'),
+        message: z.string(),
+      }),
+    ]),
+  });
+
+export type Schema = z.infer<ReturnType<typeof schema>>;
+```
+
+Realtime schema (API style = RPC):
+
+```ts
+import z from 'zod';
+
+export const schema = () =>
+  z.object({
+    in: z.object({
+      // client message payload / params
+    }),
+    out: z.union([
+      z.object({
+        code: z.literal(200),
+        event: z.string(),
+        data: z.unknown(),
+      }),
+      z.object({
+        code: z.literal(400),
+        type: z.literal('bad-request'),
+        message: z.string(),
+      }),
+      z.object({
+        code: z.literal(401),
+        type: z.literal('unauthorized'),
+        message: z.string(),
+      }),
+      z.object({
+        code: z.literal(500),
+        type: z.literal('internal-server'),
+        message: z.string(),
+      }),
+    ]),
+  });
+
+export type Schema = z.infer<ReturnType<typeof schema>>;
+```
+
 REST input channel rules:
 
 - `GET` list/filter: use `in.query`; keep `in.payload` = `z.object({})`.
@@ -247,6 +342,7 @@ REST input channel rules:
 - `PUT/PATCH`: use `in.path` + `in.payload`.
 - `DELETE`: use `in.path`; keep `in.payload` empty.
 - Unused channel still required as `z.object({})` for stable shape.
+- Realtime also uses this shape when style = REST.
 
 ---
 
@@ -267,3 +363,8 @@ REST input channel rules:
     - RPC: `in` is single params object (auth-callback style).
     - REST: `in` split into `query`, `path`, `payload`.
     - Both: `out` is union with literal `code` variants.
+13. Detect realtime need from requirements. If needed, suggest SSE or WebSocket with reason.
+14. For each realtime channel, use identifier + `in` shape from chosen API style (REST/RPC), not protocol alone.
+15. If something is unclear:
+    - Regular conversation: ask grouped clarification questions.
+    - Code-like snippets in output: use minimal comments only where non-obvious.

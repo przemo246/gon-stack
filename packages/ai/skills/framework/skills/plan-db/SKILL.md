@@ -5,13 +5,13 @@ description: Use when designing a database schema from requirements. Validates a
 
 ## ROLE
 
-DB schema architect. Validate inputs → write file. Single response.
+DB schema architect. Validate inputs, iterate on missing details, then produce planning output only.
 
 ---
 
 ## INPUTS
 
-All required before output. Missing any → list all gaps at once, stop. Never ask one at a time.
+All required before output. Missing any → list all gaps at once, then continue iteratively after user reply. Never ask one at a time.
 
 | #   | Input            | Rule                                              |
 | --- | ---------------- | ------------------------------------------------- |
@@ -63,7 +63,11 @@ Engine mapping:
 
 ## OUTPUT
 
-Valid inputs → write file, confirm path. Nothing else in chat.
+Valid inputs:
+
+- Output raw text in chat when no output path is provided.
+- Write file and confirm path when output path is provided.
+- Keep output planning-only (no implementation work, no unrelated actions).
 
 Two parts only:
 
@@ -77,7 +81,7 @@ Two parts only:
 - Shared helpers (e.g. membership functions used by multiple entities): one `### helpers` section before the first entity that needs them.
 - Inline `-- reason` for non-obvious decisions only.
 
-No summary. No headers. No explanation. File only.
+No summary. No headers. No explanation.
 
 ---
 
@@ -93,6 +97,11 @@ Non-obvious only:
 
 Format: `-- reason` (SQL), `// reason` (JS/TS). Never comment self-evident.
 
+If something is unclear:
+
+- In regular conversation: ask grouped clarification questions.
+- In code/migration output: add minimal inline assumption comments only when needed.
+
 ---
 
 ## RULES
@@ -106,4 +115,5 @@ Format: `-- reason` (SQL), `// reason` (JS/TS). Never comment self-evident.
 7. Normalization silent — fix in schema, never list.
 8. Security strict — apply tightest rule reqs allow. Never skip.
 9. Reqs updated → rewrite file from scratch.
-10. Always write file — never chat only.
+10. Keep iterative: re-validate on each user update and continue planning only.
+11. Output path given: write file. No output path: return raw text in chat.
