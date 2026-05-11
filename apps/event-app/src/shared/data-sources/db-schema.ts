@@ -34,36 +34,92 @@ export type Database = {
   };
   public: {
     Tables: {
-      Events: {
+      event_participants: {
         Row: {
+          event_id: string;
+          joined_at: string;
+          user_id: string;
+        };
+        Insert: {
+          event_id: string;
+          joined_at?: string;
+          user_id: string;
+        };
+        Update: {
+          event_id?: string;
+          joined_at?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'event_participants_event_id_fkey';
+            columns: ['event_id'];
+            isOneToOne: false;
+            referencedRelation: 'events';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      events: {
+        Row: {
+          address: string | null;
           created_at: string;
-          description: string;
+          created_by: string;
+          description: string | null;
           end_date: string | null;
-          id: number;
-          imageCover: string | null;
+          id: string;
+          keywords: string[] | null;
           location: unknown;
           name: string;
           start_date: string;
         };
         Insert: {
+          address?: string | null;
           created_at?: string;
-          description: string;
+          created_by: string;
+          description?: string | null;
           end_date?: string | null;
-          id?: number;
-          imageCover?: string | null;
+          id?: string;
+          keywords?: string[] | null;
           location?: unknown;
           name: string;
           start_date: string;
         };
         Update: {
+          address?: string | null;
           created_at?: string;
-          description?: string;
+          created_by?: string;
+          description?: string | null;
           end_date?: string | null;
-          id?: number;
-          imageCover?: string | null;
+          id?: string;
+          keywords?: string[] | null;
           location?: unknown;
           name?: string;
           start_date?: string;
+        };
+        Relationships: [];
+      };
+      profiles: {
+        Row: {
+          avatar_url: string | null;
+          created_at: string;
+          id: string;
+          role: Database['public']['Enums']['user_role'];
+          username: string | null;
+        };
+        Insert: {
+          avatar_url?: string | null;
+          created_at?: string;
+          id: string;
+          role?: Database['public']['Enums']['user_role'];
+          username?: string | null;
+        };
+        Update: {
+          avatar_url?: string | null;
+          created_at?: string;
+          id?: string;
+          role?: Database['public']['Enums']['user_role'];
+          username?: string | null;
         };
         Relationships: [];
       };
@@ -75,7 +131,7 @@ export type Database = {
       [_ in never]: never;
     };
     Enums: {
-      [_ in never]: never;
+      user_role: 'user' | 'admin';
     };
     CompositeTypes: {
       [_ in never]: never;
@@ -208,6 +264,8 @@ export const Constants = {
     Enums: {},
   },
   public: {
-    Enums: {},
+    Enums: {
+      user_role: ['user', 'admin'],
+    },
   },
 } as const;

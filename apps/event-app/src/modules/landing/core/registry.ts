@@ -1,12 +1,16 @@
-import { createBus } from './bus';
+import { eda } from '@/libs/eda';
 import { onGetProfile } from './handlers/get-profile';
-import type { Store } from './store';
+import { type Store } from './store';
+import { type Event } from '../domain/events';
+
+export type OfType = ReturnType<typeof eda<Event>>['ofType'];
 
 export const createRegistry = (store: Store) => {
-  const bus = createBus();
-  const register = bus.createRegistry(onGetProfile(store, bus));
+  const { ofType, trigger, createRegistry } = eda<Event>();
 
-  return { trigger: bus.trigger, register };
+  const registry = createRegistry(onGetProfile(store, ofType));
+
+  return { trigger, registry };
 };
 
 export type Registry = ReturnType<typeof createRegistry>;

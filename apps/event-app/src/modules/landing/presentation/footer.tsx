@@ -1,50 +1,96 @@
-import {
-  MOCK_FOOTER_CITIES_LINE,
-  MOCK_FOOTER_COPYRIGHT,
-  MOCK_FOOTER_LEGAL_LINKS,
-  MOCK_FOOTER_SECTIONS,
-  MOCK_FOOTER_TAGLINE,
-} from './mock-data';
+const FOOTER_COLS = [
+  {
+    title: 'ODKRYWAJ',
+    links: [
+      'Koncerty',
+      'Festiwale',
+      'Sport',
+      'Teatr i opera',
+      'Wystawy',
+      'Stand-up',
+      'Kluby',
+    ],
+  },
+  {
+    title: 'MIASTA',
+    links: [
+      'Warszawa',
+      'Kraków',
+      'Wrocław',
+      'Poznań',
+      'Gdańsk',
+      'Łódź',
+      'Katowice',
+    ],
+  },
+  {
+    title: 'ORGANIZATORZY',
+    links: [
+      'Dodaj wydarzenie',
+      'Panel organizatora',
+      'Kalendarz publiczny',
+      'API · pl',
+      'Pomoc',
+    ],
+  },
+];
 
-export const Footer = () => {
-  return (
-    <>
-      <footer className="max-w-350 mx-auto mt-20 px-9 pt-15 pb-10 border-t border-border-default grid grid-cols-[1.2fr_1fr_1fr_1fr_1fr] gap-12">
-        <div>
-          <span className="font-serif text-[44px] italic">Afisz</span>
-          <p className="text-sm text-text-muted max-w-60 leading-normal mt-3.5 mb-5">
-            {MOCK_FOOTER_TAGLINE}
-          </p>
-          <div className="font-mono text-[11px] tracking-widest text-text-muted">
-            {MOCK_FOOTER_CITIES_LINE}
-          </div>
+export const Footer = () => (
+  <footer
+    className="mt-16 px-8 pt-20 pb-8"
+    style={{ backgroundColor: '#17171c', color: '#eeece7' }}
+  >
+    <div
+      className="max-w-360 mx-auto grid gap-12"
+      style={{ gridTemplateColumns: '1.4fr 1fr 1fr 1fr' }}
+    >
+      <div className="flex flex-col gap-3">
+        <div className="font-sans font-semibold text-[36px] tracking-tight">
+          Afisz<span style={{ color: '#ff7759' }}>.</span>
         </div>
-
-        {MOCK_FOOTER_SECTIONS.map((section) => (
-          <div key={section.title}>
-            <h4 className="font-mono text-[11px] tracking-[.14em] text-text-muted m-0 mb-3.5 font-normal uppercase">
-              {section.title}
-            </h4>
-            <ul className="list-none p-0 m-0 flex flex-col gap-2 text-sm">
-              {section.links.map((link) => (
-                <li key={link}>
-                  <button
-                    type="button"
-                    className="cursor-pointer hover:text-accent transition-colors duration-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 rounded-sm"
-                  >
-                    {link}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </footer>
-
-      <div className="max-w-350 mx-auto px-9 py-5 pb-10 flex justify-between font-mono text-[11px] tracking-widest text-text-muted uppercase">
-        <div>{MOCK_FOOTER_COPYRIGHT}</div>
-        <div>{MOCK_FOOTER_LEGAL_LINKS.join(' · ')}</div>
+        <p
+          className="text-sm max-w-[32ch] m-0 mb-2"
+          style={{ color: 'rgba(255,255,255,0.7)' }}
+        >
+          Cała Polska na żywo. Promocja wydarzeń, nie sprzedaż biletów.
+        </p>
+        <span
+          className="font-mono text-[11px] tracking-[0.18em] uppercase"
+          style={{ opacity: 0.5 }}
+        >
+          WYD. 2026 · WERSJA ALPHA
+        </span>
       </div>
-    </>
-  );
-};
+
+      {FOOTER_COLS.map((col) => (
+        <div key={col.title} className="flex flex-col gap-3">
+          <span
+            className="font-mono text-[11px] tracking-[0.18em] uppercase"
+            style={{ opacity: 0.5 }}
+          >
+            {col.title}
+          </span>
+          <ul className="list-none p-0 m-0 flex flex-col gap-2">
+            {col.links.map((link) => (
+              <li
+                key={link}
+                className="text-sm cursor-pointer transition-colors hover:text-[#ff7759]"
+                style={{ opacity: 0.78 }}
+              >
+                {link}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <div
+      className="max-w-360 mx-auto mt-14 pt-6 flex justify-between gap-6 text-xs"
+      style={{ borderTop: '1px solid rgba(255,255,255,0.15)', opacity: 0.6 }}
+    >
+      <span>© 2026 Afisz · Polska</span>
+      <span>Regulamin · Prywatność · Cookies · Kontakt</span>
+    </div>
+  </footer>
+);

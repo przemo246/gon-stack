@@ -1,4 +1,4 @@
-import { MOCK_NAV_LINKS } from './mock-data';
+import { MOCK_NAV_LINKS } from './nav-links';
 import { cn } from '@/libs/ui/cn';
 
 export const Navigation = () => {

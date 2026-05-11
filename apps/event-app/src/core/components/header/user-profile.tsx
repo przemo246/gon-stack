@@ -1,22 +1,13 @@
-import { useEffect } from 'react';
 import type { User } from '@supabase/supabase-js';
 import { UserRound } from 'lucide-react';
 import { Dropdown } from '@/libs/ui/dropdown';
-import { useContext } from './context';
 
 type UserProfileProps = {
   user: User;
 };
 
 export const UserProfile = ({ user }: UserProfileProps) => {
-  const ctx = useContext();
-  const profile = ctx.useProfile();
-
-  useEffect(() => {
-    ctx.init(user.id);
-  }, [ctx, user.id]);
-
-  const avatarUrl = profile?.avatar_url;
+  const avatarUrl = '';
 
   const avatar = avatarUrl ? (
     <img

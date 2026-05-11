@@ -1,13 +1,10 @@
-import { supabaseBrowser } from '@/shared/data-sources/supabase-browser';
 import type { Profile } from '../domain/models';
+import { supabaseBrowser } from '@/shared/data-sources/supabase-browser';
 
 export const getProfile = async (userId: string): Promise<Profile> => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const client = supabaseBrowser as any;
-
-  const { data, error } = await client
+  const { data, error } = await supabaseBrowser
     .from('profiles')
-    .select('avatar_url, username')
+    .select('id, avatar_url, username, role, created_at')
     .eq('id', userId)
     .single();
 

@@ -1,444 +1,243 @@
 export interface Event {
-  id: number;
-  title: string;
-  cat: string;
+  id: string;
+  name: string;
+  category: string;
   city: string;
   venue: string;
   date: string;
+  endDate?: string;
   time: string;
-  price: number;
-  tag: string;
-  dateKey: string;
-  poster: number;
+  palette: number;
+  posterTitle: string;
+  posterMeta: string;
+  description: string;
+  featured: boolean;
+  badge?: string;
 }
 
-export interface PosterData {
+export interface PosterPalette {
   bg: string;
-  shape:
-    | 'radial'
-    | 'rings'
-    | 'grid'
-    | 'sun'
-    | 'waves'
-    | 'bloom'
-    | 'tape'
-    | 'triangle';
+  fg: string;
+  accent: string;
 }
 
-export interface DateChip {
+export interface Category {
   id: string;
   label: string;
+  mono: string;
 }
 
-export interface CityData {
-  city: string;
-  count: number;
-}
-
-export interface HowStep {
-  n: string;
-  title: string;
-  description: string;
-}
-
-export interface NavLink {
-  label: string;
-  active?: boolean;
-}
-
-export interface FooterSection {
-  title: string;
-  links: string[];
-}
-
-export interface TicketScheduleItem {
-  time: string;
-  venue: string;
-}
-
-export interface Stat {
-  value: string;
-  label: string;
-}
-
-export interface SortOption {
-  value: string;
-  label: string;
-}
-
-export const MOCK_CATEGORIES = [
-  'Wszystko',
-  'Muzyka',
-  'Teatr',
-  'Sztuka',
-  'Sport',
-  'Food & Drink',
-  'Festiwale',
-  'Dzieci',
-  'Kultura',
-  'Warsztaty',
-  'Kluby',
-  'Literatura',
+export const POSTER_PALETTES: PosterPalette[] = [
+  { bg: '#003c33', fg: '#edfce9', accent: '#ff7759' },
+  { bg: '#071829', fg: '#f1f5ff', accent: '#ff7759' },
+  { bg: '#ff7759', fg: '#17171c', accent: '#003c33' },
+  { bg: '#17171c', fg: '#eeece7', accent: '#ff7759' },
+  { bg: '#eeece7', fg: '#17171c', accent: '#003c33' },
+  { bg: '#edfce9', fg: '#003c33', accent: '#ff7759' },
+  { bg: '#9b60aa', fg: '#f1f5ff', accent: '#ffad9b' },
+  { bg: '#1863dc', fg: '#f1f5ff', accent: '#ff7759' },
 ];
 
-export const MOCK_DATE_CHIPS: DateChip[] = [
-  { id: 'any', label: 'Dowolnie' },
-  { id: 'today', label: 'Dziś' },
-  { id: 'tomorrow', label: 'Jutro' },
-  { id: 'weekend', label: 'W weekend' },
-  { id: 'week', label: 'Ten tydzień' },
-  { id: 'month', label: 'Ten miesiąc' },
-  { id: 'bank-holiday', label: 'Majówka' },
+export const CATEGORIES: Category[] = [
+  { id: 'koncerty', label: 'Koncerty', mono: 'MUSIC.LIVE' },
+  { id: 'festiwale', label: 'Festiwale', mono: 'FEST.OPEN-AIR' },
+  { id: 'sport', label: 'Sport', mono: 'SPORT.LIVE' },
+  { id: 'teatr', label: 'Teatr i opera', mono: 'STAGE.DRAMA' },
+  { id: 'stand-up', label: 'Stand-up', mono: 'COMEDY.MIC' },
+  { id: 'rodzinne', label: 'Rodzinne', mono: 'FAMILY.KIDS' },
+  { id: 'konferencje', label: 'Konferencje', mono: 'TALKS.IDEAS' },
+  { id: 'wystawy', label: 'Wystawy', mono: 'ART.EXHIBIT' },
+  { id: 'kluby', label: 'Kluby', mono: 'NIGHT.CLUB' },
 ];
 
-export const MOCK_CITIES = [
+export const CITIES = [
   'Warszawa',
   'Kraków',
   'Wrocław',
-  'Gdańsk',
   'Poznań',
+  'Gdańsk',
   'Łódź',
   'Katowice',
   'Lublin',
-  'Toruń',
   'Szczecin',
+  'Bydgoszcz',
+  'Białystok',
+  'Toruń',
+  'Rzeszów',
+  'Sopot',
+  'Gdynia',
 ];
 
-export const MOCK_POSTERS: PosterData[] = [
+export const EVENTS: Event[] = [
   {
-    bg: 'linear-gradient(135deg,#ff8a5b 0%,#ff5733 50%,#7a1f0a 100%)',
-    shape: 'radial',
-  },
-  {
-    bg: 'linear-gradient(170deg,#0b0a14 0%,#2a1a6b 55%,#6b4df0 100%)',
-    shape: 'rings',
-  },
-  {
-    bg: 'linear-gradient(180deg,#1a2e1a 0%,#2d6a3d 60%,#c8ee48 100%)',
-    shape: 'grid',
-  },
-  {
-    bg: 'linear-gradient(160deg,#2b1010 0%,#8a1c1c 50%,#ffb86b 100%)',
-    shape: 'sun',
-  },
-  {
-    bg: 'linear-gradient(200deg,#0d1a2b 0%,#1e4d8c 55%,#7bcaff 100%)',
-    shape: 'waves',
-  },
-  {
-    bg: 'linear-gradient(145deg,#3a0f2a 0%,#8a2564 45%,#ff8fd4 100%)',
-    shape: 'bloom',
-  },
-  {
-    bg: 'linear-gradient(135deg,#1b1b1b 0%,#3a3a3a 50%,#e8d9b0 100%)',
-    shape: 'tape',
-  },
-  {
-    bg: 'linear-gradient(150deg,#0f2d2f 0%,#1f6c6f 60%,#e8ff6b 100%)',
-    shape: 'triangle',
-  },
-];
-
-export const MOCK_EVENTS: Event[] = [
-  {
-    id: 1,
-    title: 'Noc Muzeów — Warszawa 2026',
-    cat: 'Kultura',
+    id: 'tame-impala-warszawa',
+    name: 'Tame Impala — Deadbeat Tour',
+    category: 'koncerty',
     city: 'Warszawa',
-    venue: 'Muzeum Narodowe',
-    date: 'sob, 16 maj',
-    time: '19:00',
-    price: 0,
-    tag: 'Wstęp wolny',
-    dateKey: 'weekend',
-    poster: 1,
+    venue: 'PGE Narodowy',
+    date: '2026-06-14',
+    time: '20:00',
+    palette: 0,
+    posterTitle: 'TAME\nIMPALA',
+    posterMeta: 'DEADBEAT TOUR — EU 2026',
+    description:
+      'Kevin Parker powraca do Polski z nowym albumem „Deadbeat". Psychodeliczny krajobraz, lasery, syntezatory i ten charakterystyczny basowy puls.',
+    featured: true,
+    badge: 'Najgorętsze',
   },
   {
-    id: 2,
-    title: "Open'er Festival — dzień 2.",
-    cat: 'Festiwale',
+    id: 'open-er-2026',
+    name: "Open'er Festival 2026",
+    category: 'festiwale',
     city: 'Gdynia',
-    venue: 'Lotnisko Babie Doły',
-    date: 'pt, 3 lip',
-    time: '15:00',
-    price: 399,
-    tag: 'Line-up 2026',
-    dateKey: 'month',
-    poster: 0,
+    venue: 'Lotnisko Kosakowo',
+    date: '2026-07-01',
+    endDate: '2026-07-04',
+    time: '16:00',
+    palette: 2,
+    posterTitle: "OPEN'ER\n'26",
+    posterMeta: '4 DNI · 8 SCEN · 120 ARTYSTÓW',
+    description:
+      "Cztery dni nad Bałtykiem. Headlinerzy, alternatywa, sztuka, kino. Open'er znów składa Polskę latem.",
+    featured: true,
+    badge: '4 dni',
   },
   {
-    id: 3,
-    title: 'Koncert: Dawid Podsiadło',
-    cat: 'Muzyka',
-    city: 'Kraków',
-    venue: 'TAURON Arena',
-    date: 'śr, 22 kwi',
-    time: '20:00',
-    price: 249,
-    tag: 'Ostatnie bilety',
-    dateKey: 'today',
-    poster: 2,
-  },
-  {
-    id: 4,
-    title: 'Hamlet — reż. Krzysztof Warlikowski',
-    cat: 'Teatr',
-    city: 'Warszawa',
-    venue: 'Nowy Teatr',
-    date: 'czw, 23 kwi',
-    time: '19:30',
-    price: 120,
-    tag: 'Premiera',
-    dateKey: 'tomorrow',
-    poster: 3,
-  },
-  {
-    id: 5,
-    title: 'Pierogi Festival',
-    cat: 'Food & Drink',
-    city: 'Kraków',
-    venue: 'Mały Rynek',
-    date: 'sob-nd, 25–26 kwi',
-    time: '12:00',
-    price: 0,
-    tag: 'Wstęp wolny',
-    dateKey: 'weekend',
-    poster: 4,
-  },
-  {
-    id: 6,
-    title: 'Legia — Lech Poznań',
-    cat: 'Sport',
-    city: 'Warszawa',
-    venue: 'Stadion Wojska Polskiego',
-    date: 'nd, 26 kwi',
-    time: '17:30',
-    price: 85,
-    tag: 'Ekstraklasa',
-    dateKey: 'weekend',
-    poster: 5,
-  },
-  {
-    id: 7,
-    title: 'Wystawa: Wojciech Fangor',
-    cat: 'Sztuka',
-    city: 'Wrocław',
-    venue: 'Pawilon Czterech Kopuł',
-    date: 'do 15 cze',
-    time: '10–18',
-    price: 25,
-    tag: 'Tylko do 15.06',
-    dateKey: 'month',
-    poster: 6,
-  },
-  {
-    id: 8,
-    title: 'Warsztat ceramiki — koło garncarskie',
-    cat: 'Warsztaty',
+    id: 'lech-legia-derby',
+    name: 'Lech Poznań — Legia Warszawa',
+    category: 'sport',
     city: 'Poznań',
-    venue: 'Studio Glina',
-    date: 'sob, 25 kwi',
-    time: '11:00',
-    price: 160,
-    tag: '6 miejsc',
-    dateKey: 'weekend',
-    poster: 7,
+    venue: 'Stadion Poznań',
+    date: '2026-05-23',
+    time: '18:00',
+    palette: 3,
+    posterTitle: 'LECH\nLEGIA',
+    posterMeta: 'EKSTRAKLASA · KOLEJKA 33',
+    description:
+      'Klasyk polskiej Ekstraklasy. Trybuny pełne, oprawy gotowe, stawka — mistrzostwo. 90 minut, które oglądają wszyscy.',
+    featured: true,
+    badge: 'Hit kolejki',
   },
   {
-    id: 9,
-    title: 'Smolasty — trasa „Nocnik"',
-    cat: 'Muzyka',
-    city: 'Łódź',
-    venue: 'Atlas Arena',
-    date: 'pt, 8 maj',
+    id: 'kacper-rucinski-standup',
+    name: 'Kacper Ruciński — Materiał Otwarty',
+    category: 'stand-up',
+    city: 'Kraków',
+    venue: 'Klub Studio',
+    date: '2026-05-18',
+    time: '19:30',
+    palette: 5,
+    posterTitle: 'KACPER\nRUCIŃSKI',
+    posterMeta: 'MATERIAŁ OTWARTY · 90 MIN',
+    description:
+      'Trasa testowa nowego godzinnego materiału. Bez kamer, bez nagrań, bez filtra — w kameralnym układzie z miejscem na improwizację.',
+    featured: true,
+  },
+  {
+    id: 'mloda-polska-mnk',
+    name: 'Młoda Polska — Wystawa stała',
+    category: 'wystawy',
+    city: 'Kraków',
+    venue: 'Muzeum Narodowe w Krakowie',
+    date: '2026-05-10',
+    endDate: '2026-09-30',
+    time: '10:00',
+    palette: 4,
+    posterTitle: 'MŁODA\nPOLSKA',
+    posterMeta: 'WYSPIAŃSKI · MEHOFFER · MALCZEWSKI',
+    description:
+      'Największa od dekady prezentacja prac Stanisława Wyspiańskiego, Józefa Mehoffera i Jacka Malczewskiego. 230 obiektów, 9 sal.',
+    featured: true,
+  },
+  {
+    id: 'smolasty-spodek',
+    name: 'Smolasty — Era 03',
+    category: 'koncerty',
+    city: 'Katowice',
+    venue: 'Spodek',
+    date: '2026-06-07',
     time: '20:00',
-    price: 189,
-    tag: 'Nowy album',
-    dateKey: 'month',
-    poster: 1,
+    palette: 7,
+    posterTitle: 'SMOLASTY\nERA 03',
+    posterMeta: 'TRASA POLSKA · 12 MIAST',
+    description:
+      'Trzeci akt. Nowy album, nowa scenografia, sekcja smyczkowa i pełna hala Spodka.',
+    featured: true,
+    badge: 'Nowy album',
   },
   {
-    id: 10,
-    title: 'Targi Książki',
-    cat: 'Literatura',
-    city: 'Warszawa',
-    venue: 'PKiN',
-    date: 'czw–nd, 21–24 maj',
-    time: '10–19',
-    price: 15,
-    tag: '46. edycja',
-    dateKey: 'month',
-    poster: 2,
+    id: 'infoshare-2026',
+    name: 'infoShare 2026',
+    category: 'konferencje',
+    city: 'Gdańsk',
+    venue: 'AmberExpo',
+    date: '2026-05-28',
+    endDate: '2026-05-29',
+    time: '09:00',
+    palette: 1,
+    posterTitle: 'INFO\nSHARE 26',
+    posterMeta: 'AI · BIZNES · STARTUPY',
+    description:
+      'Największa konferencja technologiczna w CEE. 6 scen, 250 prelegentów, 6000 uczestników.',
+    featured: true,
   },
   {
-    id: 11,
-    title: 'Dzień Dziecka w ZOO',
-    cat: 'Dzieci',
+    id: 'nosowska-wroclaw',
+    name: 'Kasia Nosowska — Trasa akustyczna',
+    category: 'koncerty',
     city: 'Wrocław',
-    venue: 'ZOO Wrocław',
-    date: 'pn, 1 cze',
-    time: '9:00',
-    price: 35,
-    tag: 'Rodzinnie',
-    dateKey: 'month',
-    poster: 3,
-  },
-  {
-    id: 12,
-    title: 'Boiler Room: Warsaw',
-    cat: 'Kluby',
-    city: 'Warszawa',
-    venue: 'Smolna',
-    date: 'sob, 25 kwi',
-    time: '22:00',
-    price: 140,
-    tag: 'B2B set',
-    dateKey: 'weekend',
-    poster: 5,
-  },
-];
-
-export const MOCK_MARQUEE_ITEMS = [
-  'DAWID PODSIADŁO · KRAKÓW',
-  'NOC MUZEÓW · 16 MAJA',
-  "OPEN'ER · DZIEŃ 2",
-  'PIEROGI FESTIVAL · KRAKÓW',
-  'HAMLET — WARLIKOWSKI · PREMIERA',
-  'BOILER ROOM · WARSZAWA',
-  'TARGI KSIĄŻKI · PKIN',
-  'LEGIA — LECH POZNAŃ · SOBOTA',
-  'FANGOR · OSTATNIE DNI',
-];
-
-export const MOCK_CITY_DATA: CityData[] = [
-  { city: 'Warszawa', count: 412 },
-  { city: 'Kraków', count: 298 },
-  { city: 'Wrocław', count: 187 },
-  { city: 'Gdańsk', count: 156 },
-  { city: 'Poznań', count: 142 },
-  { city: 'Łódź', count: 98 },
-  { city: 'Katowice', count: 76 },
-  { city: 'Lublin', count: 54 },
-];
-
-export const MOCK_HOW_STEPS: HowStep[] = [
-  {
-    n: '01',
-    title: 'Filtruj',
+    venue: 'Hala Stulecia',
+    date: '2026-06-02',
+    time: '20:00',
+    palette: 4,
+    posterTitle: 'NOSOWSKA',
+    posterMeta: 'AKUSTYCZNIE · 18 MIAST',
     description:
-      'Po mieście, dacie, nastroju, budżecie. Zero algorytmicznego szumu — ty ustawiasz reguły.',
+      'Akustyczny set, sześcioosobowy zespół, repertuar z całej kariery i nowe interpretacje.',
+    featured: false,
   },
   {
-    n: '02',
-    title: 'Zapisuj',
+    id: 'audioriver-2026',
+    name: 'Audioriver 2026',
+    category: 'festiwale',
+    city: 'Płock',
+    venue: 'Plaża nad Wisłą',
+    date: '2026-07-24',
+    endDate: '2026-07-26',
+    time: '16:00',
+    palette: 2,
+    posterTitle: 'AUDIO\nRIVER',
+    posterMeta: 'ELEKTRONIKA · 3 DNI · WISŁA',
     description:
-      'Dodaj wydarzenie do swojej listy. Dostajesz przypomnienie 24h wcześniej — e-mailem albo do kalendarza.',
-  },
-  {
-    n: '03',
-    title: 'Kupuj bilet',
-    description:
-      'Bezpośrednio od organizatora albo przez sprawdzonych partnerów. Bez ukrytych opłat.',
-  },
-  {
-    n: '04',
-    title: 'Idź',
-    description:
-      'Bilet czeka w aplikacji. Mapa, godzina, wskazówki dojazdu — wszystko w jednym miejscu.',
+      'Jeden z największych festiwali muzyki elektronicznej w Europie Środkowej. Plaża, Wisła, świt nad sceną główną.',
+    featured: false,
   },
 ];
 
-export const MOCK_NAV_LINKS: NavLink[] = [
-  { label: 'Odkrywaj', active: true },
-  { label: 'Kalendarz' },
-  { label: 'Miasta' },
-  { label: 'Dla organizatorów' },
-  { label: 'Blog' },
-];
+export function fmtDateShort(iso: string) {
+  const d = new Date(iso + 'T00:00:00');
+  return `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(2, '0')}`;
+}
 
-export const MOCK_FOOTER_SECTIONS: FooterSection[] = [
-  {
-    title: 'Odkrywaj',
-    links: [
-      'Dziś wieczorem',
-      'Ten weekend',
-      'Za darmo',
-      'Z dzieckiem',
-      'Dla jednego',
-    ],
-  },
-  {
-    title: 'Miasta',
-    links: ['Warszawa', 'Kraków', 'Wrocław', 'Gdańsk', 'Wszystkie 92 →'],
-  },
-  {
-    title: 'Dla organizatorów',
-    links: ['Dodaj wydarzenie', 'Panel sprzedaży', 'Cennik', 'API', 'Pomoc'],
-  },
-  { title: 'Firma', links: ['O nas', 'Blog', 'Kariera', 'Kontakt', 'Prasa'] },
-];
+export function fmtDate(iso: string) {
+  const months = [
+    'sty',
+    'lut',
+    'mar',
+    'kwi',
+    'maj',
+    'cze',
+    'lip',
+    'sie',
+    'wrz',
+    'paź',
+    'lis',
+    'gru',
+  ];
+  const d = new Date(iso + 'T00:00:00');
+  return `${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+}
 
-export const MOCK_TICKET_SCHEDULE: TicketScheduleItem[] = [
-  { time: '19:00', venue: 'Kino Muranów — pokaz specjalny' },
-  { time: '20:30', venue: 'Hala Koszyki — kolacja szefa' },
-  { time: '22:00', venue: 'Smolna — Boiler Room' },
-  { time: '00:30', venue: 'Plac Zbawiciela — after' },
-];
-
-export const MOCK_STATS: Stat[] = [
-  { value: '92', label: 'miasta' },
-  { value: '38k', label: 'wydarzeń' },
-  { value: '4,9★', label: 'od 12 400 osób' },
-];
-
-export const MOCK_SORT_OPTIONS: SortOption[] = [
-  { value: 'rec', label: 'Polecane' },
-  { value: 'soon', label: 'Najbliższe' },
-  { value: 'cheap', label: 'Cena rosnąco' },
-  { value: 'pop', label: 'Popularne' },
-];
-
-export const MOCK_HERO_EYEBROW = '№ 17 · KWIECIEŃ 2026';
-export const MOCK_HERO_STATUS = '1 284 wydarzeń w tym tygodniu';
-export const MOCK_HERO_TICKER_TIME = '18:42';
-export const MOCK_HERO_SUBTITLE =
-  'Afisz to mapa wydarzeń w 92 polskich miastach — koncerty, wernisaże, spektakle, festiwale kuchni i wszystko pomiędzy. Znajdź, zarezerwuj, idź.';
-export const MOCK_HERO_CTA_PRIMARY = 'Przeglądaj';
-export const MOCK_HERO_CTA_SECONDARY = 'Jak to działa';
-
-export const MOCK_TICKET_TITLE = 'Noc afisza';
-export const MOCK_TICKET_DATE_LABEL = 'TONIGHT / DZIŚ · 20:00';
-export const MOCK_TICKET_NUM = '№ 00 142 / A';
-export const MOCK_TICKET_SEAT = 'SEAT · K 14';
-export const MOCK_TICKET_URL = 'AFISZ.PL/142A';
-
-export const MOCK_EVENTS_SECTION_EYEBROW = '01 · POLECANE';
-export const MOCK_EVENTS_SECTION_TITLE = 'Co dzieje się w Polsce';
-export const MOCK_CITIES_SECTION_EYEBROW = '02 · GDZIE';
-export const MOCK_CITIES_SECTION_TITLE = 'Miasta, w których się dzieje';
-export const MOCK_HOW_SECTION_EYEBROW = '03 · JAK';
-export const MOCK_HOW_SECTION_TITLE = 'Cztery kroki, zero zgadywanki';
-
-export const MOCK_FEATURED_COPY =
-  'Jedna z najgłośniejszych tras ostatnich lat. Trzy godziny koncertu, nowy materiał z płyty i wybór największych hitów. Bilety rozchodzą się w tempie zauważalnym — zostało 8% puli.';
-
-export const MOCK_CTA_HEADING = 'Nie przegap niczego.';
-export const MOCK_CTA_SUBTITLE =
-  'Raz w tygodniu — krótki newsletter z najlepszymi wydarzeniami w twoim mieście. Kuratorski wybór, nie algorytm. Zero spamu.';
-export const MOCK_CTA_NEWSLETTER_CITIES = [
-  'Warszawa',
-  'Kraków',
-  'Wrocław',
-  'Gdańsk',
-];
-export const MOCK_CTA_APP_BUTTONS = ['Pobierz aplikację iOS', 'Android'];
-
-export const MOCK_FOOTER_TAGLINE =
-  'Wydarzenia w 92 polskich miastach. Kuratorsko. Bez śmieciowych treści.';
-export const MOCK_FOOTER_CITIES_LINE = 'WARSZAWA · KRAKÓW · GDAŃSK';
-export const MOCK_FOOTER_COPYRIGHT = '© 2026 Afisz sp. z o.o. · Warszawa';
-export const MOCK_FOOTER_LEGAL_LINKS = [
-  'Regulamin',
-  'Polityka prywatności',
-  'Cookies',
-];
+export function getCategoryLabel(id: string) {
+  return CATEGORIES.find((c) => c.id === id)?.label ?? id;
+}
