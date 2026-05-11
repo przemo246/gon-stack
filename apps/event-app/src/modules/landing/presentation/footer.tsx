@@ -1,94 +1,71 @@
-const FOOTER_COLS = [
-  {
-    title: 'ODKRYWAJ',
-    links: [
-      'Koncerty',
-      'Festiwale',
-      'Sport',
-      'Teatr i opera',
-      'Wystawy',
-      'Stand-up',
-      'Kluby',
-    ],
-  },
-  {
-    title: 'MIASTA',
-    links: [
-      'Warszawa',
-      'Kraków',
-      'Wrocław',
-      'Poznań',
-      'Gdańsk',
-      'Łódź',
-      'Katowice',
-    ],
-  },
-  {
-    title: 'ORGANIZATORZY',
-    links: [
-      'Dodaj wydarzenie',
-      'Panel organizatora',
-      'Kalendarz publiczny',
-      'API · pl',
-      'Pomoc',
-    ],
-  },
+import { MonoLabel } from './mono-label';
+
+const DISCOVER_LINKS = [
+  'Koncerty',
+  'Festiwale',
+  'Sport',
+  'Teatr i opera',
+  'Wystawy',
+  'Stand-up',
+  'Kluby',
+];
+const CITY_LINKS = [
+  'Warszawa',
+  'Kraków',
+  'Wrocław',
+  'Poznań',
+  'Gdańsk',
+  'Łódź',
+  'Katowice',
+];
+const ORG_LINKS = [
+  'Dodaj wydarzenie',
+  'Panel organizatora',
+  'Kalendarz publiczny',
+  'API · pl',
+  'Pomoc',
 ];
 
-export const Footer = () => (
-  <footer
-    className="mt-16 px-8 pt-20 pb-8"
-    style={{ backgroundColor: '#17171c', color: '#eeece7' }}
-  >
-    <div
-      className="max-w-360 mx-auto grid gap-12"
-      style={{ gridTemplateColumns: '1.4fr 1fr 1fr 1fr' }}
-    >
-      <div className="flex flex-col gap-3">
-        <div className="font-sans font-semibold text-[36px] tracking-tight">
-          Afisz<span style={{ color: '#ff7759' }}>.</span>
-        </div>
-        <p
-          className="text-sm max-w-[32ch] m-0 mb-2"
-          style={{ color: 'rgba(255,255,255,0.7)' }}
+type FooterColProps = {
+  heading: string;
+  items: string[];
+};
+
+const FooterCol = ({ heading, items }: FooterColProps) => (
+  <div className="flex flex-col gap-3">
+    <MonoLabel style={{ color: 'rgba(255,255,255,0.5)' }}>{heading}</MonoLabel>
+    <ul className="list-none p-0 m-0 flex flex-col gap-2">
+      {items.map((item) => (
+        <li
+          key={item}
+          className="text-sm opacity-75 cursor-pointer hover:opacity-100 hover:text-coral transition-[opacity,color]"
         >
+          {item}
+        </li>
+      ))}
+    </ul>
+  </div>
+);
+
+export const Footer = () => (
+  <footer className="bg-primary text-on-primary pt-20 px-8 pb-8 mt-16">
+    <div className="max-w-[1440px] mx-auto grid gap-12 grid-cols-2 lg:grid-cols-4">
+      <div className="flex flex-col gap-3">
+        <div className="font-display font-semibold text-[36px] tracking-[-0.025em]">
+          Afisz<span className="text-coral">.</span>
+        </div>
+        <p className="text-white/70 text-sm max-w-[32ch] m-0">
           Cała Polska na żywo. Promocja wydarzeń, nie sprzedaż biletów.
         </p>
-        <span
-          className="font-mono text-[11px] tracking-[0.18em] uppercase"
-          style={{ opacity: 0.5 }}
-        >
+        <MonoLabel style={{ color: 'rgba(255,255,255,0.4)' }}>
           WYD. 2026 · WERSJA ALPHA
-        </span>
+        </MonoLabel>
       </div>
-
-      {FOOTER_COLS.map((col) => (
-        <div key={col.title} className="flex flex-col gap-3">
-          <span
-            className="font-mono text-[11px] tracking-[0.18em] uppercase"
-            style={{ opacity: 0.5 }}
-          >
-            {col.title}
-          </span>
-          <ul className="list-none p-0 m-0 flex flex-col gap-2">
-            {col.links.map((link) => (
-              <li
-                key={link}
-                className="text-sm cursor-pointer transition-colors hover:text-[#ff7759]"
-                style={{ opacity: 0.78 }}
-              >
-                {link}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+      <FooterCol heading="ODKRYWAJ" items={DISCOVER_LINKS} />
+      <FooterCol heading="MIASTA" items={CITY_LINKS} />
+      <FooterCol heading="ORGANIZATORZY" items={ORG_LINKS} />
     </div>
-
-    <div
-      className="max-w-360 mx-auto mt-14 pt-6 flex justify-between gap-6 text-xs"
-      style={{ borderTop: '1px solid rgba(255,255,255,0.15)', opacity: 0.6 }}
-    >
+    <div className="max-w-[1440px] mx-auto mt-14 pt-6 border-t border-white/15 flex justify-between gap-6 text-xs opacity-60">
       <span>© 2026 Afisz · Polska</span>
       <span>Regulamin · Prywatność · Cookies · Kontakt</span>
     </div>

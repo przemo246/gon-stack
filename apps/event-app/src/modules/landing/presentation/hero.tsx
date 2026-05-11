@@ -1,52 +1,70 @@
+import { MonoLabel } from './mono-label';
 import { SearchBar } from './search-bar';
-import type { SearchValue } from './search-bar';
+import type { SearchState } from './search-bar';
 
 type HeroProps = {
-  search: SearchValue;
-  setSearch: (v: SearchValue) => void;
+  search: SearchState;
+  onChange: (v: SearchState) => void;
   onSubmit: () => void;
+  onQuickSearch: (query: Partial<SearchState>) => void;
 };
 
-const QUICK_LINKS = [
-  'Ten weekend w Warszawie',
-  'Festiwale lato 2026',
-  'Sport · Ekstraklasa',
-  'Stand-up · Kraków',
+const QUICK_LINKS: { label: string; query: Partial<SearchState> }[] = [
+  {
+    label: 'Ten weekend w Warszawie',
+    query: { date: 'weekend', city: 'Warszawa' },
+  },
+  {
+    label: 'Festiwale lato 2026',
+    query: { category: 'festiwale', date: 'summer' },
+  },
+  { label: 'Sport · Ekstraklasa', query: { category: 'sport' } },
+  {
+    label: 'Stand-up · Kraków',
+    query: { category: 'stand-up', city: 'Kraków' },
+  },
 ];
 
-export const Hero = ({ search, setSearch, onSubmit }: HeroProps) => (
+export const Hero = ({
+  search,
+  onChange,
+  onSubmit,
+  onQuickSearch,
+}: HeroProps) => (
   <section className="px-8 pt-16 pb-12">
-    <div className="max-w-350 mx-auto">
-      <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-accent">
+    <div className="max-w-[1280px] mx-auto">
+      <MonoLabel style={{ color: 'var(--color-coral)' }}>
         AFISZ · POLSKA · 2026
-      </span>
+      </MonoLabel>
       <h1
-        className="font-sans font-medium leading-[0.92] tracking-[-0.04em] mt-4 mb-6 text-text-primary"
+        className="font-display font-medium leading-[0.92] tracking-[-0.04em] my-4 mb-6"
         style={{ fontSize: 'clamp(56px, 9vw, 128px)' }}
       >
         Znajdź coś,
         <br />
         co warto
         <br />
-        <em className="not-italic" style={{ color: '#ff7759' }}>
-          przeżyć.
-        </em>
+        <em className="not-italic text-coral">przeżyć.</em>
       </h1>
-      <p className="max-w-160 text-lg leading-relaxed text-text-muted mb-8">
+      <p className="max-w-[640px] text-lg leading-relaxed text-body-muted mb-8">
         Koncerty, festiwale, sport, teatr, wystawy. Wszystkie wydarzenia w
         Polsce w jednym miejscu — bez biletów, bez pośredników, tylko afisz.
       </p>
-      <SearchBar value={search} onChange={setSearch} onSubmit={onSubmit} />
+      <div className="mt-6">
+        <SearchBar value={search} onChange={onChange} onSubmit={onSubmit} />
+      </div>
       <div className="mt-8 flex flex-wrap items-center gap-3">
-        <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-text-muted">
-          SZYBKI WYBÓR
-        </span>
-        {QUICK_LINKS.map((q) => (
+        <MonoLabel>SZYBKI WYBÓR</MonoLabel>
+        {QUICK_LINKS.map((ql) => (
           <button
-            key={q}
-            className="bg-bg-surface border border-border-default rounded-full px-4 py-2 text-text-primary text-sm hover:bg-accent hover:text-white hover:border-transparent transition-colors cursor-pointer"
+            key={ql.label}
+            className="bg-soft-stone border border-card-border rounded-full px-4 py-2 text-ink text-sm hover:bg-coral hover:text-white hover:border-coral transition-colors"
+            onClick={() => {
+              onChange({ ...search, ...ql.query });
+              onQuickSearch(ql.query);
+            }}
           >
-            {q}
+            {ql.label}
           </button>
         ))}
       </div>

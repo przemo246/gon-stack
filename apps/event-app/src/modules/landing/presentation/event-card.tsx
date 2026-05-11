@@ -1,58 +1,126 @@
-import { Heart } from 'lucide-react';
-import type { Event } from './mock-data';
-import { fmtDate, getCategoryLabel } from './mock-data';
 import { Poster } from './poster';
+import { MonoLabel } from './mono-label';
+import { IconHeart, IconPin, IconClock, IconArrow } from './icons';
+import { fmtDate, fmtDayNum, fmtMonthShort, categoryLabel } from './mock-data';
+import type { Event } from './mock-data';
+
+type EventCardLayout = 'grid' | 'list';
 
 type EventCardProps = {
   event: Event;
-  saved: boolean;
+  layout?: EventCardLayout;
+  onOpen: (event: Event) => void;
   onToggleSave: (id: string) => void;
+  saved: boolean;
 };
 
-export const EventCard = ({ event, saved, onToggleSave }: EventCardProps) => (
-  <article className="bg-bg-base border border-border-default rounded-2xl overflow-hidden flex flex-col cursor-pointer hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-25px_rgba(0,0,0,0.25)] transition-all duration-200">
-    <div
-      className="relative rounded-[10px] overflow-hidden m-2.5 mb-0"
-      style={{ aspectRatio: '3/4' }}
-    >
-      <Poster event={event} size="md" />
-      {event.badge && (
-        <span
-          className="absolute top-3 left-3 font-mono text-[10px] tracking-[0.16em] uppercase text-white px-2 py-1 rounded-md"
-          style={{ background: '#ff7759' }}
-        >
-          {event.badge}
-        </span>
-      )}
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          onToggleSave(event.id);
-        }}
-        className="absolute top-2.5 right-2.5 w-9 h-9 rounded-full flex items-center justify-center border-0 transition-colors cursor-pointer"
-        style={
-          saved
-            ? { background: '#ff7759', color: '#fff' }
-            : { background: 'rgba(255,255,255,0.9)', color: '#17171c' }
-        }
-        aria-label={saved ? 'Usuń z zapisanych' : 'Zapisz'}
+export const EventCard = ({
+  event,
+  layout = 'grid',
+  onOpen,
+  onToggleSave,
+  saved,
+}: EventCardProps) => {
+  if (layout === 'list') {
+    return (
+      <article
+        className="grid gap-5 items-center p-[18px] bg-canvas border border-card-border rounded-[14px] cursor-pointer hover:border-ink transition-colors"
+        style={{ gridTemplateColumns: '80px 100px 1fr auto' }}
+        onClick={() => onOpen(event)}
       >
-        <Heart size={16} fill={saved ? 'currentColor' : 'none'} />
-      </button>
-    </div>
-    <div className="px-3.5 py-3 pb-4 flex flex-col gap-1.5">
-      <span className="font-mono text-[10px] tracking-[0.14em] text-text-muted uppercase">
-        {fmtDate(event.date)} · {event.city}
-      </span>
-      <h3 className="font-sans font-medium text-lg leading-[1.15] tracking-[-0.02em] m-0 text-text-primary">
-        {event.name}
-      </h3>
-      <div className="flex justify-between gap-3 text-xs text-text-muted">
-        <span className="bg-bg-surface rounded-md px-2 py-0.5">
-          {getCategoryLabel(event.category)}
-        </span>
-        <span className="truncate">{event.venue}</span>
+        <div className="text-center border-r border-hairline pr-3">
+          <div className="font-display text-[36px] leading-none font-medium">
+            {fmtDayNum(event.date)}
+          </div>
+          <div className="font-mono text-[11px] tracking-[0.18em] text-coral">
+            {fmtMonthShort(event.date)}
+          </div>
+          <div className="text-[11px] text-muted mt-0.5">
+            {new Date(event.date).getFullYear()}
+          </div>
+        </div>
+        <div className="aspect-[3/4] h-[110px] rounded-sm overflow-hidden">
+          <Poster event={event} size="sm" />
+        </div>
+        <div>
+          <MonoLabel>
+            {categoryLabel(event.category).toUpperCase()} ·{' '}
+            {event.city.toUpperCase()}
+          </MonoLabel>
+          <h3 className="font-display font-medium text-[22px] leading-[1.15] tracking-[-0.02em] my-1.5">
+            {event.name}
+          </h3>
+          <div className="flex gap-[18px] text-sm text-body-muted">
+            <span className="inline-flex gap-1.5 items-center">
+              <IconPin size={14} /> {event.venue}
+            </span>
+            <span className="inline-flex gap-1.5 items-center">
+              <IconClock size={14} /> {event.time}
+            </span>
+          </div>
+        </div>
+        <div className="flex gap-3 items-center">
+          <button
+            className={`w-9 h-9 rounded-full border inline-flex items-center justify-center transition-colors ${saved ? 'text-coral border-coral' : 'bg-soft-stone border-card-border text-ink'}`}
+            onClick={(e) => {
+              e.stopPropagation();
+              onToggleSave(event.id);
+            }}
+            aria-label={saved ? 'Usuń z zapisanych' : 'Zapisz'}
+          >
+            <IconHeart fill={saved ? 'currentColor' : 'none'} size={18} />
+          </button>
+          <button
+            className="bg-transparent border-0 text-ink text-sm inline-flex gap-2 items-center border-b border-ink pb-0.5"
+            onClick={(e) => {
+              e.stopPropagation();
+              onOpen(event);
+            }}
+          >
+            Szczegóły <IconArrow size={14} />
+          </button>
+        </div>
+      </article>
+    );
+  }
+
+  return (
+    <article
+      className="bg-canvas border border-card-border rounded-md overflow-hidden cursor-pointer transition-[transform,box-shadow] hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-25px_rgba(0,0,0,0.25)] flex flex-col"
+      onClick={() => onOpen(event)}
+    >
+      <div className="relative aspect-[3/4] rounded-[10px] overflow-hidden m-2.5">
+        <Poster event={event} size="md" />
+        {event.badge && (
+          <span className="absolute top-3 left-3 bg-coral text-white font-mono text-[10px] tracking-[0.16em] px-2 py-1 rounded-[6px] uppercase">
+            {event.badge}
+          </span>
+        )}
+        <button
+          className={`absolute top-2.5 right-2.5 w-9 h-9 rounded-full border-0 inline-flex items-center justify-center transition-colors ${saved ? 'bg-coral text-white' : 'bg-white/90 text-ink'}`}
+          onClick={(e) => {
+            e.stopPropagation();
+            onToggleSave(event.id);
+          }}
+          aria-label={saved ? 'Usuń z zapisanych' : 'Zapisz'}
+        >
+          <IconHeart fill={saved ? 'currentColor' : 'none'} size={16} />
+        </button>
       </div>
-    </div>
-  </article>
-);
+      <div className="px-3.5 py-3 pb-4 flex flex-col gap-1.5">
+        <MonoLabel>
+          {fmtDate(event.date)} · {event.city}
+        </MonoLabel>
+        <h3 className="font-display font-medium text-lg leading-[1.15] tracking-[-0.02em] m-0">
+          {event.name}
+        </h3>
+        <div className="flex justify-between gap-3 text-body-muted text-xs">
+          <span className="bg-soft-stone rounded-[6px] px-2 py-0.5">
+            {categoryLabel(event.category)}
+          </span>
+          <span className="truncate">{event.venue}</span>
+        </div>
+      </div>
+    </article>
+  );
+};

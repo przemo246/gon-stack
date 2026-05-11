@@ -1,72 +1,50 @@
-import { useMemo, useReducer } from 'react';
-import type { User } from '@supabase/supabase-js';
-
-import { Header } from './header';
 import { Hero } from './hero';
 import { FeaturedGrid } from './featured-grid';
 import { CategoryBand } from './category-band';
-import { Footer } from './footer';
-import { EVENTS } from './mock-data';
-import type { SearchValue } from './search-bar';
-
-type State = {
-  search: SearchValue;
-  saved: Set<string>;
-};
-
-type Action =
-  | { type: 'SET_SEARCH'; payload: SearchValue }
-  | { type: 'TOGGLE_SAVE'; payload: string };
-
-const initialState: State = {
-  search: { name: '', category: '', city: '', date: '' },
-  saved: new Set(),
-};
-
-const reducer = (state: State, action: Action): State => {
-  switch (action.type) {
-    case 'SET_SEARCH':
-      return { ...state, search: action.payload };
-    case 'TOGGLE_SAVE': {
-      const next = new Set(state.saved);
-      if (next.has(action.payload)) next.delete(action.payload);
-      else next.add(action.payload);
-      return { ...state, saved: next };
-    }
-    default: {
-      const exhaustiveCheck: never = action;
-      return exhaustiveCheck;
-    }
-  }
-};
+import { ManifestBand } from './manifest-band';
+import type { SearchState } from './search-bar';
+import type { Event } from './mock-data';
 
 type LandingProps = {
-  user: User | null;
+  search: SearchState;
+  onSearchChange: (v: SearchState) => void;
+  onSearchSubmit: () => void;
+  onQuickSearch: (query: Partial<SearchState>) => void;
+  featuredEvents: Event[];
+  onOpenEvent: (event: Event) => void;
+  onToggleSave: (id: string) => void;
+  savedSet: Set<string>;
+  onPickCategory: (id: string) => void;
+  onBrowseAll: () => void;
 };
 
-export const Landing = ({ user }: LandingProps) => {
-  const [{ search, saved }, dispatch] = useReducer(reducer, initialState);
-
-  const featured = useMemo(
-    () => EVENTS.filter((e) => e.featured).slice(0, 8),
-    [],
-  );
-
-  return (
-    <>
-      <Header user={user} />
-      <Hero
-        search={search}
-        setSearch={(v) => dispatch({ type: 'SET_SEARCH', payload: v })}
-        onSubmit={() => {}}
-      />
-      <FeaturedGrid
-        events={featured}
-        saved={saved}
-        onToggleSave={(id) => dispatch({ type: 'TOGGLE_SAVE', payload: id })}
-      />
-      <CategoryBand onPickCategory={() => {}} />
-      <Footer />
-    </>
-  );
-};
+export const Landing = ({
+  search,
+  onSearchChange,
+  onSearchSubmit,
+  onQuickSearch,
+  featuredEvents,
+  onOpenEvent,
+  onToggleSave,
+  savedSet,
+  onPickCategory,
+  onBrowseAll,
+}: LandingProps) => (
+  <>
+    <Hero
+      search={search}
+      onChange={onSearchChange}
+      onSubmit={onSearchSubmit}
+      onQuickSearch={onQuickSearch}
+    />
+    <FeaturedGrid
+      events={featuredEvents}
+      onOpen={onOpenEvent}
+      onToggleSave={onToggleSave}
+      savedSet={savedSet}
+      onBrowseAll={onBrowseAll}
+    />
+    <CategoryBand onPick={onPickCategory} />
+    <ManifestBand />
+  </>
+);
