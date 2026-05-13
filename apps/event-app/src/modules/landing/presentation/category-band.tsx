@@ -11,9 +11,9 @@ export const CategoryBand = ({ onPick }: CategoryBandProps) => (
     <div className="flex justify-between items-end gap-8 mt-18 mb-7">
       <div>
         <Text.MonoLabel>KATEGORIE</Text.MonoLabel>
-        <h2 className="font-display font-medium leading-[1.05] tracking-[-0.02em] mt-2 max-w-180 text-[clamp(32px,4.5vw,56px)]">
+        <Text.SectionHeading className="mt-2 max-w-180">
           Wybierz, co lubisz najbardziej.
-        </h2>
+        </Text.SectionHeading>
       </div>
     </div>
     <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
@@ -22,13 +22,11 @@ export const CategoryBand = ({ onPick }: CategoryBandProps) => (
         return (
           <button
             key={c.id}
-            className="group relative bg-canvas border border-card-border rounded-[14px] p-5 text-left text-ink flex flex-col gap-2 min-h-32.5 transition-colors hover:bg-primary hover:text-on-primary"
+            className="group relative bg-card-bg border border-card-border-c rounded-[14px] p-5 text-left text-ink flex flex-col gap-2 min-h-32.5 transition-colors hover:bg-primary hover:text-on-primary"
             onClick={() => onPick(c.id)}
           >
             <Text.MonoLabel className="text-coral">{c.mono}</Text.MonoLabel>
-            <div className="font-display font-medium text-[28px] leading-[1.05] tracking-[-0.02em]">
-              {c.label}
-            </div>
+            <Text.CategoryHeading as="div">{c.label}</Text.CategoryHeading>
             <div className="text-muted text-sm group-hover:text-on-primary/70 transition-colors">
               {count} wydarzeń
             </div>

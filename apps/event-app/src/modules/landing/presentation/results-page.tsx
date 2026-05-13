@@ -58,7 +58,10 @@ export const ResultsPage = ({
     <section className="px-8 py-12 max-w-360 mx-auto">
       <div className="mb-8">
         <Text.MonoLabel>WYNIKI WYSZUKIWANIA</Text.MonoLabel>
-        <h1 className="font-display font-medium tracking-tight leading-[1.05] my-2 text-[clamp(36px,5vw,64px)]">
+        <Text.SectionHeading
+          as="h1"
+          className="my-2 text-[clamp(36px,5vw,64px)]"
+        >
           {results.length}{' '}
           {plural(results.length, 'wydarzenie', 'wydarzenia', 'wydarzeń')}
           {search.city && (
@@ -68,7 +71,7 @@ export const ResultsPage = ({
             </>
           )}
           {search.category && <> · {categoryLabel(search.category)}</>}
-        </h1>
+        </Text.SectionHeading>
         <div className="mb-4">
           <SearchBar
             value={search}
@@ -90,7 +93,7 @@ export const ResultsPage = ({
           onChange={(v) => onSearchChange({ ...search, category: v })}
         />
         <div className="flex gap-4 items-center">
-          <div className="inline-flex bg-soft-stone border border-card-border rounded-full p-1 items-center">
+          <div className="inline-flex bg-surface border border-card-border-c rounded-full p-1 items-center">
             <button
               className={segBtn(layout === 'grid')}
               onClick={() => setLayout('grid')}
@@ -104,7 +107,7 @@ export const ResultsPage = ({
               Lista
             </button>
           </div>
-          <div className="inline-flex bg-soft-stone border border-card-border rounded-full p-1 items-center gap-0">
+          <div className="inline-flex bg-surface border border-card-border-c rounded-full p-1 items-center gap-0">
             <span className="text-xs text-muted px-2.5">Sortuj:</span>
             {(['date', 'name', 'city'] as const).map((k) => (
               <button
@@ -120,7 +123,7 @@ export const ResultsPage = ({
       </div>
 
       {sorted.length === 0 ? (
-        <div className="py-20 px-8 text-center bg-soft-stone rounded-lg flex flex-col items-center gap-3">
+        <div className="py-20 px-8 text-center bg-surface rounded-lg flex flex-col items-center gap-3">
           <Text.MonoLabel>BRAK WYNIKÓW</Text.MonoLabel>
           <h2 className="font-display font-medium text-[32px] m-1">
             Nic nie pasuje do tych filtrów.

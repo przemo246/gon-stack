@@ -36,7 +36,7 @@ export const Hero = ({
       <Text.MonoLabel className="text-coral">
         AFISZ · POLSKA · 2026
       </Text.MonoLabel>
-      <Text.HeroDisplay className="font-medium my-4 mb-6 leading-[0.92] tracking-[-0.04em]">
+      <Text.HeroDisplay className="my-4 mb-6">
         Znajdź coś,
         <br />
         co warto
@@ -56,7 +56,7 @@ export const Hero = ({
         {QUICK_LINKS.map((ql) => (
           <button
             key={ql.label}
-            className="bg-soft-stone border border-card-border rounded-full px-4 py-2 text-ink text-sm hover:bg-coral hover:text-white hover:border-coral transition-colors"
+            className="bg-surface border border-card-border-c rounded-full px-4 py-2 text-ink text-sm hover:bg-coral hover:text-white hover:border-coral transition-colors"
             onClick={() => {
               onChange({ ...search, ...ql.query });
               onQuickSearch(ql.query);

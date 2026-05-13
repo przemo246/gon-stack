@@ -22,9 +22,9 @@ export const FeaturedGrid = ({
     <div className="flex justify-between items-end gap-8 mt-18 mb-7">
       <div>
         <Text.MonoLabel>WYDARZENIA POLECANE</Text.MonoLabel>
-        <h2 className="font-display font-medium leading-[1.05] tracking-[-0.02em] mt-2 max-w-180 text-[clamp(32px,4.5vw,56px)]">
+        <Text.SectionHeading className="mt-2 max-w-180">
           Najgłośniejsze afisze tygodnia.
-        </h2>
+        </Text.SectionHeading>
       </div>
       <button
         className="text-ink text-sm inline-flex gap-2 items-center border-b border-ink pb-0.5 bg-transparent border-0 whitespace-nowrap hover:text-coral hover:border-coral transition-colors"

@@ -45,7 +45,7 @@ export const DetailsPage = ({
       </button>
 
       {/* Hero block */}
-      <div className="grid gap-12 items-stretch bg-soft-stone rounded-lg p-8 mb-8 grid-cols-[0.9fr_1.1fr]">
+      <div className="grid gap-12 items-stretch bg-surface rounded-lg p-8 mb-8 grid-cols-[0.9fr_1.1fr]">
         <div className="rounded-[18px] overflow-hidden aspect-3/4 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.25)]">
           <Poster event={event} size="lg" />
         </div>
@@ -54,15 +54,13 @@ export const DetailsPage = ({
             {categoryLabel(event.category).toUpperCase()} ·{' '}
             {event.city.toUpperCase()}
           </Text.MonoLabel>
-          <h1 className="font-display font-medium leading-none tracking-[-0.03em] m-0 text-[clamp(40px,5vw,72px)]">
-            {event.name}
-          </h1>
+          <Text.PageHeading className="m-0">{event.name}</Text.PageHeading>
 
           {/* When / where */}
           <div className="grid grid-cols-2 gap-6 border-t border-b border-hairline py-5">
             <div className="flex flex-col gap-1.5">
               <Text.MonoLabel>DATA</Text.MonoLabel>
-              <div className="font-display font-medium text-[44px] leading-none tracking-[-0.02em]">
+              <Text.DateDisplay as="div">
                 {fmtDayNum(event.date)}{' '}
                 <span className="font-mono text-base tracking-[0.16em] text-coral">
                   {fmtMonthShort(event.date)}
@@ -76,16 +74,16 @@ export const DetailsPage = ({
                     </span>
                   </>
                 )}
-              </div>
+              </Text.DateDisplay>
               <div className="text-sm text-body-muted">
                 {fmtDayName(event.date)}, godz. {event.time}
               </div>
             </div>
             <div className="flex flex-col gap-1.5">
               <Text.MonoLabel>MIEJSCE</Text.MonoLabel>
-              <div className="font-display font-medium text-2xl leading-[1.2] tracking-[-0.02em]">
+              <Text.SubsectionHeading as="div">
                 {event.venue}
-              </div>
+              </Text.SubsectionHeading>
               <div className="text-sm text-body-muted">{event.city}</div>
             </div>
           </div>
@@ -139,9 +137,9 @@ export const DetailsPage = ({
 
           <section className="mb-10">
             <Text.MonoLabel>LOKALIZACJA</Text.MonoLabel>
-            <h3 className="font-display font-medium text-2xl tracking-[-0.02em] mt-2 mb-4">
+            <Text.SubsectionHeading className="mt-2 mb-4">
               {event.venue}, {event.city}
-            </h3>
+            </Text.SubsectionHeading>
             {/* Stylized Poland map */}
             <PolandMap pin={event.coords} label={event.city} />
             <div className="grid grid-cols-3 gap-6 mt-4 pt-4 border-t border-hairline">
@@ -166,7 +164,7 @@ export const DetailsPage = ({
         </div>
 
         <aside>
-          <div className="bg-canvas border border-card-border rounded-md p-5 mb-4">
+          <div className="bg-card-bg border border-card-border-c rounded-md p-5 mb-4">
             <Text.MonoLabel>SZCZEGÓŁY</Text.MonoLabel>
             <ul className="list-none p-0 mt-3 m-0 flex flex-col gap-0">
               {[
@@ -207,9 +205,9 @@ export const DetailsPage = ({
           <div className="flex justify-between items-end gap-8 mb-7">
             <div>
               <Text.MonoLabel>PODOBNE WYDARZENIA</Text.MonoLabel>
-              <h2 className="font-display font-medium leading-[1.05] tracking-[-0.02em] mt-2 text-[clamp(32px,4.5vw,56px)]">
+              <Text.SectionHeading className="mt-2">
                 Jeśli podoba ci się to, zobacz też.
-              </h2>
+              </Text.SectionHeading>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-5 lg:grid-cols-3">
@@ -253,7 +251,7 @@ const PolandMap = ({ pin, label }: PolandMapProps) => {
   const W = 800,
     H = 600;
   return (
-    <div className="relative bg-soft-stone border border-card-border rounded-[18px] overflow-hidden mt-4 aspect-4/3">
+    <div className="relative bg-surface border border-card-border-c rounded-[18px] overflow-hidden mt-4 aspect-4/3">
       <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-full block">
         <defs>
           <pattern
@@ -265,7 +263,7 @@ const PolandMap = ({ pin, label }: PolandMapProps) => {
             <path
               d="M32 0H0V32"
               fill="none"
-              stroke="#e5e7eb"
+              stroke="var(--color-map-grid)"
               strokeWidth="0.5"
             />
           </pattern>
@@ -273,34 +271,44 @@ const PolandMap = ({ pin, label }: PolandMapProps) => {
         <rect width={W} height={H} fill="url(#mapgrid)" />
         <path
           d="M120 180 L200 110 L320 90 L460 80 L580 100 L680 140 L720 220 L700 320 L680 420 L600 500 L480 540 L360 530 L240 500 L160 430 L110 340 Z"
-          fill="#eeece7"
-          stroke="#c6c4be"
+          fill="var(--color-map-land)"
+          stroke="var(--color-map-coast)"
           strokeWidth="1.5"
         />
         {CITY_DOTS.map((c) => (
           <g key={c.n}>
-            <circle cx={c.x * W} cy={c.y * H} r="3" fill="#75758a" />
+            <circle
+              cx={c.x * W}
+              cy={c.y * H}
+              r="3"
+              fill="var(--color-map-city)"
+            />
             <text
               x={c.x * W + 8}
               y={c.y * H + 4}
               fontFamily="monospace"
               fontSize="10"
-              fill="#75758a"
+              fill="var(--color-map-city)"
             >
               {c.n}
             </text>
           </g>
         ))}
         <g transform={`translate(${pin.x * W}, ${pin.y * H})`}>
-          <circle r="32" fill="#ff7759" opacity="0.18" />
-          <circle r="18" fill="#ff7759" opacity="0.32" />
-          <circle r="8" fill="#ff7759" stroke="#ffffff" strokeWidth="2" />
+          <circle r="32" fill="var(--color-coral)" opacity="0.18" />
+          <circle r="18" fill="var(--color-coral)" opacity="0.32" />
+          <circle
+            r="8"
+            fill="var(--color-coral)"
+            stroke="var(--color-canvas)"
+            strokeWidth="2"
+          />
           <line
             x1="0"
             y1="-12"
             x2="0"
             y2="-32"
-            stroke="#ff7759"
+            stroke="var(--color-coral)"
             strokeWidth="1.5"
           />
           <text
@@ -309,7 +317,7 @@ const PolandMap = ({ pin, label }: PolandMapProps) => {
             fontFamily="monospace"
             fontSize="12"
             fontWeight="600"
-            fill="#ff7759"
+            fill="var(--color-coral)"
           >
             {label.toUpperCase()}
           </text>

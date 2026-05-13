@@ -30,7 +30,7 @@ type DropdownProps = {
 
 const Dropdown = ({ children }: DropdownProps) => (
   <div
-    className="absolute top-[calc(100%+8px)] left-0 min-w-60 bg-canvas border border-card-border rounded-[14px] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.2)] z-30 max-h-80 overflow-y-auto p-1.5"
+    className="absolute top-[calc(100%+8px)] left-0 min-w-60 bg-card-bg border border-card-border-c rounded-[14px] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.2)] z-30 max-h-80 overflow-y-auto p-1.5"
     onClick={(e) => e.stopPropagation()}
   >
     {children}
@@ -45,7 +45,7 @@ type DropdownItemProps = {
 
 const DropdownItem = ({ children, active, onClick }: DropdownItemProps) => (
   <button
-    className={`flex items-center justify-between gap-3 w-full border-0 px-3 py-2.5 rounded-[10px] text-sm text-left transition-colors ${active ? 'bg-ink text-canvas' : 'bg-transparent text-ink hover:bg-soft-stone'}`}
+    className={`flex items-center justify-between gap-3 w-full border-0 px-3 py-2.5 rounded-[10px] text-sm text-left transition-colors ${active ? 'bg-ink text-canvas' : 'bg-transparent text-ink hover:bg-surface'}`}
     onClick={onClick}
   >
     {children}
@@ -80,12 +80,12 @@ export const SearchBar = ({
   return (
     <div
       ref={wrapRef}
-      className="bg-canvas border border-card-border rounded-lg shadow-[0_30px_60px_-40px_rgba(0,0,0,0.18)]"
+      className="bg-card-bg border border-card-border-c rounded-lg shadow-[0_30px_60px_-40px_rgba(0,0,0,0.18)]"
     >
       <div className="grid items-stretch grid-cols-[1.2fr_1px_1fr_1px_1fr_1px_1fr_auto]">
         {/* Name */}
         <div
-          className={`relative flex flex-col gap-1 cursor-text min-w-0 ${fieldPad} ${openField === 'name' ? 'bg-soft-stone rounded-l-lg' : ''}`}
+          className={`relative flex flex-col gap-1 cursor-text min-w-0 ${fieldPad} ${openField === 'name' ? 'bg-surface rounded-l-lg' : ''}`}
           onClick={() => setOpenField('name')}
         >
           <Text.MonoLabel className="text-[10px]!">Wydarzenie</Text.MonoLabel>
@@ -106,7 +106,7 @@ export const SearchBar = ({
 
         {/* Category */}
         <div
-          className={`relative flex flex-col gap-1 cursor-pointer min-w-0 ${fieldPad} ${openField === 'category' ? 'bg-soft-stone' : ''}`}
+          className={`relative flex flex-col gap-1 cursor-pointer min-w-0 ${fieldPad} ${openField === 'category' ? 'bg-surface' : ''}`}
           onClick={() => setOpenField('category')}
         >
           <Text.MonoLabel className="text-[10px]!">Kategoria</Text.MonoLabel>
@@ -158,7 +158,7 @@ export const SearchBar = ({
 
         {/* Location */}
         <div
-          className={`relative flex flex-col gap-1 cursor-pointer min-w-0 ${fieldPad} ${openField === 'city' ? 'bg-soft-stone' : ''}`}
+          className={`relative flex flex-col gap-1 cursor-pointer min-w-0 ${fieldPad} ${openField === 'city' ? 'bg-surface' : ''}`}
           onClick={() => setOpenField('city')}
         >
           <Text.MonoLabel className="text-[10px]!">Lokalizacja</Text.MonoLabel>
@@ -203,7 +203,7 @@ export const SearchBar = ({
 
         {/* Date */}
         <div
-          className={`relative flex flex-col gap-1 cursor-pointer min-w-0 ${fieldPad} ${openField === 'date' ? 'bg-soft-stone' : ''}`}
+          className={`relative flex flex-col gap-1 cursor-pointer min-w-0 ${fieldPad} ${openField === 'date' ? 'bg-surface' : ''}`}
           onClick={() => setOpenField('date')}
         >
           <Text.MonoLabel className="text-[10px]!">Data</Text.MonoLabel>

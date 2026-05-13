@@ -24,13 +24,11 @@ export const EventCard = ({
   if (layout === 'list') {
     return (
       <article
-        className="grid gap-5 items-center p-4.5 bg-canvas border border-card-border rounded-[14px] cursor-pointer hover:border-ink transition-colors grid-cols-[80px_100px_1fr_auto]"
+        className="grid gap-5 items-center p-4.5 bg-card-bg border border-card-border-c rounded-[14px] cursor-pointer hover:border-ink transition-colors grid-cols-[80px_100px_1fr_auto]"
         onClick={() => onOpen(event)}
       >
         <div className="text-center border-r border-hairline pr-3">
-          <div className="font-display text-[36px] leading-none font-medium">
-            {fmtDayNum(event.date)}
-          </div>
+          <Text.DateNum as="div">{fmtDayNum(event.date)}</Text.DateNum>
           <div className="font-mono text-[11px] tracking-[0.18em] text-coral">
             {fmtMonthShort(event.date)}
           </div>
@@ -46,9 +44,7 @@ export const EventCard = ({
             {categoryLabel(event.category).toUpperCase()} ·{' '}
             {event.city.toUpperCase()}
           </Text.MonoLabel>
-          <h3 className="font-display font-medium text-[22px] leading-[1.15] tracking-[-0.02em] my-1.5">
-            {event.name}
-          </h3>
+          <Text.CardTitleLg className="my-1.5">{event.name}</Text.CardTitleLg>
           <div className="flex gap-4.5 text-sm text-body-muted">
             <span className="inline-flex gap-1.5 items-center">
               <IconPin size={14} /> {event.venue}
@@ -60,7 +56,7 @@ export const EventCard = ({
         </div>
         <div className="flex gap-3 items-center">
           <button
-            className={`w-9 h-9 rounded-full border inline-flex items-center justify-center transition-colors ${saved ? 'text-coral border-coral' : 'bg-soft-stone border-card-border text-ink'}`}
+            className={`w-9 h-9 rounded-full border inline-flex items-center justify-center transition-colors ${saved ? 'text-coral border-coral' : 'bg-surface border-card-border-c text-ink'}`}
             onClick={(e) => {
               e.stopPropagation();
               onToggleSave(event.id);
@@ -85,7 +81,7 @@ export const EventCard = ({
 
   return (
     <article
-      className="bg-canvas border border-card-border rounded-md overflow-hidden cursor-pointer transition-[transform,box-shadow] hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-25px_rgba(0,0,0,0.25)] flex flex-col"
+      className="bg-card-bg border border-card-border-c rounded-md overflow-hidden cursor-pointer transition-[transform,box-shadow] hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-25px_rgba(0,0,0,0.25)] flex flex-col"
       onClick={() => onOpen(event)}
     >
       <div className="relative aspect-3/4 rounded-[10px] overflow-hidden m-2.5">
@@ -110,11 +106,9 @@ export const EventCard = ({
         <Text.MonoLabel>
           {fmtDate(event.date)} · {event.city}
         </Text.MonoLabel>
-        <h3 className="font-display font-medium text-lg leading-[1.15] tracking-[-0.02em] m-0">
-          {event.name}
-        </h3>
+        <Text.CardTitle className="m-0">{event.name}</Text.CardTitle>
         <div className="flex justify-between gap-3 text-body-muted text-xs">
-          <span className="bg-soft-stone rounded-[6px] px-2 py-0.5">
+          <span className="bg-surface rounded-[6px] px-2 py-0.5">
             {categoryLabel(event.category)}
           </span>
           <span className="truncate">{event.venue}</span>

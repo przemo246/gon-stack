@@ -1,4 +1,6 @@
-import { IconHeart, IconUser } from './icons';
+import { Moon, UserRound, Heart } from 'lucide-react';
+
+import { Text } from '@/libs/ui/text';
 import type { User } from '@supabase/supabase-js';
 
 export type Route = 'home' | 'results' | 'details';
@@ -25,12 +27,7 @@ const NavButton = ({ label, active, onClick }: NavButtonProps) => (
   </button>
 );
 
-export const Header = ({
-  route,
-  onNavigate,
-  savedCount,
-  user,
-}: HeaderProps) => (
+export const Header = ({ route, onNavigate, savedCount }: HeaderProps) => (
   <header className="sticky top-0 z-50 border-b border-hairline bg-canvas/85 backdrop-blur-md">
     <div className="max-w-360 mx-auto px-8 py-3.5 grid gap-8 items-center grid-cols-[auto_1fr_auto]">
       {/* Logo */}
@@ -41,9 +38,7 @@ export const Header = ({
         <span className="w-7 h-7 rounded-sm bg-primary text-on-primary inline-flex items-center justify-center font-display font-bold text-base">
           A
         </span>
-        <span className="font-display font-semibold text-[22px] tracking-[-0.02em]">
-          Afisz
-        </span>
+        <Text.LogoWordmark>Afisz</Text.LogoWordmark>
       </button>
 
       {/* Nav */}
@@ -68,11 +63,14 @@ export const Header = ({
 
       {/* Right */}
       <div className="flex gap-2 items-center">
+        <button className="bg-surface border border-card-border-c rounded-full inline-flex justify-center items-center text-ink text-sm hover:bg-primary hover:text-on-primary transition-colors w-10 h-10">
+          <Moon size={14} />
+        </button>
         <button
-          className="bg-soft-stone border border-card-border rounded-full px-3.5 py-2 inline-flex gap-2 items-center text-ink text-sm hover:bg-primary hover:text-on-primary transition-colors"
+          className="bg-surface border border-card-border-c rounded-full px-3.5 py-2 inline-flex gap-2 items-center text-ink text-sm hover:bg-primary hover:text-on-primary transition-colors h-10"
           onClick={() => onNavigate('results')}
         >
-          <IconHeart size={14} />
+          <Heart size={14} />
           Zapisane
           {savedCount > 0 && (
             <span className="bg-coral text-white rounded-full min-w-5 h-5 inline-flex items-center justify-center font-mono text-[11px] px-1.5">
@@ -80,11 +78,8 @@ export const Header = ({
             </span>
           )}
         </button>
-        <button className="bg-primary text-on-primary border-0 rounded-full px-3.5 py-2 inline-flex gap-2 items-center text-sm hover:opacity-90 transition-opacity">
-          <IconUser size={14} />
-          <span>
-            {user ? user.email?.split('@')[0]?.slice(0, 2).toUpperCase() : 'JK'}
-          </span>
+        <button className="bg-primary text-on-primary border-0 rounded-full inline-flex justify-center items-center text-sm hover:opacity-90 transition-opacity h-10 w-10">
+          <UserRound size={14} />
         </button>
       </div>
     </div>

@@ -7,18 +7,19 @@ import { cn } from './cn';
  * ============================================================================= */
 
 type TextVariant =
-  | 'hero-display'
-  | 'product-display'
-  | 'section-display'
-  | 'section-heading'
-  | 'card-heading'
-  | 'feature-heading'
-  | 'body-large'
-  | 'body'
-  | 'button'
-  | 'caption'
   | 'mono-label'
-  | 'micro';
+  | 'hero-display'
+  | 'manifest-heading'
+  | 'page-heading'
+  | 'section-heading'
+  | 'category-heading'
+  | 'card-title-lg'
+  | 'card-title'
+  | 'logo-wordmark'
+  | 'footer-brand'
+  | 'date-display'
+  | 'date-num'
+  | 'subsection-heading';
 
 type TextBaseProps<TAs extends ElementType> = {
   as?: TAs;
@@ -55,34 +56,36 @@ const createTextPart = <TDefaultAs extends ElementType>(
  * Compound Parts
  * ============================================================================= */
 
-export const HeroDisplay = createTextPart('hero-display', 'h1');
-export const ProductDisplay = createTextPart('product-display', 'h1');
-export const SectionDisplay = createTextPart('section-display', 'h2');
-export const SectionHeading = createTextPart('section-heading', 'h2');
-export const CardHeading = createTextPart('card-heading', 'h3');
-export const FeatureHeading = createTextPart('feature-heading', 'h4');
-export const BodyLarge = createTextPart('body-large', 'p');
-export const Body = createTextPart('body', 'p');
-export const Button = createTextPart('button', 'span');
-export const Caption = createTextPart('caption', 'span');
 export const MonoLabel = createTextPart('mono-label', 'span');
-export const Micro = createTextPart('micro', 'span');
+export const HeroDisplay = createTextPart('hero-display', 'h1');
+export const ManifestHeading = createTextPart('manifest-heading', 'h2');
+export const PageHeading = createTextPart('page-heading', 'h1');
+export const SectionHeading = createTextPart('section-heading', 'h2');
+export const CategoryHeading = createTextPart('category-heading', 'h3');
+export const CardTitleLg = createTextPart('card-title-lg', 'h3');
+export const CardTitle = createTextPart('card-title', 'h3');
+export const LogoWordmark = createTextPart('logo-wordmark', 'span');
+export const FooterBrand = createTextPart('footer-brand', 'span');
+export const DateDisplay = createTextPart('date-display', 'span');
+export const DateNum = createTextPart('date-num', 'span');
+export const SubsectionHeading = createTextPart('subsection-heading', 'h3');
 
 /* =============================================================================
  * Compound Export
  * ============================================================================= */
 
 export const Text = {
-  HeroDisplay,
-  ProductDisplay,
-  SectionDisplay,
-  SectionHeading,
-  CardHeading,
-  FeatureHeading,
-  BodyLarge,
-  Body,
-  Button,
-  Caption,
   MonoLabel,
-  Micro,
+  HeroDisplay,
+  ManifestHeading,
+  PageHeading,
+  SectionHeading,
+  CategoryHeading,
+  CardTitleLg,
+  CardTitle,
+  LogoWordmark,
+  FooterBrand,
+  DateDisplay,
+  DateNum,
+  SubsectionHeading,
 };

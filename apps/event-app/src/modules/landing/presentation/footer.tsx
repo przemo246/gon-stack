@@ -51,9 +51,9 @@ export const Footer = () => (
   <footer className="bg-primary text-on-primary pt-20 px-8 pb-8 mt-16">
     <div className="max-w-360 mx-auto grid gap-12 grid-cols-2 lg:grid-cols-4">
       <div className="flex flex-col gap-3">
-        <div className="font-display font-semibold text-[36px] tracking-tight">
+        <Text.FooterBrand as="div">
           Afisz<span className="text-coral">.</span>
-        </div>
+        </Text.FooterBrand>
         <p className="text-white/70 text-sm max-w-[32ch] m-0">
           Cała Polska na żywo. Promocja wydarzeń, nie sprzedaż biletów.
         </p>
