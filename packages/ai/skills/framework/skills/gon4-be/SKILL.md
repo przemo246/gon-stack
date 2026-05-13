@@ -1,5 +1,5 @@
 ---
-name: plan-backend
+name: gon4-be
 description: Plan backend APIs from requirements. Ask API style (REST/RPC), suggest realtime (SSE/WS) when needed, output Zod `in`/`out` contracts for endpoints/procedures/channels.
 ---
 

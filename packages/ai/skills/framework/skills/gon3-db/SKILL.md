@@ -1,5 +1,5 @@
 ---
-name: plan-db
+name: gon3-db
 description: Use when designing a database schema from requirements. Validates all required info upfront, then outputs complete database plan in one shot — entities, diagrams, indexes, security, normalization, migration files, schema doc. Trigger on "design schema", "database design", "db schema", "model the data", "schema for feature", "design the tables".
 ---
 
