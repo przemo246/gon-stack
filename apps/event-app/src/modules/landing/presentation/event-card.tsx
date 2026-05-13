@@ -1,5 +1,5 @@
 import { Poster } from './poster';
-import { MonoLabel } from './mono-label';
+import { Text } from '@/libs/ui/text';
 import { IconHeart, IconPin, IconClock, IconArrow } from './icons';
 import { fmtDate, fmtDayNum, fmtMonthShort, categoryLabel } from './mock-data';
 import type { Event } from './mock-data';
@@ -24,8 +24,7 @@ export const EventCard = ({
   if (layout === 'list') {
     return (
       <article
-        className="grid gap-5 items-center p-[18px] bg-canvas border border-card-border rounded-[14px] cursor-pointer hover:border-ink transition-colors"
-        style={{ gridTemplateColumns: '80px 100px 1fr auto' }}
+        className="grid gap-5 items-center p-4.5 bg-canvas border border-card-border rounded-[14px] cursor-pointer hover:border-ink transition-colors grid-cols-[80px_100px_1fr_auto]"
         onClick={() => onOpen(event)}
       >
         <div className="text-center border-r border-hairline pr-3">
@@ -39,18 +38,18 @@ export const EventCard = ({
             {new Date(event.date).getFullYear()}
           </div>
         </div>
-        <div className="aspect-[3/4] h-[110px] rounded-sm overflow-hidden">
+        <div className="aspect-3/4 h-27.5 rounded-sm overflow-hidden">
           <Poster event={event} size="sm" />
         </div>
         <div>
-          <MonoLabel>
+          <Text.MonoLabel>
             {categoryLabel(event.category).toUpperCase()} ·{' '}
             {event.city.toUpperCase()}
-          </MonoLabel>
+          </Text.MonoLabel>
           <h3 className="font-display font-medium text-[22px] leading-[1.15] tracking-[-0.02em] my-1.5">
             {event.name}
           </h3>
-          <div className="flex gap-[18px] text-sm text-body-muted">
+          <div className="flex gap-4.5 text-sm text-body-muted">
             <span className="inline-flex gap-1.5 items-center">
               <IconPin size={14} /> {event.venue}
             </span>
@@ -89,7 +88,7 @@ export const EventCard = ({
       className="bg-canvas border border-card-border rounded-md overflow-hidden cursor-pointer transition-[transform,box-shadow] hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-25px_rgba(0,0,0,0.25)] flex flex-col"
       onClick={() => onOpen(event)}
     >
-      <div className="relative aspect-[3/4] rounded-[10px] overflow-hidden m-2.5">
+      <div className="relative aspect-3/4 rounded-[10px] overflow-hidden m-2.5">
         <Poster event={event} size="md" />
         {event.badge && (
           <span className="absolute top-3 left-3 bg-coral text-white font-mono text-[10px] tracking-[0.16em] px-2 py-1 rounded-[6px] uppercase">
@@ -107,10 +106,10 @@ export const EventCard = ({
           <IconHeart fill={saved ? 'currentColor' : 'none'} size={16} />
         </button>
       </div>
-      <div className="px-3.5 py-3 pb-4 flex flex-col gap-1.5">
-        <MonoLabel>
+      <div className="px-3.5 py-3 pb-4 flex flex-col gap-2.5">
+        <Text.MonoLabel>
           {fmtDate(event.date)} · {event.city}
-        </MonoLabel>
+        </Text.MonoLabel>
         <h3 className="font-display font-medium text-lg leading-[1.15] tracking-[-0.02em] m-0">
           {event.name}
         </h3>

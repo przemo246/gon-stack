@@ -1,4 +1,3 @@
-import { MonoLabel } from './mono-label';
 import { IconHeart, IconUser } from './icons';
 import type { User } from '@supabase/supabase-js';
 
@@ -32,20 +31,11 @@ export const Header = ({
   savedCount,
   user,
 }: HeaderProps) => (
-  <header
-    className="sticky top-0 z-50 border-b border-hairline"
-    style={{
-      background: 'color-mix(in srgb, var(--color-canvas) 85%, transparent)',
-      backdropFilter: 'blur(12px)',
-    }}
-  >
-    <div
-      className="max-w-[1440px] mx-auto px-8 py-3.5 grid gap-8 items-center"
-      style={{ gridTemplateColumns: 'auto 1fr auto' }}
-    >
+  <header className="sticky top-0 z-50 border-b border-hairline bg-canvas/85 backdrop-blur-md">
+    <div className="max-w-360 mx-auto px-8 py-3.5 grid gap-8 items-center grid-cols-[auto_1fr_auto]">
       {/* Logo */}
       <button
-        className="inline-flex items-center gap-2 bg-transparent border-0 p-0 text-ink cursor-pointer"
+        className="inline-flex items-center gap-2 bg-transparent border-0 p-0 text-ink"
         onClick={() => onNavigate('home')}
       >
         <span className="w-7 h-7 rounded-sm bg-primary text-on-primary inline-flex items-center justify-center font-display font-bold text-base">
@@ -54,7 +44,6 @@ export const Header = ({
         <span className="font-display font-semibold text-[22px] tracking-[-0.02em]">
           Afisz
         </span>
-        <MonoLabel>POLSKA</MonoLabel>
       </button>
 
       {/* Nav */}

@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { MonoLabel } from './mono-label';
+import { Text } from '@/libs/ui/text';
 import { EventCard } from './event-card';
 import { CategoryChips } from './category-chips';
 import { SearchBar, ActiveFilters } from './search-bar';
@@ -57,11 +57,8 @@ export const ResultsPage = ({
   return (
     <section className="px-8 py-12 max-w-360 mx-auto">
       <div className="mb-8">
-        <MonoLabel>WYNIKI WYSZUKIWANIA</MonoLabel>
-        <h1
-          className="font-display font-medium tracking-tight leading-[1.05] my-2"
-          style={{ fontSize: 'clamp(36px, 5vw, 64px)' }}
-        >
+        <Text.MonoLabel>WYNIKI WYSZUKIWANIA</Text.MonoLabel>
+        <h1 className="font-display font-medium tracking-tight leading-[1.05] my-2 text-[clamp(36px,5vw,64px)]">
           {results.length}{' '}
           {plural(results.length, 'wydarzenie', 'wydarzenia', 'wydarzeń')}
           {search.city && (
@@ -124,7 +121,7 @@ export const ResultsPage = ({
 
       {sorted.length === 0 ? (
         <div className="py-20 px-8 text-center bg-soft-stone rounded-lg flex flex-col items-center gap-3">
-          <MonoLabel>BRAK WYNIKÓW</MonoLabel>
+          <Text.MonoLabel>BRAK WYNIKÓW</Text.MonoLabel>
           <h2 className="font-display font-medium text-[32px] m-1">
             Nic nie pasuje do tych filtrów.
           </h2>

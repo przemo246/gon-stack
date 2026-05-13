@@ -1,4 +1,4 @@
-import { MonoLabel } from './mono-label';
+import { Text } from '@/libs/ui/text';
 import { EventCard } from './event-card';
 import { IconArrow } from './icons';
 import type { Event } from './mock-data';
@@ -18,19 +18,16 @@ export const FeaturedGrid = ({
   savedSet,
   onBrowseAll,
 }: FeaturedGridProps) => (
-  <section className="px-8 pb-12 max-w-[1440px] mx-auto">
-    <div className="flex justify-between items-end gap-8 mt-[72px] mb-7">
+  <section className="px-8 pb-12 max-w-360 mx-auto">
+    <div className="flex justify-between items-end gap-8 mt-18 mb-7">
       <div>
-        <MonoLabel>WYDARZENIA POLECANE</MonoLabel>
-        <h2
-          className="font-display font-medium leading-[1.05] tracking-[-0.02em] mt-2 max-w-[720px]"
-          style={{ fontSize: 'clamp(32px, 4.5vw, 56px)' }}
-        >
+        <Text.MonoLabel>WYDARZENIA POLECANE</Text.MonoLabel>
+        <h2 className="font-display font-medium leading-[1.05] tracking-[-0.02em] mt-2 max-w-180 text-[clamp(32px,4.5vw,56px)]">
           Najgłośniejsze afisze tygodnia.
         </h2>
       </div>
       <button
-        className="text-ink text-sm inline-flex gap-2 items-center border-b border-ink pb-0.5 bg-transparent border-0 border-b whitespace-nowrap hover:text-coral hover:border-coral transition-colors"
+        className="text-ink text-sm inline-flex gap-2 items-center border-b border-ink pb-0.5 bg-transparent border-0 whitespace-nowrap hover:text-coral hover:border-coral transition-colors"
         onClick={onBrowseAll}
       >
         Zobacz wszystkie <IconArrow size={14} />

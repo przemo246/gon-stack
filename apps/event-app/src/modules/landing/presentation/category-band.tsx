@@ -1,20 +1,17 @@
-import { MonoLabel } from './mono-label';
 import { IconArrow } from './icons';
 import { CATEGORIES, EVENTS } from './mock-data';
+import { Text } from '@/libs/ui/text';
 
 type CategoryBandProps = {
   onPick: (categoryId: string) => void;
 };
 
 export const CategoryBand = ({ onPick }: CategoryBandProps) => (
-  <section className="px-8 pb-12 max-w-[1440px] mx-auto">
-    <div className="flex justify-between items-end gap-8 mt-[72px] mb-7">
+  <section className="px-8 pb-12 max-w-360 mx-auto">
+    <div className="flex justify-between items-end gap-8 mt-18 mb-7">
       <div>
-        <MonoLabel>KATEGORIE</MonoLabel>
-        <h2
-          className="font-display font-medium leading-[1.05] tracking-[-0.02em] mt-2 max-w-[720px]"
-          style={{ fontSize: 'clamp(32px, 4.5vw, 56px)' }}
-        >
+        <Text.MonoLabel>KATEGORIE</Text.MonoLabel>
+        <h2 className="font-display font-medium leading-[1.05] tracking-[-0.02em] mt-2 max-w-180 text-[clamp(32px,4.5vw,56px)]">
           Wybierz, co lubisz najbardziej.
         </h2>
       </div>
@@ -25,12 +22,10 @@ export const CategoryBand = ({ onPick }: CategoryBandProps) => (
         return (
           <button
             key={c.id}
-            className="group relative bg-canvas border border-card-border rounded-[14px] p-5 text-left text-ink flex flex-col gap-2 min-h-[130px] transition-colors hover:bg-primary hover:text-on-primary cursor-pointer"
+            className="group relative bg-canvas border border-card-border rounded-[14px] p-5 text-left text-ink flex flex-col gap-2 min-h-32.5 transition-colors hover:bg-primary hover:text-on-primary"
             onClick={() => onPick(c.id)}
           >
-            <MonoLabel style={{ color: 'var(--color-coral)' }}>
-              {c.mono}
-            </MonoLabel>
+            <Text.MonoLabel className="text-coral">{c.mono}</Text.MonoLabel>
             <div className="font-display font-medium text-[28px] leading-[1.05] tracking-[-0.02em]">
               {c.label}
             </div>

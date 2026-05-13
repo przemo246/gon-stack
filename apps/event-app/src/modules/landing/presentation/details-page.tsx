@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { MonoLabel } from './mono-label';
+import { Text } from '@/libs/ui/text';
 import { Poster } from './poster';
 import { EventCard } from './event-card';
 import { IconBack, IconHeart, IconShare, IconCheck } from './icons';
@@ -45,32 +45,23 @@ export const DetailsPage = ({
       </button>
 
       {/* Hero block */}
-      <div
-        className="grid gap-12 items-stretch bg-soft-stone rounded-lg p-8 mb-8"
-        style={{ gridTemplateColumns: '0.9fr 1.1fr' }}
-      >
+      <div className="grid gap-12 items-stretch bg-soft-stone rounded-lg p-8 mb-8 grid-cols-[0.9fr_1.1fr]">
         <div className="rounded-[18px] overflow-hidden aspect-3/4 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.25)]">
           <Poster event={event} size="lg" />
         </div>
         <div className="flex flex-col gap-5 py-3">
-          <MonoLabel>
+          <Text.MonoLabel>
             {categoryLabel(event.category).toUpperCase()} ·{' '}
             {event.city.toUpperCase()}
-          </MonoLabel>
-          <h1
-            className="font-display font-medium leading-none tracking-[-0.03em] m-0"
-            style={{ fontSize: 'clamp(40px, 5vw, 72px)' }}
-          >
+          </Text.MonoLabel>
+          <h1 className="font-display font-medium leading-none tracking-[-0.03em] m-0 text-[clamp(40px,5vw,72px)]">
             {event.name}
           </h1>
 
           {/* When / where */}
-          <div
-            className="grid gap-6 border-t border-b border-hairline py-5"
-            style={{ gridTemplateColumns: '1fr 1fr' }}
-          >
+          <div className="grid grid-cols-2 gap-6 border-t border-b border-hairline py-5">
             <div className="flex flex-col gap-1.5">
-              <MonoLabel>DATA</MonoLabel>
+              <Text.MonoLabel>DATA</Text.MonoLabel>
               <div className="font-display font-medium text-[44px] leading-none tracking-[-0.02em]">
                 {fmtDayNum(event.date)}{' '}
                 <span className="font-mono text-base tracking-[0.16em] text-coral">
@@ -91,7 +82,7 @@ export const DetailsPage = ({
               </div>
             </div>
             <div className="flex flex-col gap-1.5">
-              <MonoLabel>MIEJSCE</MonoLabel>
+              <Text.MonoLabel>MIEJSCE</Text.MonoLabel>
               <div className="font-display font-medium text-2xl leading-[1.2] tracking-[-0.02em]">
                 {event.venue}
               </div>
@@ -127,9 +118,9 @@ export const DetailsPage = ({
 
           {going && (
             <div className="flex gap-3 items-center bg-pale-green rounded-xl px-4 py-3 text-deep-green text-sm">
-              <MonoLabel style={{ color: 'var(--color-deep-green)' }}>
+              <Text.MonoLabel className="text-deep-green">
                 POTWIERDZENIE
-              </MonoLabel>
+              </Text.MonoLabel>
               <div>Świetnie. Powiadomimy cię na 24h przed startem.</div>
             </div>
           )}
@@ -137,20 +128,17 @@ export const DetailsPage = ({
       </div>
 
       {/* Body */}
-      <div
-        className="grid gap-12 mb-12"
-        style={{ gridTemplateColumns: '1.6fr 0.9fr' }}
-      >
+      <div className="grid gap-12 mb-12 grid-cols-[1.6fr_0.9fr]">
         <div>
           <section className="mb-10">
-            <MonoLabel>O WYDARZENIU</MonoLabel>
+            <Text.MonoLabel>O WYDARZENIU</Text.MonoLabel>
             <p className="text-[19px] leading-relaxed text-ink mt-3">
               {event.description}
             </p>
           </section>
 
           <section className="mb-10">
-            <MonoLabel>LOKALIZACJA</MonoLabel>
+            <Text.MonoLabel>LOKALIZACJA</Text.MonoLabel>
             <h3 className="font-display font-medium text-2xl tracking-[-0.02em] mt-2 mb-4">
               {event.venue}, {event.city}
             </h3>
@@ -158,19 +146,19 @@ export const DetailsPage = ({
             <PolandMap pin={event.coords} label={event.city} />
             <div className="grid grid-cols-3 gap-6 mt-4 pt-4 border-t border-hairline">
               <div className="flex flex-col gap-1 text-sm">
-                <MonoLabel>ADRES</MonoLabel>
+                <Text.MonoLabel>ADRES</Text.MonoLabel>
                 <div>{event.venue}</div>
                 <div className="text-muted">{event.city}, Polska</div>
               </div>
               <div className="flex flex-col gap-1 text-sm">
-                <MonoLabel>WSPÓŁRZĘDNE</MonoLabel>
+                <Text.MonoLabel>WSPÓŁRZĘDNE</Text.MonoLabel>
                 <div className="font-mono text-[13px]">
                   {(50 + event.coords.y * 5).toFixed(4)}° N ·{' '}
                   {(15 + event.coords.x * 8).toFixed(4)}° E
                 </div>
               </div>
               <div className="flex flex-col gap-1 text-sm">
-                <MonoLabel>DOJAZD</MonoLabel>
+                <Text.MonoLabel>DOJAZD</Text.MonoLabel>
                 <div>Tramwaj, autobus, parking dla rowerów</div>
               </div>
             </div>
@@ -179,7 +167,7 @@ export const DetailsPage = ({
 
         <aside>
           <div className="bg-canvas border border-card-border rounded-md p-5 mb-4">
-            <MonoLabel>SZCZEGÓŁY</MonoLabel>
+            <Text.MonoLabel>SZCZEGÓŁY</Text.MonoLabel>
             <ul className="list-none p-0 mt-3 m-0 flex flex-col gap-0">
               {[
                 ['Kategoria', categoryLabel(event.category)],
@@ -204,7 +192,7 @@ export const DetailsPage = ({
             </ul>
           </div>
           <div className="bg-soft-stone border border-card-border rounded-md p-5">
-            <MonoLabel style={{ color: 'var(--color-coral)' }}>UWAGA</MonoLabel>
+            <Text.MonoLabel className="text-coral">UWAGA</Text.MonoLabel>
             <p className="text-sm mt-2 mb-0 text-body-muted leading-relaxed">
               Afisz nie sprzedaje biletów. Po sprzedaż przejdź na stronę
               organizatora — link otrzymasz po kliknięciu &quot;Idę&quot;.
@@ -218,11 +206,8 @@ export const DetailsPage = ({
         <section className="mt-6">
           <div className="flex justify-between items-end gap-8 mb-7">
             <div>
-              <MonoLabel>PODOBNE WYDARZENIA</MonoLabel>
-              <h2
-                className="font-display font-medium leading-[1.05] tracking-[-0.02em] mt-2"
-                style={{ fontSize: 'clamp(32px, 4.5vw, 56px)' }}
-              >
+              <Text.MonoLabel>PODOBNE WYDARZENIA</Text.MonoLabel>
+              <h2 className="font-display font-medium leading-[1.05] tracking-[-0.02em] mt-2 text-[clamp(32px,4.5vw,56px)]">
                 Jeśli podoba ci się to, zobacz też.
               </h2>
             </div>
@@ -268,10 +253,7 @@ const PolandMap = ({ pin, label }: PolandMapProps) => {
   const W = 800,
     H = 600;
   return (
-    <div
-      className="relative bg-soft-stone border border-card-border rounded-[18px] overflow-hidden mt-4"
-      style={{ aspectRatio: '4/3' }}
-    >
+    <div className="relative bg-soft-stone border border-card-border rounded-[18px] overflow-hidden mt-4 aspect-4/3">
       <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-full block">
         <defs>
           <pattern
@@ -334,7 +316,7 @@ const PolandMap = ({ pin, label }: PolandMapProps) => {
         </g>
       </svg>
       <div className="absolute left-4 bottom-4 right-4 flex justify-between items-center pointer-events-none">
-        <MonoLabel>MAPA POLSKI · WIDOK STYLIZOWANY</MonoLabel>
+        <Text.MonoLabel>MAPA POLSKI · WIDOK STYLIZOWANY</Text.MonoLabel>
       </div>
     </div>
   );

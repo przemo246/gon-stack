@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import { MonoLabel } from './mono-label';
+import { Text } from '@/libs/ui/text';
 import { IconSearch, IconCaret, IconClose } from './icons';
 import {
   CATEGORIES,
@@ -82,16 +82,13 @@ export const SearchBar = ({
       ref={wrapRef}
       className="bg-canvas border border-card-border rounded-lg shadow-[0_30px_60px_-40px_rgba(0,0,0,0.18)]"
     >
-      <div
-        className="grid items-stretch"
-        style={{ gridTemplateColumns: '1.2fr 1px 1fr 1px 1fr 1px 1fr auto' }}
-      >
+      <div className="grid items-stretch grid-cols-[1.2fr_1px_1fr_1px_1fr_1px_1fr_auto]">
         {/* Name */}
         <div
           className={`relative flex flex-col gap-1 cursor-text min-w-0 ${fieldPad} ${openField === 'name' ? 'bg-soft-stone rounded-l-lg' : ''}`}
           onClick={() => setOpenField('name')}
         >
-          <MonoLabel style={{ fontSize: 10 }}>Wydarzenie</MonoLabel>
+          <Text.MonoLabel className="text-[10px]!">Wydarzenie</Text.MonoLabel>
           <input
             className={`bg-transparent border-0 p-0 outline-none font-sans ${inputSize} text-ink placeholder:text-muted w-full`}
             type="text"
@@ -112,7 +109,7 @@ export const SearchBar = ({
           className={`relative flex flex-col gap-1 cursor-pointer min-w-0 ${fieldPad} ${openField === 'category' ? 'bg-soft-stone' : ''}`}
           onClick={() => setOpenField('category')}
         >
-          <MonoLabel style={{ fontSize: 10 }}>Kategoria</MonoLabel>
+          <Text.MonoLabel className="text-[10px]!">Kategoria</Text.MonoLabel>
           <button
             className={`bg-transparent border-0 p-0 outline-none font-sans ${inputSize} text-ink flex items-center justify-between gap-2 w-full text-left`}
             onClick={(e) => {
@@ -164,7 +161,7 @@ export const SearchBar = ({
           className={`relative flex flex-col gap-1 cursor-pointer min-w-0 ${fieldPad} ${openField === 'city' ? 'bg-soft-stone' : ''}`}
           onClick={() => setOpenField('city')}
         >
-          <MonoLabel style={{ fontSize: 10 }}>Lokalizacja</MonoLabel>
+          <Text.MonoLabel className="text-[10px]!">Lokalizacja</Text.MonoLabel>
           <button
             className={`bg-transparent border-0 p-0 outline-none font-sans ${inputSize} text-ink flex items-center justify-between gap-2 w-full text-left`}
             onClick={(e) => {
@@ -209,7 +206,7 @@ export const SearchBar = ({
           className={`relative flex flex-col gap-1 cursor-pointer min-w-0 ${fieldPad} ${openField === 'date' ? 'bg-soft-stone' : ''}`}
           onClick={() => setOpenField('date')}
         >
-          <MonoLabel style={{ fontSize: 10 }}>Data</MonoLabel>
+          <Text.MonoLabel className="text-[10px]!">Data</Text.MonoLabel>
           <button
             className={`bg-transparent border-0 p-0 outline-none font-sans ${inputSize} text-ink flex items-center justify-between gap-2 w-full text-left`}
             onClick={(e) => {
@@ -281,7 +278,7 @@ export const ActiveFilters = ({
 
   return (
     <div className="flex gap-2 items-center flex-wrap mt-4">
-      <MonoLabel>FILTRY</MonoLabel>
+      <Text.MonoLabel>FILTRY</Text.MonoLabel>
       {active.map((f) => (
         <button
           key={f.k}

@@ -1,4 +1,4 @@
-import { MonoLabel } from './mono-label';
+import { Text } from '@/libs/ui/text';
 
 const DISCOVER_LINKS = [
   'Koncerty',
@@ -33,7 +33,7 @@ type FooterColProps = {
 
 const FooterCol = ({ heading, items }: FooterColProps) => (
   <div className="flex flex-col gap-3">
-    <MonoLabel style={{ color: 'rgba(255,255,255,0.5)' }}>{heading}</MonoLabel>
+    <Text.MonoLabel className="text-white/50">{heading}</Text.MonoLabel>
     <ul className="list-none p-0 m-0 flex flex-col gap-2">
       {items.map((item) => (
         <li
@@ -49,23 +49,23 @@ const FooterCol = ({ heading, items }: FooterColProps) => (
 
 export const Footer = () => (
   <footer className="bg-primary text-on-primary pt-20 px-8 pb-8 mt-16">
-    <div className="max-w-[1440px] mx-auto grid gap-12 grid-cols-2 lg:grid-cols-4">
+    <div className="max-w-360 mx-auto grid gap-12 grid-cols-2 lg:grid-cols-4">
       <div className="flex flex-col gap-3">
-        <div className="font-display font-semibold text-[36px] tracking-[-0.025em]">
+        <div className="font-display font-semibold text-[36px] tracking-tight">
           Afisz<span className="text-coral">.</span>
         </div>
         <p className="text-white/70 text-sm max-w-[32ch] m-0">
           Cała Polska na żywo. Promocja wydarzeń, nie sprzedaż biletów.
         </p>
-        <MonoLabel style={{ color: 'rgba(255,255,255,0.4)' }}>
+        <Text.MonoLabel className="text-white/40">
           WYD. 2026 · WERSJA ALPHA
-        </MonoLabel>
+        </Text.MonoLabel>
       </div>
       <FooterCol heading="ODKRYWAJ" items={DISCOVER_LINKS} />
       <FooterCol heading="MIASTA" items={CITY_LINKS} />
       <FooterCol heading="ORGANIZATORZY" items={ORG_LINKS} />
     </div>
-    <div className="max-w-[1440px] mx-auto mt-14 pt-6 border-t border-white/15 flex justify-between gap-6 text-xs opacity-60">
+    <div className="max-w-360 mx-auto mt-14 pt-6 border-t border-white/15 flex justify-between gap-6 text-xs opacity-60">
       <span>© 2026 Afisz · Polska</span>
       <span>Regulamin · Prywatność · Cookies · Kontakt</span>
     </div>

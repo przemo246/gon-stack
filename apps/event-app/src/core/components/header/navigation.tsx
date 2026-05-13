@@ -8,7 +8,7 @@ export const Navigation = () => {
         <a
           key={link.label}
           className={cn(
-            'relative text-sm cursor-pointer py-1.5 transition-colors duration-100 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40',
+            'relative text-sm py-1.5 transition-colors duration-100 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40',
             link.active
               ? 'text-text-primary'
               : 'text-text-muted hover:text-text-primary',
