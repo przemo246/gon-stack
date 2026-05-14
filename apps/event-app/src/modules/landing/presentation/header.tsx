@@ -1,7 +1,8 @@
-import { Moon, UserRound, Heart } from 'lucide-react';
+import { Moon, Heart } from 'lucide-react';
 
 import { Text } from '@/libs/ui/text';
 import type { User } from '@supabase/supabase-js';
+import { UserProfile } from '@/shared/user-profile/presentation/user-profile';
 
 export type Route = 'home' | 'results' | 'details';
 
@@ -78,9 +79,7 @@ export const Header = ({ route, onNavigate, savedCount }: HeaderProps) => (
             </span>
           )}
         </button>
-        <button className="bg-primary text-on-primary border-0 rounded-full inline-flex justify-center items-center text-sm hover:opacity-90 transition-opacity h-10 w-10">
-          <UserRound size={14} />
-        </button>
+        <UserProfile />
       </div>
     </div>
   </header>

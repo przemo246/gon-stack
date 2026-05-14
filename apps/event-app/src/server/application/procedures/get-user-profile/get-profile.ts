@@ -3,7 +3,7 @@ import type { Schema } from '@schemas/get-user-profile';
 import type { SupabaseServer } from '@/shared/data-sources/supabase-server';
 import { InternalServer } from '../../core/error-handling';
 
-export const geProfile = async (
+export const getProfile = async (
   userId: string,
   db: SupabaseServer,
 ): Promise<InferOut<Schema['out'], 200>['data']> => {

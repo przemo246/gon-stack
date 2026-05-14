@@ -1,18 +1,20 @@
-import { catchError, EMPTY, finalize, from, switchMap, tap } from 'rxjs';
-import { getProfile } from '../../integration/repository';
+import { catchError, EMPTY, finalize, from, switchMap, tap, map } from 'rxjs';
+import { getUserProfile } from '../../integration/repository';
 import type { Store } from '../store';
 import type { OfType } from '../registry';
 
-export const onGetProfile = (store: Store, ofType: OfType) =>
-  ofType('[TRIGGER]_GET_PROFILE').pipe(
+export const onGetUserProfile = (store: Store, ofType: OfType) =>
+  ofType('[TRIGGER]_GET_USER_PROFILE').pipe(
     tap(() => {
       store.$isLoading.set(true);
       store.$error.reset();
+      store.$userProfile.reset();
     }),
-    switchMap(({ userId }) =>
-      from(getProfile(userId)).pipe(
+    map(() => new AbortController()),
+    switchMap((ctrl) =>
+      from(getUserProfile(ctrl.signal)).pipe(
         tap((profile) => {
-          store.$profile.set(profile);
+          store.$userProfile.set(profile);
         }),
         catchError((error) => {
           store.$error.set(
@@ -22,6 +24,7 @@ export const onGetProfile = (store: Store, ofType: OfType) =>
         }),
         finalize(() => {
           store.$isLoading.reset();
+          ctrl.abort();
         }),
       ),
     ),

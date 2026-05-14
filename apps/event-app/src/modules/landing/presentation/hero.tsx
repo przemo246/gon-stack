@@ -33,9 +33,6 @@ export const Hero = ({
 }: HeroProps) => (
   <section className="px-8 pt-16 pb-12">
     <div className="max-w-7xl mx-auto">
-      <Text.MonoLabel className="text-coral">
-        AFISZ · POLSKA · 2026
-      </Text.MonoLabel>
       <Text.HeroDisplay className="my-4 mb-6">
         Znajdź coś,
         <br />
