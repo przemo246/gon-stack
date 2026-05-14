@@ -1,8 +1,8 @@
 ---
-name: gon2-requirements
+name: plan-requirements
 description: Plan feature requirements from user input into standardized markdown and auto-fill missing structural gaps from provided context. Trigger on prompts like "plan requirements", "standardize requirements", "make feature plan", "fill missing requirement sections", or "prepare final feature doc".
 deps:
-  template_path: ../../templates/requirements-template.md
+  template_path: ./references/template.md
 ---
 
 ## ROLE
