@@ -1,5 +1,5 @@
 ---
-name: framework-pixel-perfect
+name: do-ui
 description: >
   Pixel-perfect UI generator from graphic reference. Trigger when user asks to recreate
   UI from design/screenshot/mockup, or mentions "pixel perfect". Require graphic first.
