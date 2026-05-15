@@ -1,6 +1,7 @@
 import { Moon, Heart } from 'lucide-react';
 
 import { Text } from '@/libs/ui/text';
+import { Button } from '@/libs/ui/button';
 import type { User } from '@supabase/supabase-js';
 import { UserProfile } from '@/shared/user-profile/presentation/user-profile';
 
@@ -28,7 +29,12 @@ const NavButton = ({ label, active, onClick }: NavButtonProps) => (
   </button>
 );
 
-export const Header = ({ route, onNavigate, savedCount }: HeaderProps) => (
+export const Header = ({
+  route,
+  onNavigate,
+  savedCount,
+  user,
+}: HeaderProps) => (
   <header className="sticky top-0 z-50 border-b border-hairline bg-canvas/85 backdrop-blur-md">
     <div className="max-w-360 mx-auto px-8 py-3.5 grid gap-8 items-center grid-cols-[auto_1fr_auto]">
       {/* Logo */}
@@ -63,24 +69,30 @@ export const Header = ({ route, onNavigate, savedCount }: HeaderProps) => (
       </nav>
 
       {/* Right */}
-      <div className="flex gap-2 items-center">
-        <button className="bg-surface border border-card-border-c rounded-full inline-flex justify-center items-center text-ink text-sm hover:bg-primary hover:text-on-primary transition-colors w-10 h-10">
-          <Moon size={14} />
-        </button>
-        <button
-          className="bg-surface border border-card-border-c rounded-full px-3.5 py-2 inline-flex gap-2 items-center text-ink text-sm hover:bg-primary hover:text-on-primary transition-colors h-10"
-          onClick={() => onNavigate('results')}
-        >
-          <Heart size={14} />
-          Zapisane
-          {savedCount > 0 && (
-            <span className="bg-coral text-white rounded-full min-w-5 h-5 inline-flex items-center justify-center font-mono text-[11px] px-1.5">
-              {savedCount}
-            </span>
-          )}
-        </button>
-        <UserProfile />
-      </div>
+      {user ? (
+        <div className="flex gap-2 items-center">
+          <button className="bg-surface border border-card-border-c rounded-full inline-flex justify-center items-center text-ink text-sm hover:bg-primary hover:text-on-primary transition-colors w-10 h-10">
+            <Moon size={14} />
+          </button>
+          <button
+            className="bg-surface border border-card-border-c rounded-full px-3.5 py-2 inline-flex gap-2 items-center text-ink text-sm hover:bg-primary hover:text-on-primary transition-colors h-10"
+            onClick={() => onNavigate('results')}
+          >
+            <Heart size={14} />
+            Zapisane
+            {savedCount > 0 && (
+              <span className="bg-coral text-white rounded-full min-w-5 h-5 inline-flex items-center justify-center font-mono text-[11px] px-1.5">
+                {savedCount}
+              </span>
+            )}
+          </button>
+          <UserProfile />
+        </div>
+      ) : (
+        <Button variant="primary" href="/login">
+          Zaloguj się
+        </Button>
+      )}
     </div>
   </header>
 );

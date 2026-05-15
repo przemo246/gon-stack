@@ -1,8 +1,10 @@
 import { UserRound } from 'lucide-react';
 
 import { Dropdown } from '@/libs/ui/dropdown';
+import { useContext } from './context';
 
 export const UserProfileDropdown = () => {
+  const { trigger } = useContext();
   return (
     <Dropdown.Root>
       <Dropdown.Trigger>
@@ -20,9 +22,7 @@ export const UserProfileDropdown = () => {
         />
         <Dropdown.Item
           label="Wyloguj się"
-          onSelect={() => {
-            window.location.href = '/wyloguj';
-          }}
+          onSelect={() => trigger('[TRIGGER]_LOGOUT')}
         />
       </Dropdown.Content>
     </Dropdown.Root>

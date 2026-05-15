@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import { Button } from '@/libs/ui/button';
 import { Text } from '@/libs/ui/text';
 import { EventCard } from './event-card';
 import { CategoryChips } from './category-chips';
@@ -131,12 +132,9 @@ export const ResultsPage = ({
           <p className="text-body-muted m-0 mb-4">
             Spróbuj zmienić miasto, datę lub kategorię — albo wyczyść filtry.
           </p>
-          <button
-            className="bg-primary text-on-primary border-0 rounded-pill px-5.5 py-3 text-sm font-medium"
-            onClick={onClearAll}
-          >
+          <Button variant="primary" onClick={onClearAll}>
             Wyczyść filtry
-          </button>
+          </Button>
         </div>
       ) : layout === 'grid' ? (
         <div className="grid grid-cols-2 gap-5 lg:grid-cols-3 2xl:grid-cols-4">

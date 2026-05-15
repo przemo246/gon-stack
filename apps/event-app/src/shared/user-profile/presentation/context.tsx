@@ -1,6 +1,6 @@
 import { useLayoutEffect, useState } from 'react';
 import { createHookContext } from '@/libs/power-context';
-import { createMediator } from '../../identity-and-access/core/mediator';
+import { createMediator } from '../core/mediator';
 import { FEATURE_NAME } from '../configuration/constraints';
 
 export const [Provider, useContext] = createHookContext(FEATURE_NAME, () => {

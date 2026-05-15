@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Button } from '@/libs/ui/button';
 import { Text } from '@/libs/ui/text';
 import { Poster } from './poster';
 import { EventCard } from './event-card';
@@ -90,8 +91,9 @@ export const DetailsPage = ({
 
           {/* Actions */}
           <div className="flex gap-2.5 flex-wrap">
-            <button
-              className={`border-0 rounded-pill px-5.5 py-3 text-sm font-medium inline-flex gap-2 items-center transition-colors ${going ? 'bg-deep-green text-white' : 'bg-primary text-on-primary'}`}
+            <Button
+              variant="primary"
+              className={going ? 'bg-deep-green text-white' : undefined}
               onClick={() => setGoing((g) => !g)}
             >
               {going ? (
@@ -101,17 +103,18 @@ export const DetailsPage = ({
               ) : (
                 <>Idę na to wydarzenie</>
               )}
-            </button>
-            <button
-              className={`rounded-pill px-5.5 py-3 text-sm font-medium inline-flex gap-2 items-center border transition-colors ${saved ? 'text-coral border-coral bg-transparent' : 'bg-transparent text-ink border-card-border'}`}
+            </Button>
+            <Button
+              variant="secondary"
+              className={saved ? 'text-coral border-coral' : undefined}
               onClick={() => onToggleSave(event.id)}
             >
               <IconHeart fill={saved ? 'currentColor' : 'none'} size={14} />
               {saved ? 'Zapisane' : 'Zapisz'}
-            </button>
-            <button className="rounded-pill px-5.5 py-3 text-sm font-medium inline-flex gap-2 items-center border border-card-border bg-transparent text-ink">
+            </Button>
+            <Button variant="secondary">
               <IconShare size={14} /> Udostępnij
-            </button>
+            </Button>
           </div>
 
           {going && (

@@ -1,3 +1,4 @@
+import { Button } from '@/libs/ui/button';
 import { Poster } from './poster';
 import { Text } from '@/libs/ui/text';
 import { IconHeart, IconPin, IconClock, IconArrow } from './icons';
@@ -65,15 +66,15 @@ export const EventCard = ({
           >
             <IconHeart fill={saved ? 'currentColor' : 'none'} size={18} />
           </button>
-          <button
-            className="bg-transparent border-0 text-ink text-sm inline-flex gap-2 items-center border-b border-ink pb-0.5"
+          <Button
+            variant="ghost"
             onClick={(e) => {
               e.stopPropagation();
               onOpen(event);
             }}
           >
             Szczegóły <IconArrow size={14} />
-          </button>
+          </Button>
         </div>
       </article>
     );

@@ -1,3 +1,4 @@
+import { Button } from '@/libs/ui/button';
 import { Text } from '@/libs/ui/text';
 import { EventCard } from './event-card';
 import { IconArrow } from './icons';
@@ -26,12 +27,13 @@ export const FeaturedGrid = ({
           Najgłośniejsze afisze tygodnia.
         </Text.SectionHeading>
       </div>
-      <button
-        className="text-ink text-sm inline-flex gap-2 items-center border-b border-ink pb-0.5 bg-transparent border-0 whitespace-nowrap hover:text-coral hover:border-coral transition-colors"
+      <Button
+        variant="ghost"
+        className="whitespace-nowrap"
         onClick={onBrowseAll}
       >
         Zobacz wszystkie <IconArrow size={14} />
-      </button>
+      </Button>
     </div>
     <div className="grid grid-cols-2 gap-5 lg:grid-cols-3 2xl:grid-cols-4">
       {events.map((e) => (
