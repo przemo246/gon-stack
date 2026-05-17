@@ -82,7 +82,7 @@ export const EventCard = ({
 
   return (
     <article
-      className="bg-card-bg border border-card-border-c rounded-md overflow-hidden cursor-pointer transition-[transform,box-shadow] hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-25px_rgba(0,0,0,0.25)] flex flex-col"
+      className="bg-card-bg border border-card-border-c rounded-md overflow-hidden cursor-pointer transition-[translate,box-shadow] hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-25px_rgba(0,0,0,0.25)] flex flex-col"
       onClick={() => onOpen(event)}
     >
       <div className="relative aspect-3/4 rounded-[10px] overflow-hidden m-2.5">
