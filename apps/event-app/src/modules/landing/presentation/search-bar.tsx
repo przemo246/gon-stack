@@ -60,7 +60,13 @@ export const SearchBar = ({
 }: SearchBarProps) => {
   const [openField, setOpenField] = useState<string | null>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
+  const nameInputRef = useRef<HTMLInputElement>(null);
   const compact = variant === 'compact';
+
+  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onSubmit();
+  };
 
   useEffect(() => {
     const onDocClick = (e: MouseEvent) => {
@@ -82,16 +88,24 @@ export const SearchBar = ({
       ref={wrapRef}
       className="bg-card-bg border border-card-border-c rounded-lg shadow-[0_30px_60px_-40px_rgba(0,0,0,0.18)]"
     >
-      <div className="grid items-stretch grid-cols-[1.2fr_1px_1fr_1px_1fr_1px_1fr_auto]">
+      <form
+        className="grid items-stretch grid-cols-[1.2fr_1px_1fr_1px_1fr_1px_1fr_auto]"
+        onSubmit={handleSubmit}
+      >
         {/* Name */}
         <div
           className={`relative flex flex-col gap-1 cursor-text min-w-0 ${fieldPad} ${openField === 'name' ? 'bg-surface rounded-l-lg' : ''}`}
-          onClick={() => setOpenField('name')}
+          onClick={() => {
+            setOpenField('name');
+            nameInputRef.current?.focus();
+          }}
         >
           <Text.MonoLabel className="text-[10px]!">Wydarzenie</Text.MonoLabel>
           <input
+            ref={nameInputRef}
             className={`bg-transparent border-0 p-0 outline-none font-sans ${inputSize} text-ink placeholder:text-muted w-full`}
             type="text"
+            required
             placeholder="Artysta, drużyna, tytuł…"
             value={value.name}
             onChange={(e) => setField('name', e.target.value)}
@@ -242,13 +256,13 @@ export const SearchBar = ({
         {/* Submit */}
         <button
           className={`m-2.5 bg-primary text-on-primary border-0 rounded-[18px] px-5.5 text-sm font-medium inline-flex items-center gap-2.5 ${submitMinH} whitespace-nowrap hover:opacity-90 transition-opacity`}
-          onClick={onSubmit}
+          type="submit"
           aria-label="Szukaj"
         >
           <IconSearch size={16} />
           <span>Szukaj</span>
         </button>
-      </div>
+      </form>
     </div>
   );
 };
