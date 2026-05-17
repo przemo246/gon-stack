@@ -91,7 +91,7 @@
 
 @layer components {
   .mono-label {
-    @apply font-mono text-xs font-normal tracking-[0.18em] uppercase text-muted;
+    @apply font-mono text-xs font-normal tracking-[0.18em] uppercase text-slate;
   }
 
   .hero-display {
