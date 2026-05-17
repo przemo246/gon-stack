@@ -1,6 +1,6 @@
 import { Moon, Heart } from 'lucide-react';
 
-import { Text } from '@/libs/ui/text';
+import { Logo } from '@/libs/ui/logo';
 import { Button } from '@/libs/ui/button';
 import type { User } from '@supabase/supabase-js';
 import { UserProfile } from '@/shared/user-profile/presentation/user-profile';
@@ -38,15 +38,7 @@ export const Header = ({
   <header className="sticky top-0 z-50 border-b border-hairline bg-canvas/85 backdrop-blur-md">
     <div className="max-w-360 mx-auto px-8 py-3.5 grid gap-8 items-center grid-cols-[auto_1fr_auto]">
       {/* Logo */}
-      <button
-        className="inline-flex items-center gap-2 bg-transparent border-0 p-0 text-ink"
-        onClick={() => onNavigate('home')}
-      >
-        <span className="w-7 h-7 rounded-sm bg-primary text-on-primary inline-flex items-center justify-center font-display font-bold text-base">
-          A
-        </span>
-        <Text.LogoWordmark>Afisz</Text.LogoWordmark>
-      </button>
+      <Logo href="/" />
 
       {/* Nav */}
       <nav className="flex gap-7 justify-center">
