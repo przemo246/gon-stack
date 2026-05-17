@@ -1,7 +1,6 @@
 import { Hero } from './hero';
 import { FeaturedGrid } from './featured-grid';
 import { CategoryBand } from './category-band';
-import { ManifestBand } from './manifest-band';
 import type { SearchState } from './search-bar';
 import type { Event } from './mock-data';
 
@@ -45,6 +44,5 @@ export const Landing = ({
       onBrowseAll={onBrowseAll}
     />
     <CategoryBand onPick={onPickCategory} />
-    <ManifestBand />
   </>
 );
