@@ -89,7 +89,70 @@
   }
 }
 
+[data-theme='dark'] {
+  --color-bg: #0c0c10;
+  --color-canvas: #0c0c10;
+  --color-fg: #f1f1f2;
+  --color-ink: #f1f1f2;
+  --color-surface: #15151a;
+  --color-card-bg: #15151a;
+  --color-card-border-c: #2e2e36;
+  --color-hairline: #2e2e36;
+  --color-border-light: #2e2e36;
+  --color-primary: #f1f1f2;
+  --color-on-primary: #0c0c10;
+  --color-muted: #a8a8b4;
+  --color-slate: #c0c0cc;
+  --color-body-muted: #c8c8d0;
+  --color-coral: #ff8a6e;
+  --color-soft-stone: #1a1a1f;
+  --color-map-grid: #1f1f25;
+  --color-map-land: #1a1a1f;
+  --color-map-coast: #2c2c34;
+  --color-map-city: #a8a8b4;
+}
+
 @layer components {
+  .hero-bg {
+    background:
+      radial-gradient(
+        ellipse 65% 55% at 2% 8%,
+        rgba(255, 119, 89, 0.13) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 55% 65% at 98% 5%,
+        rgba(241, 245, 255, 0.95) 0%,
+        transparent 55%
+      ),
+      radial-gradient(
+        ellipse 50% 45% at 55% 105%,
+        rgba(237, 252, 233, 0.75) 0%,
+        transparent 50%
+      ),
+      linear-gradient(150deg, #fff9f7 0%, #f5f7ff 45%, #f4faf3 100%);
+  }
+
+  [data-theme='dark'] .hero-bg {
+    background:
+      radial-gradient(
+        ellipse 65% 55% at 2% 8%,
+        rgba(255, 119, 89, 0.07) 0%,
+        transparent 60%
+      ),
+      radial-gradient(
+        ellipse 55% 65% at 98% 5%,
+        rgba(20, 30, 60, 0.6) 0%,
+        transparent 55%
+      ),
+      radial-gradient(
+        ellipse 50% 45% at 55% 105%,
+        rgba(0, 30, 15, 0.5) 0%,
+        transparent 50%
+      ),
+      linear-gradient(150deg, #0c0c10 0%, #0d0f18 45%, #0c100e 100%);
+  }
+
   .mono-label {
     @apply font-mono text-xs font-normal tracking-[0.18em] uppercase text-slate;
   }

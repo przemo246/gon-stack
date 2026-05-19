@@ -1,9 +1,10 @@
-import { Moon, Heart } from 'lucide-react';
+import { Heart } from 'lucide-react';
 
 import { Logo } from '@/libs/ui/logo';
 import { Button } from '@/libs/ui/button';
 import type { User } from '@supabase/supabase-js';
 import { UserProfile } from '@/shared/user-profile/presentation/user-profile';
+import { LightDarkModeSwitchButton } from './light-dark-mode-switch-button';
 
 export type Route = 'home' | 'results' | 'details';
 
@@ -63,9 +64,7 @@ export const Header = ({
       {/* Right */}
       {user ? (
         <div className="flex gap-2 items-center">
-          <button className="bg-surface border border-card-border-c rounded-full inline-flex justify-center items-center text-ink text-sm hover:bg-primary hover:text-on-primary transition-colors w-10 h-10">
-            <Moon size={14} />
-          </button>
+          <LightDarkModeSwitchButton />
           <button
             className="bg-surface border border-card-border-c rounded-full px-3.5 py-2 inline-flex gap-2 items-center text-ink text-sm hover:bg-primary hover:text-on-primary transition-colors h-10"
             onClick={() => onNavigate('results')}
