@@ -25,20 +25,13 @@ const QUICK_LINKS: { label: string; query: Partial<SearchState> }[] = [
   },
 ];
 
-const HERO_BG = [
-  'radial-gradient(ellipse 65% 55% at 2% 8%, rgba(255,119,89,0.13) 0%, transparent 60%)',
-  'radial-gradient(ellipse 55% 65% at 98% 5%, rgba(241,245,255,0.95) 0%, transparent 55%)',
-  'radial-gradient(ellipse 50% 45% at 55% 105%, rgba(237,252,233,0.75) 0%, transparent 50%)',
-  'linear-gradient(150deg, #fff9f7 0%, #f5f7ff 45%, #f4faf3 100%)',
-].join(',');
-
 export const Hero = ({
   search,
   onChange,
   onSubmit,
   onQuickSearch,
 }: HeroProps) => (
-  <section className="px-8 pt-16 pb-12" style={{ background: HERO_BG }}>
+  <section className="hero-bg px-8 pt-16 pb-12">
     <div className="max-w-7xl mx-auto">
       <Text.HeroDisplay className="my-4 mb-6">
         Znajdź coś,
@@ -59,7 +52,7 @@ export const Hero = ({
         {QUICK_LINKS.map((ql) => (
           <button
             key={ql.label}
-            className="bg-surface border border-card-border-c rounded-full px-4 py-2 text-ink text-sm hover:bg-coral hover:text-white hover:border-coral transition-colors"
+            className="bg-canvas border border-card-border-c rounded-full px-4 py-2 text-ink text-sm hover:bg-coral hover:text-white hover:border-coral transition-colors"
             onClick={() => {
               onChange({ ...search, ...ql.query });
               onQuickSearch(ql.query);
