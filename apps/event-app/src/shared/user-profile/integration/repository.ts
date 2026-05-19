@@ -21,11 +21,10 @@ export const getUserProfile = async (
 export const Logout = async (): Promise<void> => {
   const response = await fetch('/api/auth/logout', {
     method: 'POST',
-    redirect: 'manual',
   });
 
-  if (response.status === 303) {
-    window.location.href = response.headers.get('Location') ?? '/';
+  if (response.redirected) {
+    window.location.href = response.url;
     return;
   }
 
