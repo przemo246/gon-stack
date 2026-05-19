@@ -2,9 +2,7 @@ import z from 'zod';
 
 export const schema = () =>
   z.object({
-    in: z.object({
-      userId: z.string().min(1),
-    }),
+    in: z.object({}),
     out: z.union([
       z.object({
         code: z.literal(200),
