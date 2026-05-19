@@ -126,6 +126,7 @@ export const SearchBar = ({
           <Text.MonoLabel className="text-[10px]!">Kategoria</Text.MonoLabel>
           <button
             className={`bg-transparent border-0 p-0 outline-none font-sans ${inputSize} text-ink flex items-center justify-between gap-2 w-full text-left`}
+            type="button"
             onClick={(e) => {
               e.stopPropagation();
               setOpenField(openField === 'category' ? null : 'category');
@@ -178,6 +179,7 @@ export const SearchBar = ({
           <Text.MonoLabel className="text-[10px]!">Lokalizacja</Text.MonoLabel>
           <button
             className={`bg-transparent border-0 p-0 outline-none font-sans ${inputSize} text-ink flex items-center justify-between gap-2 w-full text-left`}
+            type="button"
             onClick={(e) => {
               e.stopPropagation();
               setOpenField(openField === 'city' ? null : 'city');
@@ -223,6 +225,7 @@ export const SearchBar = ({
           <Text.MonoLabel className="text-[10px]!">Data</Text.MonoLabel>
           <button
             className={`bg-transparent border-0 p-0 outline-none font-sans ${inputSize} text-ink flex items-center justify-between gap-2 w-full text-left`}
+            type="button"
             onClick={(e) => {
               e.stopPropagation();
               setOpenField(openField === 'date' ? null : 'date');
