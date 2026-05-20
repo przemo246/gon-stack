@@ -1,16 +1,30 @@
-export const Login = () => {
+export const RegisterForm = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-bg px-4">
       <div className="w-full max-w-110">
         <h1 className="subsection-heading text-center mb-8 text-ink">
-          Zaloguj się
+          Zarejestruj się
         </h1>
 
         <form
           method="post"
-          action="/api/auth/login"
+          action="/api/auth/register"
           className="flex flex-col gap-4"
         >
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="name" className="text-sm font-medium text-ink">
+              Imię i nazwisko
+            </label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              placeholder="Twoje imię i nazwisko"
+              required
+              className="w-full rounded-xs border border-hairline bg-canvas px-4 py-3 text-sm text-ink placeholder:text-muted outline-none transition-colors focus:border-primary"
+            />
+          </div>
+
           <div className="flex flex-col gap-1.5">
             <label htmlFor="email" className="text-sm font-medium text-ink">
               Email
@@ -39,11 +53,28 @@ export const Login = () => {
             />
           </div>
 
+          <div className="flex flex-col gap-1.5">
+            <label
+              htmlFor="confirmPassword"
+              className="text-sm font-medium text-ink"
+            >
+              Powtórz hasło
+            </label>
+            <input
+              id="confirmPassword"
+              name="confirmPassword"
+              type="password"
+              placeholder="Powtórz swoje hasło"
+              required
+              className="w-full rounded-xs border border-hairline bg-canvas px-4 py-3 text-sm text-ink placeholder:text-muted outline-none transition-colors focus:border-primary"
+            />
+          </div>
+
           <button
             type="submit"
             className="mt-2 w-full rounded-pill bg-primary py-3 text-sm font-medium text-on-primary transition-opacity hover:opacity-80 disabled:cursor-not-allowed disabled:opacity-50"
           >
-            Kontynuuj
+            Zarejestruj się
           </button>
         </form>
 
@@ -112,12 +143,12 @@ export const Login = () => {
         </div>
 
         <p className="mt-6 text-center text-sm text-body-muted">
-          Nie masz konta?{' '}
+          Masz już konto?{' '}
           <a
-            href="/register"
+            href="/login"
             className="font-medium text-action-blue hover:underline"
           >
-            Zarejestruj się
+            Zaloguj się
           </a>
         </p>
       </div>
