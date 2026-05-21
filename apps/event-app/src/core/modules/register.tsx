@@ -1,5 +1,5 @@
-import { Register } from '@/shared/identity-and-access/presentation/register';
+import { RegisterForm } from '@/shared/identity-and-access/presentation/register-form';
 
 export const Module = () => {
-  return <Register />;
+  return <RegisterForm />;
 };

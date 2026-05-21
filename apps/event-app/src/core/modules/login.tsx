@@ -1,5 +1,5 @@
-import { Login } from '@/shared/identity-and-access/presentation/login';
+import { LoginForm } from '@/shared/identity-and-access/presentation/login-form';
 
 export const Module = () => {
-  return <Login />;
+  return <LoginForm />;
 };
