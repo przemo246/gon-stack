@@ -1,6 +1,6 @@
 ---
 version: 1.0
-updated: 19.04.2026
+updated: 21.05.2026
 ---
 
 # Application Domains
@@ -57,7 +57,9 @@ This document defines the core domains in the Event Search App application.
 - Event aggregate: name, description, category, date & time, address, coordinates, external link, optional image, keywords
 - Category taxonomy: Concert, Festival, Sports, Culture, Theatre, Food & Drink
 - Keyword tagging (manual + AI-assisted suggestions via LLM)
-- Admin-only event management (CRUD) for MVP; user-created events are a future iteration
+- All authenticated users can create events
+- Event owners can update and delete their own events
+- Admins can update and delete any event
 - Organizer info
 
 **Out of Scope:**
