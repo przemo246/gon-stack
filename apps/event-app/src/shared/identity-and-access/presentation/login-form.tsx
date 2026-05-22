@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast, Toaster } from 'sonner';
 import { z } from 'zod';
-import { login as loginRequest } from '../integration/repository';
+import { loginUser } from '../integration/repository';
 
 const schema = z.object({
   email: z.email('Podaj prawidłowy adres e-mail'),
@@ -19,8 +19,7 @@ export const LoginForm = () => {
   } = useForm<FormValues>({ resolver: zodResolver(schema) });
 
   const onSubmit = async (data: FormValues) => {
-    const result = await loginRequest(data);
-    console.log(result);
+    const result = await loginUser(data);
 
     if (result.success) {
       window.location.assign('/');

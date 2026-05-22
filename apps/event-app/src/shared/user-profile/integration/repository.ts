@@ -13,12 +13,12 @@ export const getUserProfile = async (
     throw new Error('Failed to fetch profile');
   }
 
-  const data = (await response.json()) as InferOut<Schema['out'], 200>;
+  const { data } = (await response.json()) as InferOut<Schema['out'], 200>;
 
-  return data.data;
+  return data;
 };
 
-export const Logout = async (): Promise<void> => {
+export const logoutUser = async (): Promise<void> => {
   const response = await fetch('/api/auth/logout', {
     method: 'POST',
   });

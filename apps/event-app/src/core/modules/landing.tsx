@@ -1,4 +1,4 @@
-import { Main } from '@/modules/landing/presentation/main';
+import { Main } from '@/modules/event/presentation/main';
 import type { User } from '@supabase/supabase-js';
 
 type ModuleProps = {

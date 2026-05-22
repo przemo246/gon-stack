@@ -34,68 +34,96 @@ export type Database = {
   };
   public: {
     Tables: {
-      event_participants: {
-        Row: {
-          event_id: string;
-          joined_at: string;
-          user_id: string;
-        };
-        Insert: {
-          event_id: string;
-          joined_at?: string;
-          user_id: string;
-        };
-        Update: {
-          event_id?: string;
-          joined_at?: string;
-          user_id?: string;
-        };
-        Relationships: [
-          {
-            foreignKeyName: 'event_participants_event_id_fkey';
-            columns: ['event_id'];
-            isOneToOne: false;
-            referencedRelation: 'events';
-            referencedColumns: ['id'];
-          },
-        ];
-      };
       events: {
         Row: {
-          address: string | null;
-          created_at: string;
-          created_by: string;
-          description: string | null;
-          end_date: string | null;
           id: string;
-          keywords: string[] | null;
-          location: unknown;
+          created_by: string;
           name: string;
-          start_date: string;
+          category: string;
+          event_at: string;
+          address: string;
+          location: unknown;
+          description: string | null;
+          external_link: string | null;
+          image_url: string | null;
+          organizer_name: string | null;
+          organizer_contact: string | null;
+          keywords: string[];
+          search_vector: unknown | null;
+          created_at: string;
+          updated_at: string;
         };
         Insert: {
-          address?: string | null;
-          created_at?: string;
-          created_by: string;
-          description?: string | null;
-          end_date?: string | null;
           id?: string;
-          keywords?: string[] | null;
-          location?: unknown;
+          created_by: string;
           name: string;
-          start_date: string;
+          category: string;
+          event_at: string;
+          address: string;
+          location: unknown;
+          description?: string | null;
+          external_link?: string | null;
+          image_url?: string | null;
+          organizer_name?: string | null;
+          organizer_contact?: string | null;
+          keywords?: string[];
+          search_vector?: unknown | null;
+          created_at?: string;
+          updated_at?: string;
         };
         Update: {
-          address?: string | null;
-          created_at?: string;
-          created_by?: string;
-          description?: string | null;
-          end_date?: string | null;
           id?: string;
-          keywords?: string[] | null;
-          location?: unknown;
+          created_by?: string;
           name?: string;
-          start_date?: string;
+          category?: string;
+          event_at?: string;
+          address?: string;
+          location?: unknown;
+          description?: string | null;
+          external_link?: string | null;
+          image_url?: string | null;
+          organizer_name?: string | null;
+          organizer_contact?: string | null;
+          keywords?: string[];
+          search_vector?: unknown | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      friendships: {
+        Row: {
+          user_id: string;
+          friend_id: string;
+          created_at: string;
+        };
+        Insert: {
+          user_id: string;
+          friend_id: string;
+          created_at?: string;
+        };
+        Update: {
+          user_id?: string;
+          friend_id?: string;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      event_attendance: {
+        Row: {
+          user_id: string;
+          event_id: string;
+          created_at: string;
+        };
+        Insert: {
+          user_id: string;
+          event_id: string;
+          created_at?: string;
+        };
+        Update: {
+          user_id?: string;
+          event_id?: string;
+          created_at?: string;
         };
         Relationships: [];
       };
@@ -128,7 +156,64 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      is_admin: {
+        Args: Record<PropertyKey, never>;
+        Returns: boolean;
+      };
+      get_event_by_id: {
+        Args: { p_id: string };
+        Returns: {
+          id: string;
+          created_by: string;
+          name: string;
+          category: string;
+          event_at: string;
+          address: string;
+          lat: number;
+          lng: number;
+          description: string | null;
+          external_link: string | null;
+          image_url: string | null;
+          organizer_name: string | null;
+          organizer_contact: string | null;
+          keywords: string[];
+          created_at: string;
+          updated_at: string;
+        }[];
+      };
+      get_friend_attendance_pins: {
+        Args: { calling_user_id: string };
+        Returns: { event_id: string; lat: number; lng: number }[];
+      };
+      search_events: {
+        Args: {
+          p_query?: string | null;
+          p_categories?: string[] | null;
+          p_date_from?: string | null;
+          p_date_to?: string | null;
+          p_lat?: number | null;
+          p_lng?: number | null;
+          p_radius_km?: number | null;
+        };
+        Returns: {
+          id: string;
+          created_by: string;
+          name: string;
+          category: string;
+          event_at: string;
+          address: string;
+          lat: number;
+          lng: number;
+          description: string | null;
+          external_link: string | null;
+          image_url: string | null;
+          organizer_name: string | null;
+          organizer_contact: string | null;
+          keywords: string[];
+          created_at: string;
+          updated_at: string;
+        }[];
+      };
     };
     Enums: {
       user_role: 'user' | 'admin';
