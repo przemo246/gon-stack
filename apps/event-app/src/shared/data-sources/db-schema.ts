@@ -37,57 +37,87 @@ export type Database = {
       events: {
         Row: {
           id: string;
-          created_by: string;
+          owner_id: string;
           name: string;
-          category: string;
-          event_at: string;
-          address: string;
-          location: unknown;
           description: string | null;
+          category: Database['public']['Enums']['event_category'];
+          start_date_time: string;
+          end_date_time: string | null;
+          street: string;
+          number: string;
+          postal_code: string;
+          city: string;
+          lat: number;
+          lng: number;
           external_link: string | null;
           image_url: string | null;
-          organizer_name: string | null;
-          organizer_contact: string | null;
           keywords: string[];
-          search_vector: unknown | null;
+          organizer_info: string | null;
           created_at: string;
           updated_at: string;
         };
         Insert: {
           id?: string;
-          created_by: string;
+          owner_id: string;
           name: string;
-          category: string;
-          event_at: string;
-          address: string;
-          location: unknown;
           description?: string | null;
+          category: Database['public']['Enums']['event_category'];
+          start_date_time: string;
+          end_date_time?: string | null;
+          street: string;
+          number: string;
+          postal_code: string;
+          city: string;
+          lat: number;
+          lng: number;
           external_link?: string | null;
           image_url?: string | null;
-          organizer_name?: string | null;
-          organizer_contact?: string | null;
           keywords?: string[];
-          search_vector?: unknown | null;
+          organizer_info?: string | null;
           created_at?: string;
           updated_at?: string;
         };
         Update: {
           id?: string;
-          created_by?: string;
+          owner_id?: string;
           name?: string;
-          category?: string;
-          event_at?: string;
-          address?: string;
-          location?: unknown;
           description?: string | null;
+          category?: Database['public']['Enums']['event_category'];
+          start_date_time?: string;
+          end_date_time?: string | null;
+          street?: string;
+          number?: string;
+          postal_code?: string;
+          city?: string;
+          lat?: number;
+          lng?: number;
           external_link?: string | null;
           image_url?: string | null;
-          organizer_name?: string | null;
-          organizer_contact?: string | null;
           keywords?: string[];
-          search_vector?: unknown | null;
+          organizer_info?: string | null;
           created_at?: string;
           updated_at?: string;
+        };
+        Relationships: [];
+      };
+      event_attendances: {
+        Row: {
+          event_id: string;
+          user_id: string;
+          visibility: Database['public']['Enums']['attendance_visibility'];
+          created_at: string;
+        };
+        Insert: {
+          event_id: string;
+          user_id: string;
+          visibility?: Database['public']['Enums']['attendance_visibility'];
+          created_at?: string;
+        };
+        Update: {
+          event_id?: string;
+          user_id?: string;
+          visibility?: Database['public']['Enums']['attendance_visibility'];
+          created_at?: string;
         };
         Relationships: [];
       };
@@ -105,24 +135,6 @@ export type Database = {
         Update: {
           user_id?: string;
           friend_id?: string;
-          created_at?: string;
-        };
-        Relationships: [];
-      };
-      event_attendance: {
-        Row: {
-          user_id: string;
-          event_id: string;
-          created_at: string;
-        };
-        Insert: {
-          user_id: string;
-          event_id: string;
-          created_at?: string;
-        };
-        Update: {
-          user_id?: string;
-          event_id?: string;
           created_at?: string;
         };
         Relationships: [];
@@ -160,63 +172,17 @@ export type Database = {
         Args: Record<PropertyKey, never>;
         Returns: boolean;
       };
-      get_event_by_id: {
-        Args: { p_id: string };
-        Returns: {
-          id: string;
-          created_by: string;
-          name: string;
-          category: string;
-          event_at: string;
-          address: string;
-          lat: number;
-          lng: number;
-          description: string | null;
-          external_link: string | null;
-          image_url: string | null;
-          organizer_name: string | null;
-          organizer_contact: string | null;
-          keywords: string[];
-          created_at: string;
-          updated_at: string;
-        }[];
-      };
-      get_friend_attendance_pins: {
-        Args: { calling_user_id: string };
-        Returns: { event_id: string; lat: number; lng: number }[];
-      };
-      search_events: {
-        Args: {
-          p_query?: string | null;
-          p_categories?: string[] | null;
-          p_date_from?: string | null;
-          p_date_to?: string | null;
-          p_lat?: number | null;
-          p_lng?: number | null;
-          p_radius_km?: number | null;
-        };
-        Returns: {
-          id: string;
-          created_by: string;
-          name: string;
-          category: string;
-          event_at: string;
-          address: string;
-          lat: number;
-          lng: number;
-          description: string | null;
-          external_link: string | null;
-          image_url: string | null;
-          organizer_name: string | null;
-          organizer_contact: string | null;
-          keywords: string[];
-          created_at: string;
-          updated_at: string;
-        }[];
-      };
     };
     Enums: {
       user_role: 'user' | 'admin';
+      event_category:
+        | 'Concert'
+        | 'Festival'
+        | 'Sports'
+        | 'Culture'
+        | 'Theatre'
+        | 'Food & Drink';
+      attendance_visibility: 'public' | 'private';
     };
     CompositeTypes: {
       [_ in never]: never;
@@ -351,6 +317,15 @@ export const Constants = {
   public: {
     Enums: {
       user_role: ['user', 'admin'],
+      event_category: [
+        'Concert',
+        'Festival',
+        'Sports',
+        'Culture',
+        'Theatre',
+        'Food & Drink',
+      ],
+      attendance_visibility: ['public', 'private'],
     },
   },
 } as const;
