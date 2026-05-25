@@ -1,6 +1,6 @@
 ---
-version: 1.0
-updated: 25.05.2026
+version: 1.1
+updated: 26.05.2026
 ---
 
 # Application Domains
@@ -48,9 +48,9 @@ This document defines the core domains in the Event Search App application.
 
 ---
 
-## 3. Event Catalog
+## 3. Event Management
 
-**Responsibility:** Authoritative source of event data — creation, editing, deletion, and enrichment.
+**Responsibility:** Creating, editing, and deleting events — the authoritative write-side for event data.
 
 **Key Concepts:**
 
@@ -62,18 +62,17 @@ This document defines the core domains in the Event Search App application.
 - Event owners can update and delete their own events
 - Admins can update and delete any event
 - Organizer info
-- Event detail page: full read view of a single event aggregate — name, description, category, date & time, address, external link, image, keywords, organizer info, attendee count, and friends attending; navigated to from the Event Discovery list
 
 **Out of Scope:**
 
-- Event discovery and filtering (handled by Event Discovery domain)
+- Event discovery, search, and browsing (handled by Event Discovery domain)
 - Attendance tracking (handled by Attendance domain)
 
 ---
 
 ## 4. Event Discovery
 
-**Responsibility:** Textual event search, filtering, and presentation to the user.
+**Responsibility:** Browsing, searching, filtering, and viewing event details.
 
 **Key Concepts:**
 
@@ -82,33 +81,15 @@ This document defines the core domains in the Event Search App application.
 - City/location filter matches against the normalized city field stored on each event; options: "Cała Polska" (no filter) or a specific city
 - Date filter uses preset labels (Today, This Weekend, This Week, This Month, etc.) rather than a raw date range picker
 - Scrollable list of event cards displaying search results
+- Event detail page: full read view of a single event aggregate — name, description, category, date & time, address, external link, image, keywords, organizer info, attendee count, and friends attending; navigated to from the event list
 
 **Out of Scope:**
 
-- Event data management (handled by Event Catalog domain)
-- Quick date label logic (handled by Polish Holiday Calendar domain)
+- Event data management (handled by Event Management domain)
 
 ---
 
-## 5. Polish Holiday Calendar
-
-**Responsibility:** Computing and exposing quick date labels, including dynamic Polish bank holiday clusters.
-
-**Key Concepts:**
-
-- Static labels: Today, Tomorrow, This Weekend, Next Weekend
-- Dynamic labels: auto-generated from the Polish public holiday calendar
-- Holiday cluster detection (e.g., Majówka = May 1–3, Boże Ciało, Święto Niepodległości)
-- Visibility rule: dynamic labels shown only when a holiday is within the next 60 days
-- Each label resolves to a concrete date range used as a filter input
-
-**Out of Scope:**
-
-- Applying the date range to event results (handled by Event Discovery domain)
-
----
-
-## 6. Attendance
+## 5. Attendance
 
 **Responsibility:** Tracking which authenticated users are attending which events, and exposing aggregate counts.
 
@@ -127,7 +108,7 @@ This document defines the core domains in the Event Search App application.
 
 ---
 
-## 7. Social
+## 6. Social
 
 **Responsibility:** Friend relationship management and friend-to-event invitation flow.
 
@@ -147,7 +128,7 @@ This document defines the core domains in the Event Search App application.
 
 ---
 
-## 8. Personal Calendar
+## 7. Personal Calendar
 
 **Responsibility:** Calendar views aggregating the user's own events and friends' public events.
 
@@ -165,7 +146,7 @@ This document defines the core domains in the Event Search App application.
 
 ---
 
-## 9. Notification
+## 8. Notification
 
 **Responsibility:** In-app notification delivery and feed management.
 
@@ -182,7 +163,7 @@ This document defines the core domains in the Event Search App application.
 
 ---
 
-## 10. Saved Events
+## 9. Saved Events
 
 **Responsibility:** Bookmarking events for later and presenting the authenticated user's saved event list.
 
@@ -208,17 +189,15 @@ This document defines the core domains in the Event Search App application.
 ```
 Identity & Access → User Profile (creates profile after first authentication)
 Identity & Access → Event Discovery (determines available features: guest vs. auth)
-Identity & Access → Event Catalog (Admin role gates CRUD operations)
+Identity & Access → Event Management (Admin role gates CRUD operations)
 
 User Profile → Attendance (privacy settings applied to attendance visibility)
 User Profile → Social (display name/avatar used in friend and invite flows)
 
-Event Catalog → Event Discovery (provides event data for search results)
-
-Polish Holiday Calendar → Event Discovery (resolves quick date labels to date range filters)
+Event Management → Event Discovery (provides event data for search results and detail page)
 
 Event Discovery → Attendance (friends-attending filter on event list)
-Event Discovery → Event Catalog (reads event aggregates for detail page)
+Event Discovery → Event Management (reads event aggregates for detail page)
 
 Attendance → Personal Calendar (attended events populate calendar view)
 Attendance → Social (friends' public attendance exposed to their network)
@@ -229,7 +208,7 @@ Social → Personal Calendar (friends' public events visible in shared calendar)
 Notification → Social (notification links back to the originating event invite)
 
 Identity & Access → Saved Events (only authenticated users can save events)
-Saved Events → Event Catalog (reads event aggregates to populate the saved list)
+Saved Events → Event Management (reads event aggregates to populate the saved list)
 Saved Events → Personal Calendar (saved events surfaced as a calendar source)
 ```
 
