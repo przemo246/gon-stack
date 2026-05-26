@@ -62,7 +62,7 @@ export const Header = ({
       </nav>
 
       {/* Right */}
-      {user ? (
+      {!user ? (
         <div className="flex gap-2 items-center">
           <LightDarkModeSwitchButton />
           <button
@@ -80,9 +80,14 @@ export const Header = ({
           <UserProfile />
         </div>
       ) : (
-        <Button variant="primary" href="/login">
-          Zaloguj się
-        </Button>
+        <div className="flex gap-2">
+          <Button variant="primary" href="/login">
+            Zaloguj się
+          </Button>
+          <Button variant="secondary" href="/register">
+            Zarejestruj się
+          </Button>
+        </div>
       )}
     </div>
   </header>
