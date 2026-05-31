@@ -12,6 +12,7 @@ export const createEvent = privateProcedure({
       .insert({
         owner_id: user.id,
         name: input.name,
+        description: input.description ?? null,
         category: input.category,
         start_date_time: input.startDateTime,
         end_date_time: input.endDateTime ?? null,

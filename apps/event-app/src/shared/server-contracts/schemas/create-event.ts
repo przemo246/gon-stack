@@ -1,6 +1,6 @@
 import z from 'zod';
 
-const category = z.enum([
+export const categorySchema = z.enum([
   'Concert',
   'Festival',
   'Sports',
@@ -25,7 +25,7 @@ const eventDetail = z.object({
   id: z.string(),
   name: z.string(),
   description: z.string().optional(),
-  category,
+  category: categorySchema,
   startDateTime: z.string().datetime(),
   endDateTime: z.string().datetime().optional(),
   address,
@@ -41,7 +41,8 @@ export const schema = () =>
   z.object({
     in: z.object({
       name: z.string().min(1),
-      category,
+      description: z.string().optional(),
+      category: categorySchema,
       startDateTime: z.string().datetime(),
       endDateTime: z.string().datetime().optional(),
       address,

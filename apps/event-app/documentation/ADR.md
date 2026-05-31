@@ -2,11 +2,11 @@
 
 ## Status
 
-**Proposed** - This ADR documents the architectural decisions for the romantic-app's modular monolith architecture.
+**Proposed** - This ADR documents the architectural decisions for the event-app's modular monolith architecture.
 
 ## Context
 
-The romantic-app is being restructured to follow a modular monolith architecture. This approach provides clear separation of concerns, modularity, and scalability while maintaining a cohesive development experience within a single deployable unit.
+The event-app is being restructured to follow a modular monolith architecture. This approach provides clear separation of concerns, modularity, and scalability while maintaining a cohesive development experience within a single deployable unit.
 
 ## Decision
 
@@ -165,7 +165,7 @@ For features that need to be shared between modules but are domain-specific:
 ### Shared Development
 
 1. **Abstraction**: Services in this layer should provide clean, easy-to-use abstractions over core logic.
-2. **Domain-Specific**: Code here is specific to the romantic-app domain but reusable across features.
+2. **Domain-Specific**: Code here is specific to the event-app domain but reusable across features.
 
 ### Library Development
 

@@ -62,7 +62,7 @@ export const Header = ({
       </nav>
 
       {/* Right */}
-      {!user ? (
+      {user ? (
         <div className="flex gap-2 items-center">
           <LightDarkModeSwitchButton />
           <button
