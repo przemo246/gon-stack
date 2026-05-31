@@ -27,7 +27,7 @@ export const schema = () =>
             id: z.string(),
             name: z.string(),
             category,
-            startDateTime: z.string().datetime(),
+            startDateTime: z.string().datetime({ offset: true }),
             city: z.string(),
           }),
         ),

@@ -5,7 +5,6 @@ import { toast, Toaster } from 'sonner';
 import { Logo } from '@/libs/ui/logo';
 import { formSchema, type FormValues } from './create-event/schema';
 import { useContext } from './context';
-import { useKeywords } from './create-event/use-keywords';
 import { FormSidebar } from './create-event/sidebar';
 import { BasicSection } from './create-event/sections/basic';
 import { DatesSection } from './create-event/sections/dates';
@@ -19,16 +18,18 @@ export const CreateEventForm = () => {
     register,
     handleSubmit,
     getValues,
-    setValue,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: { keywords: [] },
   });
 
   const {
     $coordinates,
     $geoStatus,
+    $keywords,
+    $keywordInput,
+    $aiSuggestions,
+    $isSuggesting,
     $isSubmitting,
     $submitError,
     $submitSuccess,
@@ -36,11 +37,13 @@ export const CreateEventForm = () => {
   } = useContext();
   const coordinates = $coordinates.use();
   const geoStatus = $geoStatus.use();
+  const keywords = $keywords.use();
+  const keywordInput = $keywordInput.use();
+  const aiSuggestions = $aiSuggestions.use();
+  const isSuggesting = $isSuggesting.use();
   const isSubmitting = $isSubmitting.use();
   const submitError = $submitError.use();
   const submitSuccess = $submitSuccess.use();
-
-  const keywords = useKeywords(control, setValue);
 
   const handleGeocode = useCallback(() => {
     const { street, number, postalCode, city } = getValues('address');
@@ -91,7 +94,7 @@ export const CreateEventForm = () => {
         coordinates,
         externalLink: data.externalLink || undefined,
         imageUrl: data.imageUrl || undefined,
-        keywords: data.keywords ?? [],
+        keywords: $keywords.get(),
         organizerInfo: data.organizerInfo || undefined,
       },
     });
@@ -132,7 +135,7 @@ export const CreateEventForm = () => {
                 className="flex flex-col gap-14"
               >
                 <BasicSection register={register} errors={errors} />
-                <DatesSection register={register} errors={errors} />
+                <DatesSection control={control} errors={errors} />
                 <LocationSection
                   register={register}
                   errors={errors}
@@ -142,23 +145,40 @@ export const CreateEventForm = () => {
                 />
                 <DetailsSection register={register} errors={errors} />
                 <KeywordsSection
-                  keywords={keywords.keywords}
-                  keywordInput={keywords.keywordInput}
-                  aiSuggestions={keywords.aiSuggestions}
-                  isSuggesting={keywords.isSuggesting}
-                  onKeywordInputChange={keywords.setKeywordInput}
-                  onAdd={keywords.addKeyword}
-                  onRemove={keywords.removeKeyword}
-                  onAcceptSuggestion={keywords.acceptSuggestion}
-                  onDismissSuggestion={keywords.dismissSuggestion}
-                  onSuggest={keywords.handleSuggest}
+                  keywords={keywords}
+                  keywordInput={keywordInput}
+                  aiSuggestions={aiSuggestions}
+                  isSuggesting={isSuggesting}
+                  onKeywordInputChange={(v) =>
+                    trigger('[TRIGGER]_SET_KEYWORD_INPUT', { value: v })
+                  }
+                  onAdd={(kw) =>
+                    trigger('[TRIGGER]_ADD_KEYWORD', { keyword: kw })
+                  }
+                  onRemove={(kw) =>
+                    trigger('[TRIGGER]_REMOVE_KEYWORD', { keyword: kw })
+                  }
+                  onAcceptSuggestion={(kw) =>
+                    trigger('[TRIGGER]_ACCEPT_SUGGESTION', { keyword: kw })
+                  }
+                  onDismissSuggestion={(kw) =>
+                    trigger('[TRIGGER]_DISMISS_SUGGESTION', { keyword: kw })
+                  }
+                  onSuggest={() => {
+                    const name = getValues('name');
+                    if (!name) {
+                      toast.error('Podaj najpierw nazwę wydarzenia.');
+                      return;
+                    }
+                    trigger('[TRIGGER]_SUGGEST_KEYWORDS', {
+                      name,
+                      description: getValues('description'),
+                      category: getValues('category'),
+                    });
+                  }}
                 />
 
                 <div className="pt-8 border-t border-hairline flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                  <p className="text-sm text-body-muted">
-                    Wydarzenie zostanie opublikowane natychmiast i będzie
-                    widoczne publicznie.
-                  </p>
                   <button
                     type="submit"
                     disabled={isSubmitting}
@@ -166,6 +186,10 @@ export const CreateEventForm = () => {
                   >
                     {isSubmitting ? 'Publikowanie…' : 'Opublikuj wydarzenie'}
                   </button>
+                  <p className="text-sm text-body-muted">
+                    Wydarzenie zostanie opublikowane natychmiast i będzie
+                    widoczne publicznie.
+                  </p>
                 </div>
               </form>
             </div>

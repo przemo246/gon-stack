@@ -24,6 +24,10 @@
   border-color: var(--color-primary);
 }
 
+.rdp-selected .rdp-day_button:hover {
+  color: var(--color-on-ink);
+}
+
 /* Hover */
 .dp-wrapper .rdp-day_button:hover:not(:disabled) {
   background-color: var(--color-surface);

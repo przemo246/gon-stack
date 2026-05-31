@@ -22,8 +22,8 @@ export const schema = () =>
           name: z.string(),
           description: z.string().optional(),
           category,
-          startDateTime: z.string().datetime(),
-          endDateTime: z.string().datetime().optional(),
+          startDateTime: z.string().datetime({ offset: true }),
+          endDateTime: z.string().datetime({ offset: true }).optional(),
           address: z.object({
             street: z.string(),
             number: z.string(),

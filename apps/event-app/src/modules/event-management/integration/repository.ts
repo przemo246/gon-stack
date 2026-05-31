@@ -9,19 +9,25 @@ export const createEvent = async (
   data: CreateEventInput,
   signal: AbortSignal,
 ): Promise<void> => {
-  await fetch('/api/events/create', {
+  const res = await fetch('/api/event/create', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
     signal,
   });
+  if (!res.ok) {
+    const body = await res.json().catch(() => null);
+    const message =
+      body?.message ?? 'Coś poszło nie tak. Spróbuj ponownie później.';
+    throw new Error(message);
+  }
 };
 
 export const suggestKeywords = async (
   data: { name: string; description?: string; category?: string },
   signal: AbortSignal,
 ): Promise<InferOut<SuggestKeywordsSchema['out'], 200>> => {
-  const res = await fetch('/api/events/suggest-keywords', {
+  const res = await fetch('/api/event/suggest-keywords', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -38,10 +44,9 @@ export const geocodeAddress = async (
   query: string,
   signal: AbortSignal,
 ): Promise<{ lat: number; lng: number } | null> => {
-  const res = await fetch(
-    `/api/events/geocode?q=${encodeURIComponent(query)}`,
-    { signal },
-  );
+  const res = await fetch(`/api/event/geocode?q=${encodeURIComponent(query)}`, {
+    signal,
+  });
 
   if (!res.ok) {
     throw new Error('Coś poszło nie tak. Spróbuj ponownie później.');

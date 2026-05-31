@@ -54,7 +54,6 @@ export const formSchema = z.object({
   imageUrl: z
     .union([z.string().url('Podaj prawidłowy URL'), z.literal('')])
     .optional(),
-  keywords: z.array(z.string()).optional(),
   organizerInfo: z.string().optional(),
 });
 

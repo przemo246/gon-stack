@@ -1,7 +1,7 @@
 import { defineMiddleware } from 'astro:middleware';
 import { supabaseServer } from '@/shared/data-sources/supabase-server';
 
-const PROTECTED_ROUTES = ['/events/create'];
+const PROTECTED_ROUTES = ['/event/create'];
 
 export const onRequest = defineMiddleware(
   async ({ request, cookies, redirect, url }, next) => {
