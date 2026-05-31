@@ -1,3 +1,3 @@
-import { CreateEventForm } from '@/modules/event-management/presentation/create-event-form';
+import { Main } from '@/modules/event-management/presentation/main';
 
-export const Module = () => <CreateEventForm />;
+export const Module = () => <Main />;
