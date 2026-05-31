@@ -1,17 +1,18 @@
-import { type UseFormRegister, type FieldErrors } from 'react-hook-form';
+import { Controller, type Control, type FieldErrors } from 'react-hook-form';
 import { type FormValues } from '../schema';
-import { Field, inputCls } from '../field';
+import { Field } from '../field';
+import { DateTimePicker } from '../date-time-picker';
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
 type Props = {
-  register: UseFormRegister<FormValues>;
+  control: Control<FormValues>;
   errors: FieldErrors<FormValues>;
 };
 
 // ── Component ──────────────────────────────────────────────────────────────────
 
-export const DatesSection = ({ register, errors }: Props) => (
+export const DatesSection = ({ control, errors }: Props) => (
   <section id="dates" className="flex flex-col gap-6 scroll-mt-20">
     <div className="flex items-baseline gap-3 pb-4 border-b border-hairline">
       <span className="mono-label">02</span>
@@ -23,20 +24,33 @@ export const DatesSection = ({ register, errors }: Props) => (
       error={errors.startDateTime?.message}
       htmlFor="startDateTime"
     >
-      <input
-        id="startDateTime"
-        type="datetime-local"
-        {...register('startDateTime')}
-        className={inputCls(!!errors.startDateTime)}
+      <Controller
+        name="startDateTime"
+        control={control}
+        render={({ field }) => (
+          <DateTimePicker
+            id="startDateTime"
+            value={field.value}
+            onChange={field.onChange}
+            onBlur={field.onBlur}
+            hasError={!!errors.startDateTime}
+          />
+        )}
       />
     </Field>
 
     <Field label="Data i godzina zakończenia" htmlFor="endDateTime" optional>
-      <input
-        id="endDateTime"
-        type="datetime-local"
-        {...register('endDateTime')}
-        className={inputCls()}
+      <Controller
+        name="endDateTime"
+        control={control}
+        render={({ field }) => (
+          <DateTimePicker
+            id="endDateTime"
+            value={field.value}
+            onChange={field.onChange}
+            onBlur={field.onBlur}
+          />
+        )}
       />
     </Field>
   </section>
