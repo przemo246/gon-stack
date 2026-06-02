@@ -23,11 +23,22 @@ export const updateEvent = privateProcedure({
     const event = fetchResult.data;
 
     const isOwner = event.owner_id === user.id;
-    if (!isOwner) {
+    const needsAdminCheck = !isOwner || input.isFeatured !== undefined;
+
+    let isAdmin = false;
+    if (needsAdminCheck) {
       const adminResult = await db.rpc('is_admin');
-      if (adminResult.error || !adminResult.data) {
-        throw new Forbidden('You do not have permission to update this event');
-      }
+      isAdmin = !adminResult.error && !!adminResult.data;
+    }
+
+    if (!isOwner && !isAdmin) {
+      throw new Forbidden('You do not have permission to update this event');
+    }
+
+    if (input.isFeatured !== undefined && !isAdmin) {
+      throw new Forbidden(
+        'Only admins can change the featured status of an event',
+      );
     }
 
     const updatePayload: EventUpdate = {};
@@ -53,6 +64,8 @@ export const updateEvent = privateProcedure({
     if (input.keywords !== undefined) updatePayload.keywords = input.keywords;
     if (input.organizerInfo !== undefined)
       updatePayload.organizer_info = input.organizerInfo;
+    if (input.isFeatured !== undefined)
+      updatePayload.is_featured = input.isFeatured;
 
     const updateResult = await db
       .from('events')
@@ -95,6 +108,7 @@ export const updateEvent = privateProcedure({
         imageUrl: updated.image_url ?? undefined,
         keywords: updated.keywords,
         organizerInfo: updated.organizer_info ?? undefined,
+        isFeatured: updated.is_featured,
         attendeeCount: count ?? 0,
       },
     };

@@ -1,6 +1,7 @@
 import { SearchBar } from './search-bar';
 import type { SearchState } from './search-bar';
 import { Text } from '@/libs/ui/text';
+import { Button } from '@/libs/ui/button';
 
 type HeroProps = {
   search: SearchState;
@@ -50,16 +51,16 @@ export const Hero = ({
       </div>
       <div className="mt-8 flex flex-wrap items-center gap-3">
         {QUICK_LINKS.map((ql) => (
-          <button
+          <Button
             key={ql.label}
-            className="bg-canvas border border-card-border-c rounded-full px-4 py-2 text-ink text-sm hover:bg-coral hover:text-white hover:border-coral transition-colors"
+            variant="tertiary"
             onClick={() => {
               onChange({ ...search, ...ql.query });
               onQuickSearch(ql.query);
             }}
           >
             {ql.label}
-          </button>
+          </Button>
         ))}
       </div>
     </div>

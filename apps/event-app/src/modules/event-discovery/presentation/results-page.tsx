@@ -13,6 +13,8 @@ type ResultsPageProps = {
   onSearchChange: (v: SearchState) => void;
   onSearchSubmit: () => void;
   results: Event[];
+  isLoading: boolean;
+  error: string | null;
   onOpenEvent: (event: Event) => void;
   onToggleSave: (id: string) => void;
   savedSet: Set<string>;
@@ -32,6 +34,8 @@ export const ResultsPage = ({
   onSearchChange,
   onSearchSubmit,
   results,
+  isLoading,
+  error,
   onOpenEvent,
   onToggleSave,
   savedSet,
@@ -63,15 +67,21 @@ export const ResultsPage = ({
           as="h1"
           className="my-2 text-[clamp(36px,5vw,64px)]"
         >
-          {results.length}{' '}
-          {plural(results.length, 'wydarzenie', 'wydarzenia', 'wydarzeń')}
-          {search.city && (
+          {isLoading ? (
+            'Szukam…'
+          ) : (
             <>
-              {' '}
-              w <em className="not-italic text-coral">{search.city}</em>
+              {results.length}{' '}
+              {plural(results.length, 'wydarzenie', 'wydarzenia', 'wydarzeń')}
+              {search.city && (
+                <>
+                  {' '}
+                  w <em className="not-italic text-coral">{search.city}</em>
+                </>
+              )}
+              {search.category && <> · {categoryLabel(search.category)}</>}
             </>
           )}
-          {search.category && <> · {categoryLabel(search.category)}</>}
         </Text.SectionHeading>
         <div className="mb-4">
           <SearchBar
@@ -123,7 +133,22 @@ export const ResultsPage = ({
         </div>
       </div>
 
-      {sorted.length === 0 ? (
+      {isLoading ? (
+        <div className="py-20 text-center">
+          <Text.MonoLabel>ŁADOWANIE…</Text.MonoLabel>
+        </div>
+      ) : error ? (
+        <div className="py-20 px-8 text-center bg-surface rounded-lg flex flex-col items-center gap-3">
+          <Text.MonoLabel>BŁĄD</Text.MonoLabel>
+          <h2 className="font-display font-medium text-[32px] m-1">
+            Nie udało się pobrać wyników.
+          </h2>
+          <p className="text-body-muted m-0 mb-4">{error}</p>
+          <Button variant="primary" onClick={onClearAll}>
+            Spróbuj ponownie
+          </Button>
+        </div>
+      ) : sorted.length === 0 ? (
         <div className="py-20 px-8 text-center bg-surface rounded-lg flex flex-col items-center gap-3">
           <Text.MonoLabel>BRAK WYNIKÓW</Text.MonoLabel>
           <h2 className="font-display font-medium text-[32px] m-1">

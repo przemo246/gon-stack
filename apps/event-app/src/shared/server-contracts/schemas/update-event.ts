@@ -34,6 +34,7 @@ const eventDetail = z.object({
   imageUrl: z.string().url().optional(),
   keywords: z.array(z.string()),
   organizerInfo: z.string().optional(),
+  isFeatured: z.boolean(),
   attendeeCount: z.number().int(),
 });
 
@@ -51,6 +52,7 @@ export const schema = () =>
       imageUrl: z.string().url().optional(),
       keywords: z.array(z.string()).optional(),
       organizerInfo: z.string().optional(),
+      isFeatured: z.boolean().optional(),
     }),
     out: z.union([
       z.object({

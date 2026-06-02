@@ -73,6 +73,7 @@ export type Database = {
           external_link: string | null;
           id: string;
           image_url: string | null;
+          is_featured: boolean;
           keywords: string[];
           lat: number;
           lng: number;
@@ -94,6 +95,7 @@ export type Database = {
           external_link?: string | null;
           id?: string;
           image_url?: string | null;
+          is_featured?: boolean;
           keywords?: string[];
           lat: number;
           lng: number;
@@ -115,6 +117,7 @@ export type Database = {
           external_link?: string | null;
           id?: string;
           image_url?: string | null;
+          is_featured?: boolean;
           keywords?: string[];
           lat?: number;
           lng?: number;

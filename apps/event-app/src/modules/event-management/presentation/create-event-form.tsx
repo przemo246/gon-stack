@@ -1,5 +1,5 @@
 import { useEffect, useCallback } from 'react';
-import { useForm, useWatch } from 'react-hook-form';
+import { useForm, useWatch, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast, Toaster } from 'sonner';
 import { Logo } from '@/libs/ui/logo';
@@ -13,23 +13,21 @@ import { DetailsSection } from './create-event/sections/details';
 import { KeywordsSection } from './create-event/sections/keywords';
 
 export const CreateEventForm = () => {
+  const methods = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+  });
   const {
     control,
     register,
     handleSubmit,
     getValues,
     formState: { errors },
-  } = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
-  });
+  } = methods;
 
   const {
     $coordinates,
     $geoStatus,
     $keywords,
-    $keywordInput,
-    $aiSuggestions,
-    $isSuggesting,
     $isSubmitting,
     $submitError,
     $submitSuccess,
@@ -37,10 +35,6 @@ export const CreateEventForm = () => {
   } = useContext();
   const coordinates = $coordinates.use();
   const geoStatus = $geoStatus.use();
-  const keywords = $keywords.use();
-  const keywordInput = $keywordInput.use();
-  const aiSuggestions = $aiSuggestions.use();
-  const isSuggesting = $isSuggesting.use();
   const isSubmitting = $isSubmitting.use();
   const submitError = $submitError.use();
   const submitSuccess = $submitSuccess.use();
@@ -130,68 +124,38 @@ export const CreateEventForm = () => {
                 </p>
               </div>
 
-              <form
-                onSubmit={handleSubmit(onSubmit)}
-                className="flex flex-col gap-14"
-              >
-                <BasicSection register={register} errors={errors} />
-                <DatesSection control={control} errors={errors} />
-                <LocationSection
-                  register={register}
-                  errors={errors}
-                  geoStatus={geoStatus}
-                  coordinates={coordinates}
-                  onBlur={handleGeocode}
-                />
-                <DetailsSection register={register} errors={errors} />
-                <KeywordsSection
-                  keywords={keywords}
-                  keywordInput={keywordInput}
-                  aiSuggestions={aiSuggestions}
-                  isSuggesting={isSuggesting}
-                  onKeywordInputChange={(v) =>
-                    trigger('[TRIGGER]_SET_KEYWORD_INPUT', { value: v })
-                  }
-                  onAdd={(kw) =>
-                    trigger('[TRIGGER]_ADD_KEYWORD', { keyword: kw })
-                  }
-                  onRemove={(kw) =>
-                    trigger('[TRIGGER]_REMOVE_KEYWORD', { keyword: kw })
-                  }
-                  onAcceptSuggestion={(kw) =>
-                    trigger('[TRIGGER]_ACCEPT_SUGGESTION', { keyword: kw })
-                  }
-                  onDismissSuggestion={(kw) =>
-                    trigger('[TRIGGER]_DISMISS_SUGGESTION', { keyword: kw })
-                  }
-                  onSuggest={() => {
-                    const name = getValues('name');
-                    if (!name) {
-                      toast.error('Podaj najpierw nazwę wydarzenia.');
-                      return;
-                    }
-                    trigger('[TRIGGER]_SUGGEST_KEYWORDS', {
-                      name,
-                      description: getValues('description'),
-                      category: getValues('category'),
-                    });
-                  }}
-                />
+              <FormProvider {...methods}>
+                <form
+                  onSubmit={handleSubmit(onSubmit)}
+                  className="flex flex-col gap-14"
+                >
+                  <BasicSection register={register} errors={errors} />
+                  <DatesSection control={control} errors={errors} />
+                  <LocationSection
+                    register={register}
+                    errors={errors}
+                    geoStatus={geoStatus}
+                    coordinates={coordinates}
+                    onBlur={handleGeocode}
+                  />
+                  <DetailsSection register={register} errors={errors} />
+                  <KeywordsSection />
 
-                <div className="pt-8 border-t border-hairline flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="rounded-pill bg-primary py-3 px-8 text-sm font-medium text-on-primary hover:opacity-80 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
-                  >
-                    {isSubmitting ? 'Publikowanie…' : 'Opublikuj wydarzenie'}
-                  </button>
-                  <p className="text-sm text-body-muted">
-                    Wydarzenie zostanie opublikowane natychmiast i będzie
-                    widoczne publicznie.
-                  </p>
-                </div>
-              </form>
+                  <div className="pt-8 border-t border-hairline flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="rounded-pill bg-primary py-3 px-8 text-sm font-medium text-on-primary hover:opacity-80 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+                    >
+                      {isSubmitting ? 'Publikowanie…' : 'Opublikuj wydarzenie'}
+                    </button>
+                    <p className="text-sm text-body-muted">
+                      Wydarzenie zostanie opublikowane natychmiast i będzie
+                      widoczne publicznie.
+                    </p>
+                  </div>
+                </form>
+              </FormProvider>
             </div>
           </div>
         </div>

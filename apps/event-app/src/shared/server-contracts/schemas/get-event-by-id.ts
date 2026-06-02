@@ -38,6 +38,7 @@ export const schema = () =>
           imageUrl: z.string().url().optional(),
           keywords: z.array(z.string()),
           organizerInfo: z.string().optional(),
+          isFeatured: z.boolean(),
           attendeeCount: z.number().int(),
         }),
       }),

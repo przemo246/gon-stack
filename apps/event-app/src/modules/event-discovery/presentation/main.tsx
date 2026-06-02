@@ -1,6 +1,7 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import type { User } from '@supabase/supabase-js';
 
+import { Provider, useContext } from './context';
 import { Header } from './header';
 import type { Route } from './header';
 import { Landing } from './landing';
@@ -8,8 +9,9 @@ import { Footer } from './footer';
 import { ResultsPage } from './results-page';
 import { DetailsPage } from './details-page';
 import { EVENTS } from './mock-data';
+import type { Event as MockEvent } from './mock-data';
 import type { SearchState } from './search-bar';
-import type { Event } from './mock-data';
+import type { EventCard as ApiEventCard } from '../core/store';
 
 type MainProps = {
   user: User | null;
@@ -22,7 +24,32 @@ const EMPTY_SEARCH: SearchState = {
   date: '',
 };
 
-export const Main = ({ user }: MainProps) => {
+const toMockEvent = (e: ApiEventCard): MockEvent => ({
+  id: e.id,
+  name: e.name,
+  category: e.category,
+  city: e.city,
+  venue: '',
+  date: e.startDateTime.slice(0, 10),
+  time: new Date(e.startDateTime).toLocaleTimeString('pl', {
+    hour: '2-digit',
+    minute: '2-digit',
+  }),
+  coords: { x: 50, y: 50 },
+  palette: 0,
+  posterTitle: e.name,
+  posterMeta: e.city,
+  description: '',
+  featured: false,
+});
+
+const Content = ({ user }: MainProps) => {
+  const ctx = useContext();
+
+  const results = ctx.$results.use();
+  const isLoading = ctx.$isLoading.use();
+  const error = ctx.$error.use();
+
   const [route, setRoute] = useState<Route>('home');
   const [search, setSearch] = useState<SearchState>(EMPTY_SEARCH);
   const [activeEventId, setActiveEventId] = useState<string | null>(null);
@@ -42,45 +69,47 @@ export const Main = ({ user }: MainProps) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const submitSearch = () => navigate('results');
+  const triggerSearch = (s: SearchState) => {
+    ctx.trigger('[TRIGGER]_SEARCH', {
+      name: s.name || undefined,
+      category: s.category || undefined,
+      city: s.city || undefined,
+      dateLabel: s.date || undefined,
+    });
+  };
 
-  const openEvent = (event: Event) => {
-    setActiveEventId(event.id);
+  const submitSearch = () => {
+    triggerSearch(search);
+    navigate('results');
+  };
+
+  const openEvent = (event: MockEvent) => {
+    const found = EVENTS.find((e) => e.id === event.id);
+    if (!found) return;
+    setActiveEventId(found.id);
     navigate('details' as Route);
   };
 
   const pickCategory = (id: string) => {
-    setSearch((s) => ({ ...s, category: id }));
+    const newSearch = { ...search, category: id };
+    setSearch(newSearch);
+    triggerSearch(newSearch);
     navigate('results');
   };
 
   const quickSearch = (query: Partial<SearchState>) => {
-    setSearch((s) => ({ ...s, ...query }));
+    const newSearch = { ...search, ...query };
+    setSearch(newSearch);
+    triggerSearch(newSearch);
     navigate('results');
   };
-
-  const filteredEvents = useMemo(
-    () =>
-      EVENTS.filter((e) => {
-        if (search.name) {
-          const n = search.name.toLowerCase();
-          if (
-            !e.name.toLowerCase().includes(n) &&
-            !e.venue.toLowerCase().includes(n)
-          )
-            return false;
-        }
-        if (search.category && e.category !== search.category) return false;
-        if (search.city && e.city !== search.city) return false;
-        return true;
-      }),
-    [search],
-  );
 
   const featuredEvents = EVENTS.filter((e) => e.featured).slice(0, 8);
   const currentEvent = activeEventId
     ? (EVENTS.find((e) => e.id === activeEventId) ?? null)
     : null;
+
+  const mappedResults = results.map(toMockEvent);
 
   return (
     <div className="bg-canvas min-h-screen text-ink">
@@ -102,7 +131,11 @@ export const Main = ({ user }: MainProps) => {
             onToggleSave={toggleSave}
             savedSet={savedSet}
             onPickCategory={pickCategory}
-            onBrowseAll={() => navigate('results')}
+            onBrowseAll={() => {
+              setSearch(EMPTY_SEARCH);
+              ctx.trigger('[TRIGGER]_SEARCH', {});
+              navigate('results');
+            }}
           />
         )}
         {route === 'results' && (
@@ -110,11 +143,16 @@ export const Main = ({ user }: MainProps) => {
             search={search}
             onSearchChange={setSearch}
             onSearchSubmit={submitSearch}
-            results={filteredEvents}
+            results={mappedResults}
+            isLoading={isLoading}
+            error={error}
             onOpenEvent={openEvent}
             onToggleSave={toggleSave}
             savedSet={savedSet}
-            onClearAll={() => setSearch(EMPTY_SEARCH)}
+            onClearAll={() => {
+              setSearch(EMPTY_SEARCH);
+              ctx.trigger('[TRIGGER]_SEARCH', {});
+            }}
           />
         )}
         {route === 'details' && currentEvent && (
@@ -132,3 +170,9 @@ export const Main = ({ user }: MainProps) => {
     </div>
   );
 };
+
+export const Main = ({ user }: MainProps) => (
+  <Provider>
+    <Content user={user} />
+  </Provider>
+);

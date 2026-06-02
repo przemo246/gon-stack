@@ -67,7 +67,9 @@ export const searchEvents = publicProcedure({
 
     let query = db
       .from('events')
-      .select('id, name, category, start_date_time, city', { count: 'exact' });
+      .select('id, name, category, start_date_time, city, is_featured', {
+        count: 'exact',
+      });
 
     if (input.name) {
       query = query.ilike('name', `%${input.name}%`);
@@ -87,6 +89,10 @@ export const searchEvents = publicProcedure({
 
     if (dateTo) {
       query = query.lt('start_date_time', dateTo);
+    }
+
+    if (input.isFeatured !== undefined) {
+      query = query.eq('is_featured', input.isFeatured);
     }
 
     const offset = input.offset ?? 0;
@@ -109,6 +115,7 @@ export const searchEvents = publicProcedure({
         category: e.category,
         startDateTime: e.start_date_time,
         city: e.city,
+        isFeatured: e.is_featured,
       })),
       total: count ?? 0,
     };

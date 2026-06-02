@@ -51,6 +51,7 @@ export const getEventById = publicProcedure({
         imageUrl: event.image_url ?? undefined,
         keywords: event.keywords,
         organizerInfo: event.organizer_info ?? undefined,
+        isFeatured: event.is_featured,
         attendeeCount: count ?? 0,
       },
     };
