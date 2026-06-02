@@ -6,7 +6,7 @@ import { cn } from './cn';
  * Public Props
  * ============================================================================= */
 
-export type ButtonVariant = 'primary' | 'secondary' | 'ghost';
+export type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'ghost';
 
 export type ButtonProps = (
   | (ComponentProps<'button'> & { href?: never })
@@ -37,6 +37,9 @@ export const Button = ({
       'bg-transparent text-ink border border-card-border',
       'hover:border-ink',
       'disabled:border-card-border',
+    ],
+    variant === 'tertiary' && [
+      'bg-canvas border border-card-border-c rounded-full px-4 py-2 text-ink text-sm hover:bg-coral hover:text-white hover:border-coral transition-colors',
     ],
     variant === 'ghost' && [
       'bg-transparent text-ink border-0 p-0',
