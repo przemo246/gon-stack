@@ -2,15 +2,19 @@ import { UserRound } from 'lucide-react';
 
 import { Dropdown } from '@/libs/ui/dropdown';
 import { useContext } from './context';
+import { Button } from '@/libs/ui/button';
 
 export const UserProfileDropdown = () => {
   const { trigger } = useContext();
   return (
     <Dropdown.Root>
       <Dropdown.Trigger>
-        <button className="bg-primary text-on-primary border-0 rounded-full inline-flex justify-center items-center text-sm hover:opacity-90 transition-opacity h-10 w-10">
+        <Button
+          variant="tertiary"
+          className="px-0 py-0 h-10 w-10 bg-surface hover:bg-primary hover:border-primary"
+        >
           <UserRound size={14} />
-        </button>
+        </Button>
       </Dropdown.Trigger>
 
       <Dropdown.Content align="right">
