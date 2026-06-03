@@ -14,21 +14,6 @@ type HeaderProps = {
   user: User | null;
 };
 
-type NavButtonProps = {
-  label: string;
-  active: boolean;
-  onClick: () => void;
-};
-
-const NavButton = ({ label, active, onClick }: NavButtonProps) => (
-  <button
-    className={`bg-transparent border-0 text-ink text-sm py-2 border-b-[1.5px] transition-colors hover:text-coral ${active ? 'border-ink' : 'border-transparent'}`}
-    onClick={onClick}
-  >
-    {label}
-  </button>
-);
-
 export const Header = ({
   route,
   onNavigate,
@@ -42,22 +27,23 @@ export const Header = ({
 
       {/* Nav */}
       <nav className="flex gap-7 justify-center">
-        <NavButton
-          label="Główna"
-          active={route === 'home'}
+        <Button
+          variant="ghost"
+          className={`py-2 ${route === 'home' ? 'border-ink' : 'border-transparent'}`}
           onClick={() => onNavigate('home')}
-        />
-        <NavButton
-          label="Przeglądaj"
-          active={route === 'results'}
+        >
+          Główna
+        </Button>
+        <Button
+          variant="ghost"
+          className={`py-2 ${route === 'results' ? 'border-ink' : 'border-transparent'}`}
           onClick={() => onNavigate('results')}
-        />
-        <NavButton label="Kalendarz" active={false} onClick={() => {}} />
-        {/* <NavButton
-          label="Dla organizatorów"
-          active={false}
-          onClick={() => {}}
-        /> */}
+        >
+          Przeglądaj
+        </Button>
+        <Button variant="ghost" className="border-transparent">
+          Kalendarz
+        </Button>
       </nav>
 
       {/* Right */}
