@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { User } from '@supabase/supabase-js';
 
 import { Provider, useContext } from './context';
@@ -108,6 +108,20 @@ const Content = ({ user }: MainProps) => {
   const currentEvent = activeEventId
     ? (EVENTS.find((e) => e.id === activeEventId) ?? null)
     : null;
+
+  const initialFetchFired = useRef(false);
+
+  useEffect(() => {
+    if (
+      route === 'results' &&
+      results.length === 0 &&
+      !isLoading &&
+      !initialFetchFired.current
+    ) {
+      initialFetchFired.current = true;
+      ctx.trigger('[TRIGGER]_SEARCH', {});
+    }
+  }, [ctx, isLoading, results.length, route]);
 
   const mappedResults = results.map(toMockEvent);
 
