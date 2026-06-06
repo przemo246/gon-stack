@@ -38,7 +38,12 @@ export const EventCard = ({
           </div>
         </div>
         <div className="aspect-3/4 h-27.5 rounded-sm overflow-hidden">
-          <Poster event={event} size="sm" />
+          <Poster
+            palette={event.palette}
+            posterTitle={event.posterTitle}
+            posterMeta={event.posterMeta}
+            size="sm"
+          />
         </div>
         <div>
           <Text.MonoLabel>
@@ -86,7 +91,12 @@ export const EventCard = ({
       onClick={() => onOpen(event)}
     >
       <div className="relative aspect-3/4 rounded-[10px] overflow-hidden m-2.5">
-        <Poster event={event} size="md" />
+        <Poster
+          palette={event.palette}
+          posterTitle={event.posterTitle}
+          posterMeta={event.posterMeta}
+          size="md"
+        />
         {event.badge && (
           <span className="absolute top-3 left-3 bg-coral text-white font-mono text-[10px] tracking-[0.16em] px-2 py-1 rounded-[6px] uppercase">
             {event.badge}

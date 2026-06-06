@@ -105,7 +105,6 @@ export const SearchBar = ({
             ref={nameInputRef}
             className={`bg-transparent border-0 p-0 outline-none font-sans ${inputSize} text-ink placeholder:text-muted w-full`}
             type="text"
-            required
             placeholder="Artysta, drużyna, tytuł…"
             value={value.name}
             onChange={(e) => setField('name', e.target.value)}

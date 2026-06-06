@@ -5,16 +5,38 @@ import { Poster } from './poster';
 import { EventCard } from './event-card';
 import { IconBack, IconHeart, IconShare, IconCheck } from './icons';
 import {
-  categoryLabel,
+  POSTER_PALETTES,
   fmtDate,
   fmtDayNum,
   fmtMonthShort,
   fmtDayName,
 } from './mock-data';
 import type { Event } from './mock-data';
+import type { EventDetail } from '../core/store';
+
+const CATEGORY_LABELS: Record<string, string> = {
+  Concert: 'Koncert',
+  Festival: 'Festiwal',
+  Sports: 'Sport',
+  Culture: 'Kultura',
+  Theatre: 'Teatr',
+  'Food & Drink': 'Jedzenie i napoje',
+};
+
+const dateOnly = (iso: string) => iso.split('T')[0];
+const timeOnly = (iso: string) => iso.split('T')[1]?.substring(0, 5) ?? '';
+
+const toMapCoords = (lat: number, lng: number) => ({
+  x: Math.max(0, Math.min(1, (lng - 14) / 10)),
+  y: Math.max(0, Math.min(1, (55 - lat) / 6)),
+});
+
+const paletteIndex = (id: string) =>
+  id.split('').reduce((sum, c) => sum + c.charCodeAt(0), 0) %
+  POSTER_PALETTES.length;
 
 type DetailsPageProps = {
-  event: Event;
+  event: EventDetail;
   allEvents: Event[];
   onBack: () => void;
   onOpenEvent: (event: Event) => void;
@@ -32,6 +54,18 @@ export const DetailsPage = ({
 }: DetailsPageProps) => {
   const [going, setGoing] = useState(false);
   const saved = savedSet.has(event.id);
+
+  const date = dateOnly(event.startDateTime);
+  const endDate = event.endDateTime ? dateOnly(event.endDateTime) : undefined;
+  const time = timeOnly(event.startDateTime);
+  const venue = `${event.address.street} ${event.address.number}`;
+  const coords = toMapCoords(event.coordinates.lat, event.coordinates.lng);
+  const palette = paletteIndex(event.id);
+  const posterTitle = event.name;
+  const posterMeta = `${event.address.city.toUpperCase()} · ${fmtDate(date).toUpperCase()}`;
+  const categoryDisplayLabel =
+    CATEGORY_LABELS[event.category] ?? event.category;
+
   const similar = allEvents
     .filter((e) => e.id !== event.id && e.category === event.category)
     .slice(0, 3);
@@ -48,12 +82,17 @@ export const DetailsPage = ({
       {/* Hero block */}
       <div className="grid gap-12 items-stretch bg-surface rounded-lg p-8 mb-8 grid-cols-[0.9fr_1.1fr]">
         <div className="rounded-[18px] overflow-hidden aspect-3/4 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.25)]">
-          <Poster event={event} size="lg" />
+          <Poster
+            palette={palette}
+            posterTitle={posterTitle}
+            posterMeta={posterMeta}
+            size="lg"
+          />
         </div>
         <div className="flex flex-col gap-5 py-3">
           <Text.MonoLabel>
-            {categoryLabel(event.category).toUpperCase()} ·{' '}
-            {event.city.toUpperCase()}
+            {categoryDisplayLabel.toUpperCase()} ·{' '}
+            {event.address.city.toUpperCase()}
           </Text.MonoLabel>
           <Text.PageHeading className="m-0">{event.name}</Text.PageHeading>
 
@@ -62,30 +101,30 @@ export const DetailsPage = ({
             <div className="flex flex-col gap-1.5">
               <Text.MonoLabel>DATA</Text.MonoLabel>
               <Text.DateDisplay as="div">
-                {fmtDayNum(event.date)}{' '}
+                {fmtDayNum(date)}{' '}
                 <span className="font-mono text-base tracking-[0.16em] text-coral">
-                  {fmtMonthShort(event.date)}
+                  {fmtMonthShort(date)}
                 </span>
-                {event.endDate && (
+                {endDate && (
                   <>
                     {' '}
-                    — {fmtDayNum(event.endDate)}{' '}
+                    — {fmtDayNum(endDate)}{' '}
                     <span className="font-mono text-base tracking-[0.16em] text-coral">
-                      {fmtMonthShort(event.endDate)}
+                      {fmtMonthShort(endDate)}
                     </span>
                   </>
                 )}
               </Text.DateDisplay>
               <div className="text-sm text-body-muted">
-                {fmtDayName(event.date)}, godz. {event.time}
+                {fmtDayName(date)}, godz. {time}
               </div>
             </div>
             <div className="flex flex-col gap-1.5">
               <Text.MonoLabel>MIEJSCE</Text.MonoLabel>
-              <Text.SubsectionHeading as="div">
-                {event.venue}
-              </Text.SubsectionHeading>
-              <div className="text-sm text-body-muted">{event.city}</div>
+              <Text.SubsectionHeading as="div">{venue}</Text.SubsectionHeading>
+              <div className="text-sm text-body-muted">
+                {event.address.city}
+              </div>
             </div>
           </div>
 
@@ -131,31 +170,34 @@ export const DetailsPage = ({
       {/* Body */}
       <div className="grid gap-12 mb-12 grid-cols-[1.6fr_0.9fr]">
         <div>
-          <section className="mb-10">
-            <Text.MonoLabel>O WYDARZENIU</Text.MonoLabel>
-            <p className="text-[19px] leading-relaxed text-ink mt-3">
-              {event.description}
-            </p>
-          </section>
+          {event.description && (
+            <section className="mb-10">
+              <Text.MonoLabel>O WYDARZENIU</Text.MonoLabel>
+              <p className="text-[19px] leading-relaxed text-ink mt-3">
+                {event.description}
+              </p>
+            </section>
+          )}
 
           <section className="mb-10">
             <Text.MonoLabel>LOKALIZACJA</Text.MonoLabel>
             <Text.SubsectionHeading className="mt-2 mb-4">
-              {event.venue}, {event.city}
+              {venue}, {event.address.city}
             </Text.SubsectionHeading>
-            {/* Stylized Poland map */}
-            <PolandMap pin={event.coords} label={event.city} />
+            <PolandMap pin={coords} label={event.address.city} />
             <div className="grid grid-cols-3 gap-6 mt-4 pt-4 border-t border-hairline">
               <div className="flex flex-col gap-1 text-sm">
                 <Text.MonoLabel>ADRES</Text.MonoLabel>
-                <div>{event.venue}</div>
-                <div className="text-muted">{event.city}, Polska</div>
+                <div>{venue}</div>
+                <div className="text-muted">
+                  {event.address.postalCode} {event.address.city}
+                </div>
               </div>
               <div className="flex flex-col gap-1 text-sm">
                 <Text.MonoLabel>WSPÓŁRZĘDNE</Text.MonoLabel>
                 <div className="font-mono text-[13px]">
-                  {(50 + event.coords.y * 5).toFixed(4)}° N ·{' '}
-                  {(15 + event.coords.x * 8).toFixed(4)}° E
+                  {event.coordinates.lat.toFixed(4)}° N ·{' '}
+                  {event.coordinates.lng.toFixed(4)}° E
                 </div>
               </div>
               <div className="flex flex-col gap-1 text-sm">
@@ -171,16 +213,15 @@ export const DetailsPage = ({
             <Text.MonoLabel>SZCZEGÓŁY</Text.MonoLabel>
             <ul className="list-none p-0 mt-3 m-0 flex flex-col gap-0">
               {[
-                ['Kategoria', categoryLabel(event.category)],
-                ['Miasto', event.city],
-                ['Miejsce', event.venue],
+                ['Kategoria', categoryDisplayLabel],
+                ['Miasto', event.address.city],
+                ['Miejsce', venue],
                 [
                   'Data',
-                  fmtDate(event.date) +
-                    (event.endDate ? ` – ${fmtDate(event.endDate)}` : ''),
+                  fmtDate(date) + (endDate ? ` – ${fmtDate(endDate)}` : ''),
                 ],
-                ['Godzina', event.time],
-                ['Język', 'polski'],
+                ['Godzina', time],
+                ['Uczestników', String(event.attendeeCount)],
               ].map(([label, val]) => (
                 <li
                   key={label}

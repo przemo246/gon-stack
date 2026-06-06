@@ -1,48 +1,66 @@
+import { useState } from 'react';
+
 import { Hero } from './hero';
 import { FeaturedGrid } from './featured-grid';
 import { CategoryBand } from './category-band';
-import type { SearchState } from './search-bar';
+import { EVENTS } from './mock-data';
 import type { Event } from './mock-data';
+import type { SearchState } from './search-bar';
 
 type LandingProps = {
-  search: SearchState;
-  onSearchChange: (v: SearchState) => void;
-  onSearchSubmit: () => void;
-  onQuickSearch: (query: Partial<SearchState>) => void;
-  featuredEvents: Event[];
-  onOpenEvent: (event: Event) => void;
-  onToggleSave: (id: string) => void;
   savedSet: Set<string>;
-  onPickCategory: (id: string) => void;
-  onBrowseAll: () => void;
+  onToggleSave: (id: string) => void;
 };
 
-export const Landing = ({
-  search,
-  onSearchChange,
-  onSearchSubmit,
-  onQuickSearch,
-  featuredEvents,
-  onOpenEvent,
-  onToggleSave,
-  savedSet,
-  onPickCategory,
-  onBrowseAll,
-}: LandingProps) => (
-  <>
-    <Hero
-      search={search}
-      onChange={onSearchChange}
-      onSubmit={onSearchSubmit}
-      onQuickSearch={onQuickSearch}
-    />
-    <FeaturedGrid
-      events={featuredEvents}
-      onOpen={onOpenEvent}
-      onToggleSave={onToggleSave}
-      savedSet={savedSet}
-      onBrowseAll={onBrowseAll}
-    />
-    <CategoryBand onPick={onPickCategory} />
-  </>
-);
+const EMPTY_SEARCH: SearchState = {
+  name: '',
+  category: '',
+  city: '',
+  date: '',
+};
+
+const toResultsUrl = (s: SearchState) => {
+  const p = new URLSearchParams();
+  if (s.name) p.set('name', s.name);
+  if (s.category) p.set('category', s.category);
+  if (s.city) p.set('city', s.city);
+  if (s.date) p.set('date', s.date);
+  return `/results${p.toString() ? `?${p}` : ''}`;
+};
+
+export const Landing = ({ savedSet, onToggleSave }: LandingProps) => {
+  const [search, setSearch] = useState<SearchState>(EMPTY_SEARCH);
+
+  const featuredEvents = EVENTS.filter((e) => e.featured).slice(0, 8);
+
+  return (
+    <>
+      <Hero
+        search={search}
+        onChange={setSearch}
+        onSubmit={() => {
+          window.location.href = toResultsUrl(search);
+        }}
+        onQuickSearch={(query) => {
+          window.location.href = toResultsUrl({ ...search, ...query });
+        }}
+      />
+      <FeaturedGrid
+        events={featuredEvents}
+        onOpen={(event: Event) => {
+          window.location.href = `/event/${event.id}`;
+        }}
+        onToggleSave={onToggleSave}
+        savedSet={savedSet}
+        onBrowseAll={() => {
+          window.location.href = '/results';
+        }}
+      />
+      <CategoryBand
+        onPick={(id: string) => {
+          window.location.href = `/results?category=${id}`;
+        }}
+      />
+    </>
+  );
+};

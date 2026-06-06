@@ -1,12 +1,13 @@
 import type { CSSProperties } from 'react';
 import { cn } from '@/libs/ui/cn';
 import { POSTER_PALETTES } from './mock-data';
-import type { Event } from './mock-data';
 
 type PosterSize = 'sm' | 'md' | 'lg';
 
 type PosterProps = {
-  event: Event;
+  palette: number;
+  posterTitle: string;
+  posterMeta: string;
   size?: PosterSize;
   className?: string;
 };
@@ -27,8 +28,14 @@ const INSET: Record<PosterSize, string> = {
   sm: 'left-3.5 right-3.5 bottom-3.5',
 };
 
-export const Poster = ({ event, size = 'md', className }: PosterProps) => {
-  const p = POSTER_PALETTES[event.palette % POSTER_PALETTES.length];
+export const Poster = ({
+  palette,
+  posterTitle,
+  posterMeta,
+  size = 'md',
+  className,
+}: PosterProps) => {
+  const p = POSTER_PALETTES[palette % POSTER_PALETTES.length];
 
   return (
     <div
@@ -59,7 +66,7 @@ export const Poster = ({ event, size = 'md', className }: PosterProps) => {
             TITLE_SIZE[size],
           )}
         >
-          {event.posterTitle}
+          {posterTitle}
         </div>
         <div
           className={cn(
@@ -67,7 +74,7 @@ export const Poster = ({ event, size = 'md', className }: PosterProps) => {
             META_SIZE[size],
           )}
         >
-          {event.posterMeta}
+          {posterMeta}
         </div>
       </div>
       {/* accent bar */}

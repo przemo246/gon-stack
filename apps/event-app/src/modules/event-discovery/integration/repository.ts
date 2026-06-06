@@ -1,6 +1,7 @@
 import type { Schema as SearchEventsSchema } from '@/shared/server-contracts/schemas/search-events';
+import type { Schema as GetEventByIdSchema } from '@/shared/server-contracts/schemas/get-event-by-id';
 import type { InferOut } from '@/shared/server-contracts/extraction';
-import type { EventCard } from '../core/store';
+import type { EventCard, EventDetail } from '../core/store';
 import type { SearchFilters } from '../contracts/events';
 
 const CATEGORY_MAP: Record<string, string> = {
@@ -35,4 +36,21 @@ export const searchEvents = async (
   }
 
   return { events: data.events, total: data.total };
+};
+
+export const fetchEvent = async (
+  id: string,
+  signal: AbortSignal,
+): Promise<EventDetail> => {
+  const res = await fetch(`/api/event/${id}`, { signal });
+  if (!res.ok) {
+    throw new Error('Coś poszło nie tak. Spróbuj ponownie później.');
+  }
+
+  const data = (await res.json()) as InferOut<GetEventByIdSchema['out']>;
+  if (data.code !== 200) {
+    throw new Error(data.message);
+  }
+
+  return data.event;
 };

@@ -5,21 +5,15 @@ import { Button } from '@/libs/ui/button';
 import type { User } from '@supabase/supabase-js';
 import { UserProfile } from '@/shared/user-profile/presentation/user-profile';
 
-export type Route = 'home' | 'results' | 'details';
+type ActivePage = 'home' | 'results' | 'details';
 
 type HeaderProps = {
-  route: Route;
-  onNavigate: (route: Route) => void;
+  activePage: ActivePage;
   savedCount: number;
   user: User | null;
 };
 
-export const Header = ({
-  route,
-  onNavigate,
-  savedCount,
-  user,
-}: HeaderProps) => (
+export const Header = ({ activePage, savedCount, user }: HeaderProps) => (
   <header className="sticky top-0 z-50 border-b border-hairline bg-canvas/85 backdrop-blur-md">
     <div className="max-w-360 mx-auto px-8 py-3.5 grid gap-8 items-center grid-cols-[auto_1fr_auto]">
       {/* Logo */}
@@ -29,15 +23,15 @@ export const Header = ({
       <nav className="flex gap-7 justify-center">
         <Button
           variant="ghost"
-          className={`py-2 ${route === 'home' ? 'border-ink' : 'border-transparent'}`}
-          onClick={() => onNavigate('home')}
+          className={`py-2 ${activePage === 'home' ? 'border-ink' : 'border-transparent'}`}
+          href="/"
         >
           Główna
         </Button>
         <Button
           variant="ghost"
-          className={`py-2 ${route === 'results' ? 'border-ink' : 'border-transparent'}`}
-          onClick={() => onNavigate('results')}
+          className={`py-2 ${activePage === 'results' ? 'border-ink' : 'border-transparent'}`}
+          href="/results"
         >
           Przeglądaj
         </Button>

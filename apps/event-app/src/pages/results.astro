@@ -1,0 +1,15 @@
+---
+import Layout from '@/core/layouts/main.astro';
+import { ResultsModule } from '@/core/modules/results';
+import { supabaseServer } from '@/shared/data-sources/supabase-server';
+
+export const prerender = false;
+
+const db = supabaseServer({ request: Astro.request, cookies: Astro.cookies });
+const { data } = await db.auth.getUser();
+const user = data.user ?? null;
+---
+
+<Layout title="Afisz · Wyniki">
+  <ResultsModule user={user} client:load />
+</Layout>

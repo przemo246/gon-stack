@@ -7,4 +7,6 @@ export type SearchFilters = {
   dateLabel?: string;
 };
 
-export type Event = TriggerEvent<'[TRIGGER]_SEARCH', SearchFilters>;
+export type Event =
+  | TriggerEvent<'[TRIGGER]_SEARCH', SearchFilters>
+  | TriggerEvent<'[TRIGGER]_FETCH_EVENT', { id: string }>;

@@ -10,7 +10,7 @@ export const getEventById = publicProcedure({
     const fetchResult = await db
       .from('events')
       .select('*')
-      .eq('id', input.eventId)
+      .eq('id', input.id)
       .single();
 
     if (fetchResult.error || !fetchResult.data) {
@@ -22,7 +22,7 @@ export const getEventById = publicProcedure({
     const { count, error: countError } = await db
       .from('event_attendances')
       .select('*', { count: 'exact', head: true })
-      .eq('event_id', input.eventId);
+      .eq('event_id', input.id);
 
     if (countError) {
       throw new InternalServer('Failed to fetch event attendee count');

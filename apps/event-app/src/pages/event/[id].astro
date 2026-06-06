@@ -1,0 +1,16 @@
+---
+import Layout from '@/core/layouts/main.astro';
+import { EventDetailsModule } from '@/core/modules/event-details';
+import { supabaseServer } from '@/shared/data-sources/supabase-server';
+
+export const prerender = false;
+
+const { id } = Astro.params;
+const db = supabaseServer({ request: Astro.request, cookies: Astro.cookies });
+const { data } = await db.auth.getUser();
+const user = data.user ?? null;
+---
+
+<Layout title="Afisz · Wydarzenie">
+  <EventDetailsModule id={id!} user={user} client:load />
+</Layout>

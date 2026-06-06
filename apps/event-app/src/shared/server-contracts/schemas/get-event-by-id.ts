@@ -12,7 +12,7 @@ const category = z.enum([
 export const schema = () =>
   z.object({
     in: z.object({
-      eventId: z.string(),
+      id: z.string(),
     }),
     out: z.union([
       z.object({
