@@ -5,6 +5,7 @@ export type SearchFilters = {
   category?: string;
   city?: string;
   dateLabel?: string;
+  isFeatured?: boolean;
 };
 
 export type Event =

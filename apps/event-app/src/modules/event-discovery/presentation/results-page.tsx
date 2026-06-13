@@ -1,4 +1,5 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
+
 import { Button } from '@/libs/ui/button';
 import { Text } from '@/libs/ui/text';
 import { EventCard } from './event-card';
@@ -6,58 +7,99 @@ import { CategoryChips } from './category-chips';
 import { SearchBar, ActiveFilters } from './search-bar';
 import type { SearchState } from './search-bar';
 import { categoryLabel } from './mock-data';
-import type { Event } from './mock-data';
+import type { Event } from '../contracts/models';
+import { useContext } from './context';
 
-type ResultsPageProps = {
-  search: SearchState;
-  onSearchChange: (v: SearchState) => void;
-  onSearchSubmit: () => void;
-  results: Event[];
-  isLoading: boolean;
-  error: string | null;
-  onOpenEvent: (event: Event) => void;
-  onToggleSave: (id: string) => void;
-  savedSet: Set<string>;
-  onClearAll: () => void;
-};
+const segBtn = (active: boolean) =>
+  `border-0 px-3.5 py-1.5 rounded-full text-sm transition-colors ${active ? 'bg-ink text-canvas' : 'bg-transparent text-ink hover:bg-hairline'}`;
 
-function plural(n: number, one: string, few: string, many: string): string {
+const plural = (n: number, one: string, few: string, many: string): string => {
   if (n === 1) return one;
   const mod10 = n % 10,
     mod100 = n % 100;
   if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) return few;
   return many;
-}
+};
 
-export const ResultsPage = ({
-  search,
-  onSearchChange,
-  onSearchSubmit,
-  results,
-  isLoading,
-  error,
-  onOpenEvent,
-  onToggleSave,
-  savedSet,
-  onClearAll,
-}: ResultsPageProps) => {
+const EMPTY_SEARCH: SearchState = {
+  name: '',
+  category: '',
+  city: '',
+  date: '',
+};
+
+const getSearchFromUrl = (): SearchState => {
+  if (typeof window === 'undefined') return EMPTY_SEARCH;
+  const p = new URLSearchParams(window.location.search);
+  return {
+    name: p.get('name') || '',
+    category: p.get('category') || '',
+    city: p.get('city') || '',
+    date: p.get('date') || '',
+  };
+};
+
+type ResultsPageProps = {
+  onToggleSave: (id: string) => void;
+  savedSet: Set<string>;
+};
+
+export const ResultsPage = ({ onToggleSave, savedSet }: ResultsPageProps) => {
   const [layout, setLayout] = useState<'grid' | 'list'>('grid');
   const [sort, setSort] = useState<'date' | 'name' | 'city'>('date');
+  const [search, setSearch] = useState<SearchState>(getSearchFromUrl);
 
-  const sorted = useMemo(() => {
+  const ctx = useContext();
+  const results = ctx.$results.use();
+  const isLoading = ctx.$isLoading.use();
+  const error = ctx.$error.use();
+
+  const handleSearchSubmit = () => {
+    const p = new URLSearchParams();
+    if (search.name) p.set('name', search.name);
+    if (search.category) p.set('category', search.category);
+    if (search.city) p.set('city', search.city);
+    if (search.date) p.set('date', search.date);
+    window.history.pushState({}, '', `/results${p.toString() ? `?${p}` : ''}`);
+    ctx.trigger('[TRIGGER]_SEARCH', {
+      name: search.name || undefined,
+      category: search.category || undefined,
+      city: search.city || undefined,
+      dateLabel: search.date || undefined,
+    });
+  };
+
+  useEffect(() => {
+    const s = getSearchFromUrl();
+    ctx.trigger('[TRIGGER]_SEARCH', {
+      name: s.name || undefined,
+      category: s.category || undefined,
+      city: s.city || undefined,
+      dateLabel: s.date || undefined,
+    });
+  }, [ctx]);
+
+  const sortedResults = useMemo(() => {
     const arr = [...results];
-    if (sort === 'date') arr.sort((a, b) => a.date.localeCompare(b.date));
+    if (sort === 'date')
+      arr.sort((a, b) => a.startDateTime.localeCompare(b.startDateTime));
     else if (sort === 'name')
       arr.sort((a, b) => a.name.localeCompare(b.name, 'pl'));
     else arr.sort((a, b) => a.city.localeCompare(b.city, 'pl'));
     return arr;
   }, [results, sort]);
 
-  const clearField = (k: keyof SearchState) =>
-    onSearchChange({ ...search, [k]: '' });
+  const handleClearField = (k: keyof SearchState) =>
+    setSearch({ ...search, [k]: '' });
 
-  const segBtn = (active: boolean) =>
-    `border-0 px-3.5 py-1.5 rounded-full text-sm transition-colors ${active ? 'bg-ink text-canvas' : 'bg-transparent text-ink hover:bg-hairline'}`;
+  const handleOpenEvent = (event: Event) => {
+    window.location.href = `/event/${event.id}`;
+  };
+
+  const handleClearAll = () => {
+    setSearch(EMPTY_SEARCH);
+    ctx.trigger('[TRIGGER]_SEARCH', {});
+  };
 
   return (
     <section className="px-8 py-12 max-w-360 mx-auto">
@@ -86,22 +128,22 @@ export const ResultsPage = ({
         <div className="mb-4">
           <SearchBar
             value={search}
-            onChange={onSearchChange}
-            onSubmit={onSearchSubmit}
+            onChange={setSearch}
+            onSubmit={handleSearchSubmit}
             variant="compact"
           />
         </div>
         <ActiveFilters
           search={search}
-          onClear={clearField}
-          onClearAll={onClearAll}
+          onClear={handleClearField}
+          onClearAll={handleClearAll}
         />
       </div>
 
       <div className="flex justify-between items-center gap-6 mb-6 flex-wrap">
         <CategoryChips
           value={search.category}
-          onChange={(v) => onSearchChange({ ...search, category: v })}
+          onChange={(v) => setSearch({ ...search, category: v })}
         />
         <div className="flex gap-4 items-center">
           <div className="inline-flex bg-surface border border-card-border-c rounded-full p-1 items-center">
@@ -144,11 +186,11 @@ export const ResultsPage = ({
             Nie udało się pobrać wyników.
           </h2>
           <p className="text-body-muted m-0 mb-4">{error}</p>
-          <Button variant="primary" onClick={onClearAll}>
+          <Button variant="primary" onClick={handleClearAll}>
             Spróbuj ponownie
           </Button>
         </div>
-      ) : sorted.length === 0 ? (
+      ) : sortedResults.length === 0 ? (
         <div className="py-20 px-8 text-center bg-surface rounded-lg flex flex-col items-center gap-3">
           <Text.MonoLabel>BRAK WYNIKÓW</Text.MonoLabel>
           <h2 className="font-display font-medium text-[32px] m-1">
@@ -157,18 +199,18 @@ export const ResultsPage = ({
           <p className="text-body-muted m-0 mb-4">
             Spróbuj zmienić miasto, datę lub kategorię — albo wyczyść filtry.
           </p>
-          <Button variant="primary" onClick={onClearAll}>
+          <Button variant="primary" onClick={handleClearAll}>
             Wyczyść filtry
           </Button>
         </div>
       ) : layout === 'grid' ? (
         <div className="grid grid-cols-2 gap-5 lg:grid-cols-3 2xl:grid-cols-4">
-          {sorted.map((e) => (
+          {sortedResults.map((e) => (
             <EventCard
               key={e.id}
               event={e}
               layout="grid"
-              onOpen={onOpenEvent}
+              onOpen={handleOpenEvent}
               onToggleSave={onToggleSave}
               saved={savedSet.has(e.id)}
             />
@@ -176,12 +218,12 @@ export const ResultsPage = ({
         </div>
       ) : (
         <div className="flex flex-col gap-3">
-          {sorted.map((e) => (
+          {sortedResults.map((e) => (
             <EventCard
               key={e.id}
               event={e}
               layout="list"
-              onOpen={onOpenEvent}
+              onOpen={handleOpenEvent}
               onToggleSave={onToggleSave}
               saved={savedSet.has(e.id)}
             />

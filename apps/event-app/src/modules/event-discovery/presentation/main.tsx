@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { User } from '@supabase/supabase-js';
 
+import { Provider } from './context';
 import { Header } from './header';
 import { Landing } from './landing';
 import { Footer } from './footer';
@@ -32,4 +33,8 @@ const Content = ({ user }: MainProps) => {
   );
 };
 
-export const Main = ({ user }: MainProps) => <Content user={user} />;
+export const Main = ({ user }: MainProps) => (
+  <Provider>
+    <Content user={user} />
+  </Provider>
+);

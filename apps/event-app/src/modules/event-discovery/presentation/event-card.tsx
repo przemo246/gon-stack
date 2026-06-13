@@ -1,9 +1,9 @@
 import { Button } from '@/libs/ui/button';
-import { Poster } from './poster';
 import { Text } from '@/libs/ui/text';
-import { IconHeart, IconPin, IconClock, IconArrow } from './icons';
-import { fmtDate, fmtDayNum, fmtMonthShort, categoryLabel } from './mock-data';
-import type { Event } from './mock-data';
+import { IconHeart, IconArrow } from './icons';
+import { fmtDayNum, fmtMonthShort, fmtDate, categoryLabel } from './mock-data';
+import type { Event } from '../contracts/models';
+import { Poster } from './poster';
 
 type EventCardLayout = 'grid' | 'list';
 
@@ -15,6 +15,8 @@ type EventCardProps = {
   saved: boolean;
 };
 
+const dateOnly = (startDateTime: string) => startDateTime.slice(0, 10);
+
 export const EventCard = ({
   event,
   layout = 'grid',
@@ -25,25 +27,22 @@ export const EventCard = ({
   if (layout === 'list') {
     return (
       <article
-        className="grid gap-5 items-center p-4.5 bg-card-bg border border-card-border-c rounded-[14px] cursor-pointer hover:border-ink transition-colors grid-cols-[80px_100px_1fr_auto]"
+        className="grid gap-5 items-center p-4.5 bg-card-bg border border-card-border-c rounded-[14px] cursor-pointer hover:border-ink transition-colors grid-cols-[80px_1fr_auto]"
         onClick={() => onOpen(event)}
       >
         <div className="text-center border-r border-hairline pr-3">
-          <Text.DateNum as="div">{fmtDayNum(event.date)}</Text.DateNum>
+          <Text.DateNum as="div">
+            {fmtDayNum(dateOnly(event.startDateTime))}
+          </Text.DateNum>
           <div className="font-mono text-[11px] tracking-[0.18em] text-coral">
-            {fmtMonthShort(event.date)}
+            {fmtMonthShort(dateOnly(event.startDateTime))}
           </div>
           <div className="text-[11px] text-muted mt-0.5">
-            {new Date(event.date).getFullYear()}
+            {new Date(event.startDateTime).getFullYear()}
           </div>
         </div>
         <div className="aspect-3/4 h-27.5 rounded-sm overflow-hidden">
-          <Poster
-            palette={event.palette}
-            posterTitle={event.posterTitle}
-            posterMeta={event.posterMeta}
-            size="sm"
-          />
+          <Poster palette={0} size="sm" />
         </div>
         <div>
           <Text.MonoLabel>
@@ -51,14 +50,6 @@ export const EventCard = ({
             {event.city.toUpperCase()}
           </Text.MonoLabel>
           <Text.CardTitleLg className="my-1.5">{event.name}</Text.CardTitleLg>
-          <div className="flex gap-4.5 text-sm text-body-muted">
-            <span className="inline-flex gap-1.5 items-center">
-              <IconPin size={14} /> {event.venue}
-            </span>
-            <span className="inline-flex gap-1.5 items-center">
-              <IconClock size={14} /> {event.time}
-            </span>
-          </div>
         </div>
         <div className="flex gap-3 items-center">
           <button
@@ -91,17 +82,10 @@ export const EventCard = ({
       onClick={() => onOpen(event)}
     >
       <div className="relative aspect-3/4 rounded-[10px] overflow-hidden m-2.5">
-        <Poster
-          palette={event.palette}
-          posterTitle={event.posterTitle}
-          posterMeta={event.posterMeta}
-          size="md"
-        />
-        {event.badge && (
-          <span className="absolute top-3 left-3 bg-coral text-white font-mono text-[10px] tracking-[0.16em] px-2 py-1 rounded-[6px] uppercase">
-            {event.badge}
-          </span>
-        )}
+        <Poster palette={0} />
+        <span className="absolute top-3 left-3 bg-coral text-white font-mono text-[10px] tracking-[0.16em] px-2 py-1 rounded-[6px] uppercase">
+          {event.category}
+        </span>
         <button
           className={`absolute top-2.5 right-2.5 w-9 h-9 rounded-full border-0 inline-flex items-center justify-center transition-colors ${saved ? 'bg-coral text-white' : 'bg-white/90 text-ink'}`}
           onClick={(e) => {
@@ -115,15 +99,9 @@ export const EventCard = ({
       </div>
       <div className="px-3.5 py-3 pb-4 flex flex-col gap-2.5">
         <Text.MonoLabel>
-          {fmtDate(event.date)} · {event.city}
+          {fmtDate(dateOnly(event.startDateTime))} · {event.city}
         </Text.MonoLabel>
         <Text.CardTitle className="m-0">{event.name}</Text.CardTitle>
-        <div className="flex justify-between gap-3 text-body-muted text-xs">
-          <span className="bg-surface rounded-[6px] px-2 py-0.5">
-            {categoryLabel(event.category)}
-          </span>
-          <span className="truncate">{event.venue}</span>
-        </div>
       </div>
     </article>
   );

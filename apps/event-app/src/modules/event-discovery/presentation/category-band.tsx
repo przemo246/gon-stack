@@ -2,11 +2,7 @@ import { IconArrow } from './icons';
 import { CATEGORIES, EVENTS } from './mock-data';
 import { Text } from '@/libs/ui/text';
 
-type CategoryBandProps = {
-  onPick: (categoryId: string) => void;
-};
-
-export const CategoryBand = ({ onPick }: CategoryBandProps) => (
+export const CategoryBand = () => (
   <section className="px-8 pb-12 max-w-360 mx-auto">
     <div className="flex justify-between items-end gap-8 mt-18 mb-7">
       <div>
@@ -23,7 +19,9 @@ export const CategoryBand = ({ onPick }: CategoryBandProps) => (
           <button
             key={c.id}
             className="group relative bg-card-bg border border-card-border-c rounded-[14px] p-5 text-left text-ink flex flex-col gap-2 min-h-32.5 transition-colors hover:bg-primary hover:text-on-primary"
-            onClick={() => onPick(c.id)}
+            onClick={() => {
+              window.location.href = `/results?category=${c.id}`;
+            }}
           >
             <Text.MonoLabel className="text-coral">{c.mono}</Text.MonoLabel>
             <Text.CategoryHeading as="div">{c.label}</Text.CategoryHeading>

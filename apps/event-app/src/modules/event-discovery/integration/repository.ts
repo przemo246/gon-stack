@@ -1,7 +1,7 @@
 import type { Schema as SearchEventsSchema } from '@/shared/server-contracts/schemas/search-events';
 import type { Schema as GetEventByIdSchema } from '@/shared/server-contracts/schemas/get-event-by-id';
 import type { InferOut } from '@/shared/server-contracts/extraction';
-import type { EventCard, EventDetail } from '../core/store';
+import type { Event, EventDetail } from '../contracts/models';
 import type { SearchFilters } from '../contracts/events';
 
 const CATEGORY_MAP: Record<string, string> = {
@@ -15,7 +15,7 @@ const CATEGORY_MAP: Record<string, string> = {
 export const searchEvents = async (
   filters: SearchFilters,
   signal: AbortSignal,
-): Promise<{ events: EventCard[]; total: number }> => {
+): Promise<{ events: Event[]; total: number }> => {
   const params = new URLSearchParams();
   if (filters.name) params.set('name', filters.name);
   if (filters.category) {
@@ -24,6 +24,8 @@ export const searchEvents = async (
   }
   if (filters.city) params.set('city', filters.city);
   if (filters.dateLabel) params.set('dateLabel', filters.dateLabel);
+  if (filters.isFeatured !== undefined)
+    params.set('isFeatured', String(filters.isFeatured));
 
   const res = await fetch(`/api/event/search?${params}`, { signal });
   if (!res.ok) {

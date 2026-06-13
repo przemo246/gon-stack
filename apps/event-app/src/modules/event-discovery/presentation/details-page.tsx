@@ -11,8 +11,7 @@ import {
   fmtMonthShort,
   fmtDayName,
 } from './mock-data';
-import type { Event } from './mock-data';
-import type { EventDetail } from '../core/store';
+import type { Event, EventDetail } from '../contracts/models';
 
 const CATEGORY_LABELS: Record<string, string> = {
   Concert: 'Koncert',

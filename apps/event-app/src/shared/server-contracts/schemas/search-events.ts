@@ -16,7 +16,10 @@ export const schema = () =>
       category: category.optional(),
       city: z.string().optional(),
       dateLabel: z.string().optional(),
-      isFeatured: z.boolean().optional(),
+      isFeatured: z.preprocess(
+        (val) => (typeof val === 'string' ? val === 'true' : val),
+        z.boolean().optional(),
+      ),
       offset: z.number().int().min(0).optional(),
       limit: z.number().int().min(1).max(100).optional(),
     }),

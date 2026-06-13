@@ -6,8 +6,8 @@ type PosterSize = 'sm' | 'md' | 'lg';
 
 type PosterProps = {
   palette: number;
-  posterTitle: string;
-  posterMeta: string;
+  posterTitle?: string;
+  posterMeta?: string;
   size?: PosterSize;
   className?: string;
 };
@@ -60,22 +60,26 @@ export const Poster = ({
       <div className="absolute inset-0 pointer-events-none [background:radial-gradient(120%_80%_at_80%_110%,var(--poster-accent-glow),transparent_60%),radial-gradient(80%_60%_at_10%_-10%,var(--poster-fg-glow),transparent_60%)]" />
       {/* title block */}
       <div className={cn('absolute flex flex-col gap-2.5', INSET[size])}>
-        <div
-          className={cn(
-            'font-display font-semibold leading-[0.92] tracking-[-0.03em] whitespace-pre-line uppercase',
-            TITLE_SIZE[size],
-          )}
-        >
-          {posterTitle}
-        </div>
-        <div
-          className={cn(
-            'font-mono tracking-[0.14em] opacity-[0.85]',
-            META_SIZE[size],
-          )}
-        >
-          {posterMeta}
-        </div>
+        {posterTitle && (
+          <div
+            className={cn(
+              'font-display font-semibold leading-[0.92] tracking-[-0.03em] whitespace-pre-line uppercase',
+              TITLE_SIZE[size],
+            )}
+          >
+            {posterTitle}
+          </div>
+        )}
+        {posterMeta && (
+          <div
+            className={cn(
+              'font-mono tracking-[0.14em] opacity-[0.85]',
+              META_SIZE[size],
+            )}
+          >
+            {posterMeta}
+          </div>
+        )}
       </div>
       {/* accent bar */}
       <div className="absolute left-0 top-0 bottom-0 w-1 bg-(--poster-accent)" />
