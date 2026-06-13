@@ -1,13 +1,11 @@
 import { useState, useMemo, useEffect } from 'react';
 
-import { Button } from '@/libs/ui/button';
 import { Text } from '@/libs/ui/text';
-import { EventCard } from './event-card';
+import { ResultsList } from './results-list';
 import { CategoryChips } from './category-chips';
 import { SearchBar, ActiveFilters } from './search-bar';
 import type { SearchState } from './search-bar';
 import { categoryLabel } from './mock-data';
-import type { Event } from '../contracts/models';
 import { useContext } from './context';
 
 const segBtn = (active: boolean) =>
@@ -92,10 +90,6 @@ export const ResultsPage = ({ onToggleSave, savedSet }: ResultsPageProps) => {
   const handleClearField = (k: keyof SearchState) =>
     setSearch({ ...search, [k]: '' });
 
-  const handleOpenEvent = (event: Event) => {
-    window.location.href = `/event/${event.id}`;
-  };
-
   const handleClearAll = () => {
     setSearch(EMPTY_SEARCH);
     ctx.trigger('[TRIGGER]_SEARCH', {});
@@ -175,61 +169,15 @@ export const ResultsPage = ({ onToggleSave, savedSet }: ResultsPageProps) => {
         </div>
       </div>
 
-      {isLoading ? (
-        <div className="py-20 text-center">
-          <Text.MonoLabel>ŁADOWANIE…</Text.MonoLabel>
-        </div>
-      ) : error ? (
-        <div className="py-20 px-8 text-center bg-surface rounded-lg flex flex-col items-center gap-3">
-          <Text.MonoLabel>BŁĄD</Text.MonoLabel>
-          <h2 className="font-display font-medium text-[32px] m-1">
-            Nie udało się pobrać wyników.
-          </h2>
-          <p className="text-body-muted m-0 mb-4">{error}</p>
-          <Button variant="primary" onClick={handleClearAll}>
-            Spróbuj ponownie
-          </Button>
-        </div>
-      ) : sortedResults.length === 0 ? (
-        <div className="py-20 px-8 text-center bg-surface rounded-lg flex flex-col items-center gap-3">
-          <Text.MonoLabel>BRAK WYNIKÓW</Text.MonoLabel>
-          <h2 className="font-display font-medium text-[32px] m-1">
-            Nic nie pasuje do tych filtrów.
-          </h2>
-          <p className="text-body-muted m-0 mb-4">
-            Spróbuj zmienić miasto, datę lub kategorię — albo wyczyść filtry.
-          </p>
-          <Button variant="primary" onClick={handleClearAll}>
-            Wyczyść filtry
-          </Button>
-        </div>
-      ) : layout === 'grid' ? (
-        <div className="grid grid-cols-2 gap-5 lg:grid-cols-3 2xl:grid-cols-4">
-          {sortedResults.map((e) => (
-            <EventCard
-              key={e.id}
-              event={e}
-              layout="grid"
-              onOpen={handleOpenEvent}
-              onToggleSave={onToggleSave}
-              saved={savedSet.has(e.id)}
-            />
-          ))}
-        </div>
-      ) : (
-        <div className="flex flex-col gap-3">
-          {sortedResults.map((e) => (
-            <EventCard
-              key={e.id}
-              event={e}
-              layout="list"
-              onOpen={handleOpenEvent}
-              onToggleSave={onToggleSave}
-              saved={savedSet.has(e.id)}
-            />
-          ))}
-        </div>
-      )}
+      <ResultsList
+        isLoading={isLoading}
+        error={error}
+        results={sortedResults}
+        layout={layout}
+        onToggleSave={onToggleSave}
+        savedSet={savedSet}
+        onClearAll={handleClearAll}
+      />
     </section>
   );
 };
