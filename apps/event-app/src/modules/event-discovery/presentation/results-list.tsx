@@ -1,7 +1,10 @@
 import { Button } from '@/libs/ui/button';
 import { Text } from '@/libs/ui/text';
 import { EventCard } from './event-card';
+import { SkeletonCard } from './skeleton-card';
 import type { Event } from '../contracts/models';
+
+const SKELETON_COUNT = 8;
 
 type ResultsListProps = {
   isLoading: boolean;
@@ -27,10 +30,16 @@ export const ResultsList = ({
   onClearAll,
 }: ResultsListProps) => {
   if (isLoading) {
-    return (
-      <div className="py-20 text-center">
-        <Text.MonoLabel>ŁADOWANIE…</Text.MonoLabel>
+    const skeletons = Array.from({ length: SKELETON_COUNT }, (_, i) => (
+      <SkeletonCard key={i} layout={layout} />
+    ));
+
+    return layout === 'grid' ? (
+      <div className="grid grid-cols-2 gap-5 lg:grid-cols-3 2xl:grid-cols-4">
+        {skeletons}
       </div>
+    ) : (
+      <div className="flex flex-col gap-3">{skeletons}</div>
     );
   }
 
@@ -90,7 +99,7 @@ export const ResultsList = ({
           key={e.id}
           event={e}
           layout="list"
-          onOpen={onOpenEvent}
+          onOpen={openEvent}
           onToggleSave={onToggleSave}
           saved={savedSet.has(e.id)}
         />

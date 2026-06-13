@@ -6,7 +6,7 @@ export const createStore = () => {
   const $filters = atom<SearchFilters>({});
   const $results = atom<Event[]>([]);
   const $total = atom(0);
-  const $isLoading = atom(false);
+  const $isLoading = atom(true);
   const $error = atom<string | null>(null);
 
   const $event = atom<EventDetail | null>(null);
