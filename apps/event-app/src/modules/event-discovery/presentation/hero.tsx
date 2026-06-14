@@ -50,7 +50,7 @@ export const Hero = () => {
           <em className="italic text-coral">przeżyć.</em>
         </Text.HeroDisplay>
 
-        <p className="max-w-160 text-lg leading-relaxed text-body-muted mb-8">
+        <p className="max-w-160 text-lg leading-relaxed text-gray-300 mb-8">
           Koncerty, festiwale, sport, teatr, wystawy. Wszystkie wydarzenia w
           Polsce w jednym miejscu — bez biletów, bez pośredników, tylko afisz.
         </p>
