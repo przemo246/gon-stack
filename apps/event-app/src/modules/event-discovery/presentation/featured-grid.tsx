@@ -4,6 +4,9 @@ import { Text } from '@/libs/ui/text';
 import { EventCard } from './event-card';
 import { IconArrow } from './icons';
 import { useContext } from './context';
+import { SkeletonCard } from './skeleton-card';
+
+const SKELETON_COUNT = 4;
 
 type FeaturedGridProps = {
   onToggleSave: (id: string) => void;
@@ -13,6 +16,27 @@ type FeaturedGridProps = {
 export const FeaturedGrid = ({ onToggleSave, savedSet }: FeaturedGridProps) => {
   const ctx = useContext();
   const events = ctx.$results.use();
+  const isLoading = ctx.$isLoading.use();
+
+  const renderCards = () => {
+    if (isLoading) {
+      return Array.from({ length: SKELETON_COUNT }, (_, i) => (
+        <SkeletonCard key={i} />
+      ));
+    } else {
+      return events.map((e) => (
+        <EventCard
+          key={e.id}
+          event={e}
+          onOpen={(event) => {
+            window.location.href = `/event/${event.id}`;
+          }}
+          onToggleSave={onToggleSave}
+          saved={savedSet.has(e.id)}
+        />
+      ));
+    }
+  };
 
   useEffect(() => {
     ctx.trigger('[TRIGGER]_SEARCH', { isFeatured: true });
@@ -38,17 +62,7 @@ export const FeaturedGrid = ({ onToggleSave, savedSet }: FeaturedGridProps) => {
         </Button>
       </div>
       <div className="grid grid-cols-2 gap-5 lg:grid-cols-3 2xl:grid-cols-4">
-        {events.map((e) => (
-          <EventCard
-            key={e.id}
-            event={e}
-            onOpen={(event) => {
-              window.location.href = `/event/${event.id}`;
-            }}
-            onToggleSave={onToggleSave}
-            saved={savedSet.has(e.id)}
-          />
-        ))}
+        {renderCards()}
       </div>
     </section>
   );

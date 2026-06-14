@@ -4,7 +4,7 @@ import { EventCard } from './event-card';
 import { SkeletonCard } from './skeleton-card';
 import type { Event } from '../contracts/models';
 
-const SKELETON_COUNT = 8;
+const SKELETON_COUNT = 4;
 
 type ResultsListProps = {
   isLoading: boolean;
