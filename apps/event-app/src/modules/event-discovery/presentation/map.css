@@ -1,0 +1,84 @@
+/*
+ * App-specific Leaflet overrides. Imported after `leaflet/dist/leaflet.css`
+ * so these rules win. Scoped to `.event-map` to avoid leaking globally.
+ */
+
+.event-map {
+  font-family: var(--font-sans);
+  background: var(--color-soft-stone);
+}
+
+/* Warm the minimal Positron basemap toward the app's soft-stone palette. */
+.event-map .leaflet-tile-pane {
+  filter: grayscale(0.15) sepia(0.12) saturate(0.92) brightness(1.02);
+}
+
+/* Zoom controls — match the app's card/hairline + coral hover. */
+.event-map .leaflet-bar {
+  border: none;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  box-shadow: 0 8px 20px -12px rgba(0, 0, 0, 0.35);
+}
+
+.event-map .leaflet-bar a {
+  background: var(--color-card-bg);
+  color: var(--color-ink);
+  border-bottom: 1px solid var(--color-hairline);
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  transition:
+    color 0.15s ease,
+    background 0.15s ease;
+}
+
+.event-map .leaflet-bar a:last-child {
+  border-bottom: none;
+}
+
+.event-map .leaflet-bar a:hover {
+  background: var(--color-surface);
+  color: var(--color-coral);
+}
+
+/* Popup — rounded card with hairline border and app typography. */
+.event-map .leaflet-popup-content-wrapper {
+  background: var(--color-card-bg);
+  color: var(--color-ink);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 18px 40px -20px rgba(0, 0, 0, 0.4);
+}
+
+.event-map .leaflet-popup-content {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--color-ink);
+}
+
+.event-map .leaflet-popup-tip {
+  background: var(--color-card-bg);
+  border: 1px solid var(--color-border-light);
+}
+
+.event-map .leaflet-popup-close-button {
+  color: var(--color-muted);
+}
+
+.event-map .leaflet-popup-close-button:hover {
+  color: var(--color-coral);
+}
+
+/* Attribution — muted, mono, unobtrusive. */
+.event-map .leaflet-control-attribution {
+  background: rgba(255, 255, 255, 0.8);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--color-muted);
+}
+
+.event-map .leaflet-control-attribution a {
+  color: var(--color-slate);
+}

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button } from '@/libs/ui/button';
 import { Text } from '@/libs/ui/text';
 import { Poster } from './poster';
+import { Map } from './map';
 import { EventCard } from './event-card';
 import { IconBack, IconHeart, IconShare, IconCheck } from './icons';
 import {
@@ -24,11 +25,6 @@ const CATEGORY_LABELS: Record<string, string> = {
 
 const dateOnly = (iso: string) => iso.split('T')[0];
 const timeOnly = (iso: string) => iso.split('T')[1]?.substring(0, 5) ?? '';
-
-const toMapCoords = (lat: number, lng: number) => ({
-  x: Math.max(0, Math.min(1, (lng - 14) / 10)),
-  y: Math.max(0, Math.min(1, (55 - lat) / 6)),
-});
 
 const paletteIndex = (id: string) =>
   id.split('').reduce((sum, c) => sum + c.charCodeAt(0), 0) %
@@ -58,7 +54,7 @@ export const DetailsPage = ({
   const endDate = event.endDateTime ? dateOnly(event.endDateTime) : undefined;
   const time = timeOnly(event.startDateTime);
   const venue = `${event.address.street} ${event.address.number}`;
-  const coords = toMapCoords(event.coordinates.lat, event.coordinates.lng);
+  const fullAddress = `${venue}, ${event.address.postalCode} ${event.address.city}`;
   const palette = paletteIndex(event.id);
   const posterTitle = event.name;
   const posterMeta = `${event.address.city.toUpperCase()} · ${fmtDate(date).toUpperCase()}`;
@@ -183,7 +179,11 @@ export const DetailsPage = ({
             <Text.SubsectionHeading className="mt-2 mb-4">
               {venue}, {event.address.city}
             </Text.SubsectionHeading>
-            <PolandMap pin={coords} label={event.address.city} />
+            <Map
+              coordinates={event.coordinates}
+              address={fullAddress}
+              label={event.address.city}
+            />
             <div className="grid grid-cols-3 gap-6 mt-4 pt-4 border-t border-hairline">
               <div className="flex flex-col gap-1 text-sm">
                 <Text.MonoLabel>ADRES</Text.MonoLabel>
@@ -208,7 +208,7 @@ export const DetailsPage = ({
         </div>
 
         <aside>
-          <div className="bg-card-bg border border-card-border-c rounded-md p-5 mb-4">
+          <div className="bg-card-bg border border-border-light rounded-md p-5 mb-4">
             <Text.MonoLabel>SZCZEGÓŁY</Text.MonoLabel>
             <ul className="list-none p-0 mt-3 m-0 flex flex-col gap-0">
               {[
@@ -232,7 +232,7 @@ export const DetailsPage = ({
               ))}
             </ul>
           </div>
-          <div className="bg-soft-stone border border-card-border rounded-md p-5">
+          <div className="bg-soft-stone border border-border-light rounded-md p-5">
             <Text.MonoLabel className="text-coral">UWAGA</Text.MonoLabel>
             <p className="text-sm mt-2 mb-0 text-body-muted leading-relaxed">
               Afisz nie sprzedaje biletów. Po sprzedaż przejdź na stronę
@@ -267,108 +267,5 @@ export const DetailsPage = ({
         </section>
       )}
     </section>
-  );
-};
-
-type PolandMapProps = {
-  pin: { x: number; y: number };
-  label: string;
-};
-
-const CITY_DOTS = [
-  { x: 0.66, y: 0.42, n: 'Warszawa' },
-  { x: 0.55, y: 0.74, n: 'Kraków' },
-  { x: 0.3, y: 0.55, n: 'Wrocław' },
-  { x: 0.42, y: 0.32, n: 'Poznań' },
-  { x: 0.55, y: 0.1, n: 'Gdańsk' },
-  { x: 0.55, y: 0.48, n: 'Łódź' },
-  { x: 0.5, y: 0.78, n: 'Katowice' },
-  { x: 0.78, y: 0.62, n: 'Lublin' },
-  { x: 0.18, y: 0.2, n: 'Szczecin' },
-  { x: 0.47, y: 0.22, n: 'Bydgoszcz' },
-  { x: 0.85, y: 0.3, n: 'Białystok' },
-  { x: 0.85, y: 0.78, n: 'Rzeszów' },
-];
-
-const PolandMap = ({ pin, label }: PolandMapProps) => {
-  const W = 800,
-    H = 600;
-  return (
-    <div className="relative bg-surface border border-card-border-c rounded-[18px] overflow-hidden mt-4 aspect-4/3">
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-full block">
-        <defs>
-          <pattern
-            id="mapgrid"
-            width="32"
-            height="32"
-            patternUnits="userSpaceOnUse"
-          >
-            <path
-              d="M32 0H0V32"
-              fill="none"
-              stroke="var(--color-map-grid)"
-              strokeWidth="0.5"
-            />
-          </pattern>
-        </defs>
-        <rect width={W} height={H} fill="url(#mapgrid)" />
-        <path
-          d="M120 180 L200 110 L320 90 L460 80 L580 100 L680 140 L720 220 L700 320 L680 420 L600 500 L480 540 L360 530 L240 500 L160 430 L110 340 Z"
-          fill="var(--color-map-land)"
-          stroke="var(--color-map-coast)"
-          strokeWidth="1.5"
-        />
-        {CITY_DOTS.map((c) => (
-          <g key={c.n}>
-            <circle
-              cx={c.x * W}
-              cy={c.y * H}
-              r="3"
-              fill="var(--color-map-city)"
-            />
-            <text
-              x={c.x * W + 8}
-              y={c.y * H + 4}
-              fontFamily="monospace"
-              fontSize="10"
-              fill="var(--color-map-city)"
-            >
-              {c.n}
-            </text>
-          </g>
-        ))}
-        <g transform={`translate(${pin.x * W}, ${pin.y * H})`}>
-          <circle r="32" fill="var(--color-coral)" opacity="0.18" />
-          <circle r="18" fill="var(--color-coral)" opacity="0.32" />
-          <circle
-            r="8"
-            fill="var(--color-coral)"
-            stroke="var(--color-canvas)"
-            strokeWidth="2"
-          />
-          <line
-            x1="0"
-            y1="-12"
-            x2="0"
-            y2="-32"
-            stroke="var(--color-coral)"
-            strokeWidth="1.5"
-          />
-          <text
-            x="6"
-            y="-36"
-            fontFamily="monospace"
-            fontSize="12"
-            fontWeight="600"
-            fill="var(--color-coral)"
-          >
-            {label.toUpperCase()}
-          </text>
-        </g>
-      </svg>
-      <div className="absolute left-4 bottom-4 right-4 flex justify-between items-center pointer-events-none">
-        <Text.MonoLabel>MAPA POLSKI · WIDOK STYLIZOWANY</Text.MonoLabel>
-      </div>
-    </div>
   );
 };
