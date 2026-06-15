@@ -120,7 +120,7 @@ export const DropdownContent = ({
       className={cn(
         'absolute top-full mt-2 z-50',
         'min-w-40 py-1',
-        'bg-card-bg border border-card-border-c rounded-md',
+        'bg-card-bg border border-border-dark rounded-md',
         'shadow-[0_4px_24px_rgba(0,0,0,0.08)]',
         align === 'right' ? 'right-0' : 'left-0',
         className,

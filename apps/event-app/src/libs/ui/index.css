@@ -10,7 +10,7 @@
   --color-pale-blue: #f1f5ff;
   --color-hairline: #d9d9dd;
   --color-border-light: #e5e7eb;
-  --color-card-border: #f2f2f2;
+  --color-border-dark: #d1d5dc;
   --color-primary: #17171c;
   --color-black: #000000;
   --color-ink: #212121;
@@ -34,7 +34,6 @@
   --color-fg: var(--color-ink);
   --color-surface: #fafaf7;
   --color-card-bg: #ffffff;
-  --color-card-border-c: #ececec;
 
   /* ============================================================
    * Typography
@@ -96,7 +95,6 @@
   --color-ink: #f1f1f2;
   --color-surface: #15151a;
   --color-card-bg: #15151a;
-  --color-card-border-c: #2e2e36;
   --color-hairline: #2e2e36;
   --color-border-light: #2e2e36;
   --color-primary: #f1f1f2;

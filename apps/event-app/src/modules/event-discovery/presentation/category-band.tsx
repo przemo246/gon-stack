@@ -18,7 +18,7 @@ export const CategoryBand = () => (
         return (
           <button
             key={c.id}
-            className="group relative bg-card-bg border border-card-border-c rounded-[14px] p-5 text-left text-ink flex flex-col gap-2 min-h-32.5 transition-colors hover:bg-primary hover:text-on-primary"
+            className="group relative bg-card-bg border border-border-light rounded-[14px] p-5 text-left text-ink flex flex-col gap-2 min-h-32.5 transition-colors hover:bg-primary hover:text-on-primary"
             onClick={() => {
               window.location.href = `/results?category=${c.id}`;
             }}

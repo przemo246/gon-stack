@@ -140,7 +140,7 @@ export const ResultsPage = ({ onToggleSave, savedSet }: ResultsPageProps) => {
           onChange={(v) => setSearch({ ...search, category: v })}
         />
         <div className="flex gap-4 items-center">
-          <div className="inline-flex bg-surface border border-card-border-c rounded-full p-1 items-center">
+          <div className="inline-flex bg-surface border border-border-light rounded-full p-1 items-center">
             <button
               className={segBtn(layout === 'grid')}
               onClick={() => setLayout('grid')}
@@ -154,7 +154,7 @@ export const ResultsPage = ({ onToggleSave, savedSet }: ResultsPageProps) => {
               Lista
             </button>
           </div>
-          <div className="inline-flex bg-surface border border-card-border-c rounded-full p-1 items-center gap-0">
+          <div className="inline-flex bg-surface border border-border-light rounded-full p-1 items-center gap-0">
             <span className="text-xs text-muted px-2.5">Sortuj:</span>
             {(['date', 'name', 'city'] as const).map((k) => (
               <button

@@ -23,7 +23,7 @@ export const fetchEventHandler = (store: Store, ofType: OfType) =>
           return EMPTY;
         }),
         finalize(() => {
-          store.$isLoadingEvent.reset();
+          store.$isLoadingEvent.set(false);
           ctrl.abort();
         }),
       );

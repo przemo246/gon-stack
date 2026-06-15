@@ -30,7 +30,7 @@ type DropdownProps = {
 
 const Dropdown = ({ children }: DropdownProps) => (
   <div
-    className="absolute top-[calc(100%+8px)] left-0 min-w-60 bg-card-bg border border-card-border-c rounded-[14px] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.2)] z-30 max-h-80 overflow-y-auto p-1.5"
+    className="absolute top-[calc(100%+8px)] left-0 min-w-60 bg-card-bg border border-border-light rounded-[14px] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.2)] z-30 max-h-80 overflow-y-auto p-1.5"
     onClick={(e) => e.stopPropagation()}
   >
     {children}
@@ -86,7 +86,7 @@ export const SearchBar = ({
   return (
     <div
       ref={wrapRef}
-      className="bg-card-bg border border-card-border-c rounded-lg shadow-[0_30px_60px_-40px_rgba(0,0,0,0.18)]"
+      className="bg-card-bg border border-border-light rounded-lg shadow-[0_30px_60px_-40px_rgba(0,0,0,0.18)]"
     >
       <form
         className="grid items-stretch grid-cols-[1.2fr_1px_1fr_1px_1fr_1px_1fr_auto]"

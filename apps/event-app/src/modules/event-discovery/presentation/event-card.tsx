@@ -27,7 +27,7 @@ export const EventCard = ({
   if (layout === 'list') {
     return (
       <article
-        className="grid gap-5 items-center p-4.5 bg-card-bg border border-card-border-c rounded-[14px] cursor-pointer hover:border-ink transition-colors grid-cols-[80px_1fr_auto]"
+        className="grid gap-5 items-center p-4.5 bg-card-bg border border-border-light rounded-[14px] cursor-pointer hover:border-ink transition-colors grid-cols-[80px_1fr_auto]"
         onClick={() => onOpen(event)}
       >
         <div className="text-center border-r border-hairline pr-3">
@@ -53,7 +53,7 @@ export const EventCard = ({
         </div>
         <div className="flex gap-3 items-center">
           <button
-            className={`w-9 h-9 rounded-full border inline-flex items-center justify-center transition-colors ${saved ? 'text-coral border-coral' : 'bg-surface border-card-border-c text-ink'}`}
+            className={`w-9 h-9 shrink-0 rounded-full border inline-flex items-center justify-center transition-colors ${saved ? 'text-coral border-coral' : 'bg-surface border-border-light text-ink'}`}
             onClick={(e) => {
               e.stopPropagation();
               onToggleSave(event.id);
@@ -78,7 +78,7 @@ export const EventCard = ({
 
   return (
     <article
-      className="bg-card-bg border border-card-border-c rounded-md overflow-hidden cursor-pointer transition-[translate,box-shadow] hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-25px_rgba(0,0,0,0.25)] flex flex-col"
+      className="bg-card-bg border border-border-light rounded-md overflow-hidden cursor-pointer transition-[translate,box-shadow] hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-25px_rgba(0,0,0,0.25)] flex flex-col"
       onClick={() => onOpen(event)}
     >
       <div className="relative aspect-3/4 rounded-[10px] overflow-hidden m-2.5">

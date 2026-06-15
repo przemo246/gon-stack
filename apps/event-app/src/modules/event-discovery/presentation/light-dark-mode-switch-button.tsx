@@ -24,7 +24,7 @@ export const LightDarkModeSwitchButton = () => {
 
   return (
     <button
-      className="bg-surface border border-card-border-c rounded-full inline-flex justify-center items-center text-ink text-sm hover:bg-primary hover:text-on-primary transition-colors w-10 h-10"
+      className="bg-surface border border-border-light rounded-full inline-flex justify-center items-center text-ink text-sm hover:bg-primary hover:text-on-primary transition-colors w-10 h-10"
       onClick={toggleTheme}
       aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
     >

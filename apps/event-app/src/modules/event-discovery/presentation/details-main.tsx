@@ -5,6 +5,7 @@ import { Provider, useContext } from './context';
 import { Header } from './header';
 import { Footer } from './footer';
 import { DetailsPage } from './details-page';
+import { SkeletonDetails } from './skeleton-details';
 
 type Props = {
   id: string;
@@ -36,9 +37,7 @@ const Content = ({ id, user }: Props) => {
     <div className="bg-canvas min-h-screen text-ink">
       <Header activePage="details" savedCount={savedSet.size} user={user} />
       <main>
-        {isLoading && (
-          <div className="py-20 text-center text-body-muted">Ładowanie...</div>
-        )}
+        {isLoading && <SkeletonDetails />}
         {error && (
           <div className="py-20 text-center text-body-muted">{error}</div>
         )}

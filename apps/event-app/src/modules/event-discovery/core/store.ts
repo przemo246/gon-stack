@@ -10,7 +10,7 @@ export const createStore = () => {
   const $error = atom<string | null>(null);
 
   const $event = atom<EventDetail | null>(null);
-  const $isLoadingEvent = atom(false);
+  const $isLoadingEvent = atom(true);
   const $eventError = atom<string | null>(null);
 
   return {

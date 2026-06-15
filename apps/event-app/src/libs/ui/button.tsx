@@ -34,12 +34,12 @@ export const Button = ({
     ],
     variant === 'secondary' && [
       'rounded-pill px-5.5 py-3 font-medium',
-      'bg-transparent text-ink border border-card-border',
+      'bg-transparent text-ink border border-border-dark',
       'hover:border-ink',
-      'disabled:border-card-border',
+      'disabled:border-border-light',
     ],
     variant === 'tertiary' && [
-      'bg-canvas border border-card-border-c rounded-full px-4 py-2 text-ink text-sm hover:bg-coral hover:text-white hover:border-coral transition-colors',
+      'bg-canvas border border-border-dark rounded-full px-4 py-2 text-ink text-sm hover:bg-coral hover:text-white hover:border-coral transition-colors',
     ],
     variant === 'ghost' && [
       'bg-transparent text-ink border-0 p-0',

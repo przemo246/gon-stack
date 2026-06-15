@@ -13,7 +13,7 @@ export const SkeletonCard = ({ layout = 'grid' }: SkeletonCardProps) => {
   if (layout === 'list') {
     return (
       <article
-        className="grid gap-5 items-center p-4.5 bg-card-bg border border-card-border-c rounded-[14px] grid-cols-[80px_1fr_auto]"
+        className="grid gap-5 items-center p-4.5 bg-card-bg border border-border-light rounded-[14px] grid-cols-[80px_1fr_auto]"
         aria-hidden="true"
       >
         <div className="flex flex-col items-center gap-1.5 border-r border-hairline pr-3">
@@ -36,7 +36,7 @@ export const SkeletonCard = ({ layout = 'grid' }: SkeletonCardProps) => {
 
   return (
     <article
-      className="bg-card-bg border border-card-border-c rounded-md overflow-hidden flex flex-col"
+      className="bg-card-bg border border-border-light rounded-md overflow-hidden flex flex-col"
       aria-hidden="true"
     >
       <div className={block('aspect-3/4 m-2.5 rounded-[10px]')} />
