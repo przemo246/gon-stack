@@ -8,6 +8,8 @@ export type Event =
       { name: string; description?: string; category?: string }
     >
   | TriggerEvent<'[TRIGGER]_SUBMIT_CREATE_EVENT', { data: CreateEventData }>
+  | TriggerEvent<'[TRIGGER]_UPLOAD_POSTER', { file: File }>
+  | TriggerEvent<'[TRIGGER]_REMOVE_POSTER'>
   | TriggerEvent<'[TRIGGER]_SET_KEYWORD_INPUT', { value: string }>
   | TriggerEvent<'[TRIGGER]_ADD_KEYWORD', { keyword: string }>
   | TriggerEvent<'[TRIGGER]_REMOVE_KEYWORD', { keyword: string }>

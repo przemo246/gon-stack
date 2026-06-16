@@ -2,17 +2,18 @@ import { type UseFormRegister, type FieldErrors } from 'react-hook-form';
 import { cn } from '@/libs/ui/cn';
 import { type FormValues } from '../schema';
 import { Field, inputCls } from '../field';
+import { PosterUpload } from '../poster-upload';
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
-type Props = {
+type DetailsSectionProps = {
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;
 };
 
 // ── Component ──────────────────────────────────────────────────────────────────
 
-export const DetailsSection = ({ register, errors }: Props) => (
+export const DetailsSection = ({ register, errors }: DetailsSectionProps) => (
   <section id="details" className="flex flex-col gap-6 scroll-mt-20">
     <div className="flex items-baseline gap-3 pb-4 border-b border-hairline">
       <span className="mono-label">04</span>
@@ -34,20 +35,7 @@ export const DetailsSection = ({ register, errors }: Props) => (
       />
     </Field>
 
-    <Field
-      label="URL grafiki"
-      error={errors.imageUrl?.message}
-      htmlFor="imageUrl"
-      optional
-    >
-      <input
-        id="imageUrl"
-        type="url"
-        placeholder="https://..."
-        {...register('imageUrl')}
-        className={inputCls(!!errors.imageUrl)}
-      />
-    </Field>
+    <PosterUpload />
 
     <Field label="Informacje o organizatorze" htmlFor="organizerInfo" optional>
       <textarea

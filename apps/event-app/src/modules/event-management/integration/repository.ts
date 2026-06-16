@@ -2,8 +2,41 @@ import type { Schema as CreateEventSchema } from '@/shared/server-contracts/sche
 import type { Schema as GeocodeSchema } from '@/shared/server-contracts/schemas/geocode-address';
 import type { Schema as SuggestKeywordsSchema } from '@/shared/server-contracts/schemas/suggest-event-keywords';
 import type { InferOut } from '@/shared/server-contracts/extraction';
+import { supabaseBrowser } from '@/shared/data-sources/supabase-browser';
 
 export type CreateEventInput = CreateEventSchema['in'];
+
+const POSTER_BUCKET = 'event-posters';
+const POSTER_MAX_BYTES = 5 * 1024 * 1024; // 5 MB
+const POSTER_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/avif'];
+
+export const POSTER_ACCEPT = POSTER_TYPES.join(',');
+
+export const uploadPoster = async (file: File): Promise<string> => {
+  if (!POSTER_TYPES.includes(file.type)) {
+    throw new Error('Dozwolone formaty: JPG, PNG, WEBP, AVIF.');
+  }
+  if (file.size > POSTER_MAX_BYTES) {
+    throw new Error('Maksymalny rozmiar pliku to 5 MB.');
+  }
+
+  const ext = file.name.split('.').pop()?.toLowerCase() ?? 'jpg';
+  const path = `${crypto.randomUUID()}.${ext}`;
+
+  const { error } = await supabaseBrowser.storage
+    .from(POSTER_BUCKET)
+    .upload(path, file, { cacheControl: '3600', upsert: false });
+
+  if (error) {
+    throw new Error('Nie udało się przesłać pliku. Spróbuj ponownie.');
+  }
+
+  const { data } = supabaseBrowser.storage
+    .from(POSTER_BUCKET)
+    .getPublicUrl(path);
+
+  return data.publicUrl;
+};
 
 export const createEvent = async (
   data: CreateEventInput,

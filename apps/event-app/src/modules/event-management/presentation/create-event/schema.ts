@@ -51,9 +51,6 @@ export const formSchema = z.object({
   externalLink: z
     .union([z.string().url('Podaj prawidłowy URL'), z.literal('')])
     .optional(),
-  imageUrl: z
-    .union([z.string().url('Podaj prawidłowy URL'), z.literal('')])
-    .optional(),
   organizerInfo: z.string().optional(),
 });
 

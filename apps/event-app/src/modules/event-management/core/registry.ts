@@ -9,6 +9,8 @@ import { removeKeywordHandler } from './handlers/remove-keyword';
 import { acceptSuggestionHandler } from './handlers/accept-suggestion';
 import { dismissSuggestionHandler } from './handlers/dismiss-suggestion';
 import { setKeywordInputHandler } from './handlers/set-keyword-input';
+import { uploadPosterHandler } from './handlers/upload-poster';
+import { removePosterHandler } from './handlers/remove-poster';
 
 export type OfType = ReturnType<typeof eda<Event>>['ofType'];
 
@@ -24,6 +26,8 @@ export const createRegistry = (store: Store) => {
     acceptSuggestionHandler(store, ofType),
     dismissSuggestionHandler(store, ofType),
     setKeywordInputHandler(store, ofType),
+    uploadPosterHandler(store, ofType),
+    removePosterHandler(store, ofType),
   );
 
   return { trigger, registry };

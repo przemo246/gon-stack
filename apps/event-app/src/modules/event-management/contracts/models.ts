@@ -19,6 +19,8 @@ export type EventAddress = {
 
 export type GeoStatus = 'idle' | 'loading' | 'success' | 'error';
 
+export type PosterStatus = 'idle' | 'uploading' | 'error';
+
 export type CreateEventData = {
   name: string;
   description?: string;
