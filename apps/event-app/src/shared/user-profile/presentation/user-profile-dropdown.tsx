@@ -1,4 +1,4 @@
-import { UserRound } from 'lucide-react';
+import { UserRound, ChevronDown } from 'lucide-react';
 
 import { Dropdown } from '@/libs/ui/dropdown';
 import { useContext } from './context';
@@ -11,9 +11,10 @@ export const UserProfileDropdown = () => {
       <Dropdown.Trigger>
         <Button
           variant="tertiary"
-          className="px-0 py-0 h-10 w-10 bg-surface hover:bg-primary hover:border-primary"
+          className="h-10 bg-surface hover:bg-primary hover:border-primary flex gap-2 items-center justify-center"
         >
           <UserRound size={14} />
+          <ChevronDown size={14} />
         </Button>
       </Dropdown.Trigger>
 

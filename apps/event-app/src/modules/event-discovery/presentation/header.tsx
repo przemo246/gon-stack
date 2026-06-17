@@ -1,4 +1,4 @@
-import { Heart, Plus } from 'lucide-react';
+import { Heart } from 'lucide-react';
 
 import { Logo } from '@/libs/ui/logo';
 import { Button } from '@/libs/ui/button';
@@ -43,25 +43,22 @@ export const Header = ({ activePage, savedCount, user }: HeaderProps) => (
       {/* Right */}
       {user ? (
         <div className="flex gap-2 items-center">
-          <Button variant="primary" href="/event/create" className="h-10">
-            <Plus size={14} />
-            Dodaj wydarzenie
-          </Button>
           {/* <LightDarkModeSwitchButton /> */}
-
           <Button
             variant="tertiary"
-            className="bg-surface h-10 hover:bg-primary hover:border-primary"
+            className="px-0 py-0 h-10 w-10 bg-surface hover:bg-primary hover:border-primary relative"
           >
-            <Heart size={14} />
-            Zapisane
             {savedCount > 0 && (
-              <span className="bg-coral text-white rounded-full min-w-5 h-5 inline-flex items-center justify-center font-mono text-[11px] px-1.5">
+              <span className="bg-coral text-white rounded-full min-w-5 h-5 inline-flex items-center justify-center font-mono text-[11px] px-1.5 absolute -left-2.5 -top-1.25 pt-px">
                 {savedCount}
               </span>
             )}
+            <Heart size={14} />
           </Button>
           <UserProfile />
+          <Button variant="primary" href="/event/create" className="h-10">
+            Dodaj wydarzenie
+          </Button>
         </div>
       ) : (
         <div className="flex gap-2">
