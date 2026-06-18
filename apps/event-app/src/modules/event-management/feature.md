@@ -10,7 +10,7 @@
 - **[event_owner]** - The [authenticated_user] who originally created a given event
 - **[authenticated_user]** - A user who has completed login via any supported auth provider; can create events
 - **[admin]** - A privileged role that can update and delete any event regardless of ownership
-- **[category]** - One of the fixed taxonomy values: Concert, Festival, Sports, Culture, Theatre, Food & Drink
+- **[category]** - One of the fixed taxonomy codes stored in the DB: `concert`, `festival`, `sports`, `culture`, `theatre`, `food_and_drink`. Display labels are localized in the app layer (Polish: Koncert, Festiwal, Sport, Kultura, Teatr, Jedzenie i napoje)
 - **[keyword]** - A descriptive tag attached to an event; entered manually or accepted from AI-assisted suggestions
 - **[geocoding]** - The automatic resolution of a selected city/address into lat/lng coordinates
 - **[organizer_info]** - Data identifying the person or organization responsible for an event
@@ -21,7 +21,7 @@
 - [event_aggregate] update/delete own: `<role:event_owner>`
 - [event_aggregate] update/delete any: `<role:admin>`
 - [event_aggregate] fields: `<field:name required>`, `<field:start_date_time required>`, `<field:category required>`, `<field:end_date_time optional>`, `<field:image optional>`
-- [category] values: `<enum:Concert|Festival|Sports|Culture|Theatre|Food&Drink>`
+- [category] values: `<enum:concert|festival|sports|culture|theatre|food_and_drink>`
 - [keyword] source: `<type:manual>`, `<type:ai_suggested>`
 - coordinates: `<source:geocoding>` <!-- auto -->
 
@@ -59,7 +59,7 @@ Authenticated users can create, edit, and delete events with all required fields
 
 ### Category & Keyword Tagging
 
-1. The [category] field renders as a dropdown containing exactly the six taxonomy values defined by `<enum:Concert|Festival|Sports|Culture|Theatre|Food&Drink>`.
+1. The [category] field renders as a dropdown containing exactly the six taxonomy values defined by `<enum:concert|festival|sports|culture|theatre|food_and_drink>`, displaying their localized labels.
 2. [keyword] tags can be added manually by typing free text into the keyword input.
 3. The form offers AI-assisted [keyword] suggestions generated via LLM; the user can accept or dismiss each suggestion individually.
    3a. Accepting a suggestion appends it to the [keyword] list; dismissing it removes it from the suggestion panel without adding it. <!-- auto -->

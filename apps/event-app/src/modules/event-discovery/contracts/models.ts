@@ -1,10 +1,6 @@
-export type EventCategory =
-  | 'Concert'
-  | 'Festival'
-  | 'Sports'
-  | 'Culture'
-  | 'Theatre'
-  | 'Food & Drink';
+import type { EventCategory } from '@/shared/event-categories';
+
+export type { EventCategory };
 
 export type Event = {
   id: string;

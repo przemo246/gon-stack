@@ -96,12 +96,12 @@ Flow: validate provided filter values
 import z from 'zod';
 
 const category = z.enum([
-  'Concert',
-  'Festival',
-  'Sports',
-  'Culture',
-  'Theatre',
-  'Food & Drink',
+  'concert',
+  'festival',
+  'sports',
+  'culture',
+  'theatre',
+  'food_and_drink',
 ]);
 
 export const schema = () =>
@@ -158,12 +158,12 @@ export type Schema = z.infer<ReturnType<typeof schema>>;
 import z from 'zod';
 
 const category = z.enum([
-  'Concert',
-  'Festival',
-  'Sports',
-  'Culture',
-  'Theatre',
-  'Food & Drink',
+  'concert',
+  'festival',
+  'sports',
+  'culture',
+  'theatre',
+  'food_and_drink',
 ]);
 
 export const schema = () =>

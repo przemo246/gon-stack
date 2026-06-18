@@ -1,13 +1,7 @@
 import z from 'zod';
+import { EVENT_CATEGORIES } from '@/shared/event-categories';
 
-export const categorySchema = z.enum([
-  'Concert',
-  'Festival',
-  'Sports',
-  'Culture',
-  'Theatre',
-  'Food & Drink',
-]);
+export const categorySchema = z.enum(EVENT_CATEGORIES);
 
 const address = z.object({
   street: z.string().min(1),

@@ -1,12 +1,8 @@
+import type { EventCategory } from '@/shared/event-categories';
+
 export type EventId = string;
 
-export type EventCategory =
-  | 'Concert'
-  | 'Festival'
-  | 'Sports'
-  | 'Culture'
-  | 'Theatre'
-  | 'Food & Drink';
+export type { EventCategory };
 
 export type Coordinates = { lat: number; lng: number };
 

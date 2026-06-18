@@ -1,13 +1,7 @@
 import z from 'zod';
+import { EVENT_CATEGORIES } from '@/shared/event-categories';
 
-const category = z.enum([
-  'Concert',
-  'Festival',
-  'Sports',
-  'Culture',
-  'Theatre',
-  'Food & Drink',
-]);
+const category = z.enum(EVENT_CATEGORIES);
 
 export const schema = () =>
   z.object({

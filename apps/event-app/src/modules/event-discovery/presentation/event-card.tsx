@@ -1,7 +1,8 @@
 import { Button } from '@/libs/ui/button';
 import { Text } from '@/libs/ui/text';
 import { IconHeart, IconArrow } from './icons';
-import { fmtDayNum, fmtMonthShort, fmtDate, categoryLabel } from './mock-data';
+import { fmtDayNum, fmtMonthShort, fmtDate } from './mock-data';
+import { eventCategoryLabel } from '@/shared/event-categories';
 import type { Event } from '../contracts/models';
 import { Poster } from './poster';
 
@@ -46,7 +47,7 @@ export const EventCard = ({
         </div>
         <div>
           <Text.MonoLabel>
-            {categoryLabel(event.category).toUpperCase()} ·{' '}
+            {eventCategoryLabel(event.category).toUpperCase()} ·{' '}
             {event.city.toUpperCase()}
           </Text.MonoLabel>
           <Text.CardTitleLg className="my-1.5">{event.name}</Text.CardTitleLg>
@@ -84,7 +85,7 @@ export const EventCard = ({
       <div className="relative aspect-3/4 rounded-[10px] overflow-hidden m-2.5">
         <Poster palette={0} />
         <span className="absolute top-3 left-3 bg-coral text-white font-mono text-[10px] tracking-[0.16em] px-2 py-1 rounded-[6px] uppercase">
-          {event.category}
+          {eventCategoryLabel(event.category)}
         </span>
         <button
           className={`absolute top-2.5 right-2.5 w-9 h-9 rounded-full border-0 inline-flex items-center justify-center transition-colors ${saved ? 'bg-coral text-white' : 'bg-white/90 text-ink'}`}

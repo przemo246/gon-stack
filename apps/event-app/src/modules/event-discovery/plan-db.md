@@ -45,7 +45,7 @@ erDiagram
 CREATE EXTENSION IF NOT EXISTS pg_trgm;
 
 CREATE TYPE event_category AS ENUM (
-  'Concert', 'Festival', 'Sports', 'Culture', 'Theatre', 'Food & Drink'
+  'concert', 'festival', 'sports', 'culture', 'theatre', 'food_and_drink'
 );
 
 CREATE TYPE attendance_visibility AS ENUM ('public', 'private');

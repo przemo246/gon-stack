@@ -2,7 +2,7 @@
 create extension if not exists pg_trgm;
 
 create type public.event_category as enum (
-  'Concert', 'Festival', 'Sports', 'Culture', 'Theatre', 'Food & Drink'
+  'concert', 'festival', 'sports', 'culture', 'theatre', 'food_and_drink'
 );
 
 create type public.attendance_visibility as enum ('public', 'private');

@@ -168,12 +168,12 @@ export type Database = {
     Enums: {
       attendance_visibility: 'public' | 'private';
       event_category:
-        | 'Concert'
-        | 'Festival'
-        | 'Sports'
-        | 'Culture'
-        | 'Theatre'
-        | 'Food & Drink';
+        | 'concert'
+        | 'festival'
+        | 'sports'
+        | 'culture'
+        | 'theatre'
+        | 'food_and_drink';
       user_role: 'user' | 'admin';
     };
     CompositeTypes: {
@@ -310,12 +310,12 @@ export const Constants = {
     Enums: {
       attendance_visibility: ['public', 'private'],
       event_category: [
-        'Concert',
-        'Festival',
-        'Sports',
-        'Culture',
-        'Theatre',
-        'Food & Drink',
+        'concert',
+        'festival',
+        'sports',
+        'culture',
+        'theatre',
+        'food_and_drink',
       ],
       user_role: ['user', 'admin'],
     },

@@ -5,11 +5,11 @@ import type { Event, EventDetail } from '../contracts/models';
 import type { SearchFilters } from '../contracts/events';
 
 const CATEGORY_MAP: Record<string, string> = {
-  koncerty: 'Concert',
-  festiwale: 'Festival',
-  sport: 'Sports',
-  teatr: 'Theatre',
-  wystawy: 'Culture',
+  koncerty: 'concert',
+  festiwale: 'festival',
+  sport: 'sports',
+  teatr: 'theatre',
+  wystawy: 'culture',
 };
 
 export const searchEvents = async (

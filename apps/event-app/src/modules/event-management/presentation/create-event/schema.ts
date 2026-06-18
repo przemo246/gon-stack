@@ -1,22 +1,12 @@
 import { z } from 'zod';
 import { categorySchema } from '@/shared/server-contracts/schemas/create-event';
+import { EVENT_CATEGORY_LABELS_PL } from '@/shared/event-categories';
 
 // ── Constants ──────────────────────────────────────────────────────────────────
 
-type CategoryValue = (typeof categorySchema.options)[number];
-
-const CATEGORY_LABELS: Record<CategoryValue, string> = {
-  Concert: 'Koncert',
-  Festival: 'Festiwal',
-  Sports: 'Sport',
-  Culture: 'Kultura',
-  Theatre: 'Teatr',
-  'Food & Drink': 'Jedzenie i napoje',
-};
-
 export const CATEGORIES = categorySchema.options.map((value) => ({
   value,
-  label: CATEGORY_LABELS[value],
+  label: EVENT_CATEGORY_LABELS_PL[value],
 }));
 
 export type Section = {

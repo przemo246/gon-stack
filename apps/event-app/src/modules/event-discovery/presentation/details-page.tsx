@@ -13,15 +13,7 @@ import {
   fmtDayName,
 } from './mock-data';
 import type { Event, EventDetail } from '../contracts/models';
-
-const CATEGORY_LABELS: Record<string, string> = {
-  Concert: 'Koncert',
-  Festival: 'Festiwal',
-  Sports: 'Sport',
-  Culture: 'Kultura',
-  Theatre: 'Teatr',
-  'Food & Drink': 'Jedzenie i napoje',
-};
+import { eventCategoryLabel } from '@/shared/event-categories';
 
 const dateOnly = (iso: string) => iso.split('T')[0];
 const timeOnly = (iso: string) => iso.split('T')[1]?.substring(0, 5) ?? '';
@@ -58,8 +50,7 @@ export const DetailsPage = ({
   const palette = paletteIndex(event.id);
   const posterTitle = event.name;
   const posterMeta = `${event.address.city.toUpperCase()} · ${fmtDate(date).toUpperCase()}`;
-  const categoryDisplayLabel =
-    CATEGORY_LABELS[event.category] ?? event.category;
+  const categoryDisplayLabel = eventCategoryLabel(event.category);
 
   const similar = allEvents
     .filter((e) => e.id !== event.id && e.category === event.category)
