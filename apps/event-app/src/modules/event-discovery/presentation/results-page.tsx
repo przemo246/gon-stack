@@ -6,6 +6,7 @@ import { CategoryChips } from './category-chips';
 import { SearchBar, ActiveFilters } from './search-bar';
 import type { SearchState } from './search-bar';
 import { categoryLabel } from './mock-data';
+import { resolveDatePreset } from './date-presets';
 import { useContext } from './context';
 
 const segBtn = (active: boolean) =>
@@ -63,7 +64,7 @@ export const ResultsPage = ({ onToggleSave, savedSet }: ResultsPageProps) => {
       name: search.name || undefined,
       category: search.category || undefined,
       city: search.city || undefined,
-      dateLabel: search.date || undefined,
+      ...resolveDatePreset(search.date),
     });
   };
 
@@ -73,7 +74,7 @@ export const ResultsPage = ({ onToggleSave, savedSet }: ResultsPageProps) => {
       name: s.name || undefined,
       category: s.category || undefined,
       city: s.city || undefined,
-      dateLabel: s.date || undefined,
+      ...resolveDatePreset(s.date),
     });
   }, [ctx]);
 

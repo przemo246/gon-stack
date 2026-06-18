@@ -9,7 +9,8 @@ export const schema = () =>
       name: z.string().optional(),
       category: category.optional(),
       city: z.string().optional(),
-      dateLabel: z.string().optional(),
+      dateFrom: z.string().datetime({ offset: true }).optional(),
+      dateTo: z.string().datetime({ offset: true }).optional(),
       isFeatured: z.preprocess(
         (val) => (typeof val === 'string' ? val === 'true' : val),
         z.boolean().optional(),

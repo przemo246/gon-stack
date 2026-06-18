@@ -23,7 +23,8 @@ export const searchEvents = async (
     if (mapped) params.set('category', mapped);
   }
   if (filters.city) params.set('city', filters.city);
-  if (filters.dateLabel) params.set('dateLabel', filters.dateLabel);
+  if (filters.dateFrom) params.set('dateFrom', filters.dateFrom);
+  if (filters.dateTo) params.set('dateTo', filters.dateTo);
   if (filters.isFeatured !== undefined)
     params.set('isFeatured', String(filters.isFeatured));
 

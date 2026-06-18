@@ -4,7 +4,8 @@ export type SearchFilters = {
   name?: string;
   category?: string;
   city?: string;
-  dateLabel?: string;
+  dateFrom?: string;
+  dateTo?: string;
   isFeatured?: boolean;
 };
 
