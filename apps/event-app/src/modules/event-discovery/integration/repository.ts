@@ -28,7 +28,7 @@ export const searchEvents = async (
   if (filters.isFeatured !== undefined)
     params.set('isFeatured', String(filters.isFeatured));
 
-  const res = await fetch(`/api/event/search?${params}`, { signal });
+  const res = await fetch(`/api/events/search?${params}`, { signal });
   if (!res.ok) {
     throw new Error('Coś poszło nie tak. Spróbuj ponownie później.');
   }
@@ -45,7 +45,7 @@ export const fetchEvent = async (
   id: string,
   signal: AbortSignal,
 ): Promise<EventDetail> => {
-  const res = await fetch(`/api/event/${id}`, { signal });
+  const res = await fetch(`/api/events/${id}`, { signal });
   if (!res.ok) {
     throw new Error('Coś poszło nie tak. Spróbuj ponownie później.');
   }
