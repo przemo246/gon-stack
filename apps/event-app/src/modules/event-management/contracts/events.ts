@@ -2,7 +2,11 @@ import { type TriggerEvent } from '@/libs/eda';
 import type { CreateEventData } from './models';
 
 export type Event =
-  | TriggerEvent<'[TRIGGER]_GEOCODE_ADDRESS', { query: string }>
+  | TriggerEvent<'[TRIGGER]_SEARCH_LOCATION', { query: string }>
+  | TriggerEvent<
+      '[TRIGGER]_SELECT_LOCATION',
+      { coordinates: { lat: number; lng: number } }
+    >
   | TriggerEvent<
       '[TRIGGER]_SUGGEST_KEYWORDS',
       { name: string; description?: string; category?: string }

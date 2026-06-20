@@ -78,12 +78,13 @@ export type Database = {
           lat: number;
           lng: number;
           name: string;
-          number: string;
+          number: string | null;
           organizer_info: string | null;
           owner_id: string;
+          place_name: string;
           postal_code: string;
           start_date_time: string;
-          street: string;
+          street: string | null;
           updated_at: string;
         };
         Insert: {
@@ -100,12 +101,13 @@ export type Database = {
           lat: number;
           lng: number;
           name: string;
-          number: string;
+          number?: string | null;
           organizer_info?: string | null;
           owner_id: string;
+          place_name: string;
           postal_code: string;
           start_date_time: string;
-          street: string;
+          street?: string | null;
           updated_at?: string;
         };
         Update: {
@@ -122,12 +124,13 @@ export type Database = {
           lat?: number;
           lng?: number;
           name?: string;
-          number?: string;
+          number?: string | null;
           organizer_info?: string | null;
           owner_id?: string;
+          place_name?: string;
           postal_code?: string;
           start_date_time?: string;
-          street?: string;
+          street?: string | null;
           updated_at?: string;
         };
         Relationships: [];

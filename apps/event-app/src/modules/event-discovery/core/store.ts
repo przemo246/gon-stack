@@ -1,6 +1,6 @@
 import { atom } from '@/libs/supa-store';
 import type { SearchFilters } from '../contracts/events';
-import type { Event, EventDetail } from '../contracts/models';
+import type { Event, EventDetails } from '../contracts/models';
 
 export const createStore = () => {
   const $filters = atom<SearchFilters>({});
@@ -9,7 +9,7 @@ export const createStore = () => {
   const $isLoading = atom(true);
   const $error = atom<string | null>(null);
 
-  const $event = atom<EventDetail | null>(null);
+  const $event = atom<EventDetails | null>(null);
   const $isLoadingEvent = atom(true);
   const $eventError = atom<string | null>(null);
 

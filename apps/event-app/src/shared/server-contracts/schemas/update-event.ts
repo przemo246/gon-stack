@@ -4,8 +4,9 @@ import { EVENT_CATEGORIES } from '@/shared/event-categories';
 const category = z.enum(EVENT_CATEGORIES);
 
 const address = z.object({
-  street: z.string().min(1),
-  number: z.string().min(1),
+  name: z.string().min(1),
+  street: z.string().optional(),
+  number: z.string().optional(),
   postalCode: z.string().min(1),
   city: z.string().min(1),
 });

@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect } from 'react';
 import { useForm, useWatch, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast, Toaster } from 'sonner';
@@ -20,13 +20,11 @@ export const CreateEventForm = () => {
     control,
     register,
     handleSubmit,
-    getValues,
     formState: { errors },
   } = methods;
 
   const {
     $coordinates,
-    $geoStatus,
     $keywords,
     $posterUrl,
     $isSubmitting,
@@ -35,27 +33,21 @@ export const CreateEventForm = () => {
     trigger,
   } = useContext();
   const coordinates = $coordinates.use();
-  const geoStatus = $geoStatus.use();
   const isSubmitting = $isSubmitting.use();
   const submitError = $submitError.use();
   const submitSuccess = $submitSuccess.use();
 
-  const handleGeocode = useCallback(() => {
-    const { street, number, postalCode, city } = getValues('address');
-    if (!street || !number || !city) return;
-    trigger('[TRIGGER]_GEOCODE_ADDRESS', {
-      query: `${street} ${number}, ${postalCode} ${city}`,
-    });
-  }, [getValues, trigger]);
-
   const name = useWatch({ control, name: 'name' });
   const category = useWatch({ control, name: 'category' });
   const startDateTime = useWatch({ control, name: 'startDateTime' });
+  const placeName = useWatch({ control, name: 'address.name' });
+  const city = useWatch({ control, name: 'address.city' });
+  const postalCode = useWatch({ control, name: 'address.postalCode' });
 
   const sectionDone: Record<string, boolean> = {
     basic: !!(name && category),
     dates: !!startDateTime,
-    location: geoStatus === 'success',
+    location: !!(coordinates && placeName && city && postalCode),
     details: true,
     keywords: true,
   };
@@ -85,7 +77,13 @@ export const CreateEventForm = () => {
         endDateTime: data.endDateTime
           ? new Date(data.endDateTime).toISOString()
           : undefined,
-        address: data.address,
+        address: {
+          name: data.address.name,
+          street: data.address.street || undefined,
+          number: data.address.number || undefined,
+          postalCode: data.address.postalCode,
+          city: data.address.city,
+        },
         coordinates,
         externalLink: data.externalLink || undefined,
         imageUrl: $posterUrl.get() ?? undefined,
@@ -132,13 +130,7 @@ export const CreateEventForm = () => {
                 >
                   <BasicSection register={register} errors={errors} />
                   <DatesSection control={control} errors={errors} />
-                  <LocationSection
-                    register={register}
-                    errors={errors}
-                    geoStatus={geoStatus}
-                    coordinates={coordinates}
-                    onBlur={handleGeocode}
-                  />
+                  <LocationSection />
                   <DetailsSection register={register} errors={errors} />
                   <KeywordsSection />
 

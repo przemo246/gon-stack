@@ -1,13 +1,14 @@
-import { schema } from '@schemas/geocode-address';
-import { NotFound, InternalServer } from '../../core/error-handling';
+import { schema, type GeoResult } from '@schemas/geocode-address';
+import { InternalServer } from '../../core/error-handling';
 import { withZodSchema } from '../../adapter/zod';
 import { publicProcedure } from '../../core/procedure';
+import { toGeoResult, type NominatimPlace } from '../shared/nominatim';
 
 export const geocodeAddress = publicProcedure({
   schema: withZodSchema({ schema }),
 })({
   handler: async ({ q }) => {
-    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=json&limit=1`;
+    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=json&addressdetails=1&namedetails=1&limit=5&accept-language=pl`;
 
     let res: Response;
     try {
@@ -24,14 +25,10 @@ export const geocodeAddress = publicProcedure({
     if (!res.ok) throw new InternalServer('Geocoding service unavailable');
 
     const data: unknown = await res.json();
-    if (!Array.isArray(data) || data.length === 0)
-      throw new NotFound('Address not found');
+    if (!Array.isArray(data)) throw new InternalServer('Geocoding failed');
 
-    const first = data[0] as { lat: string; lon: string };
-    return {
-      code: 200 as const,
-      lat: parseFloat(first.lat),
-      lng: parseFloat(first.lon),
-    };
+    const results: GeoResult[] = (data as NominatimPlace[]).map(toGeoResult);
+
+    return { code: 200 as const, results };
   },
 });

@@ -19,8 +19,9 @@ export const schema = () =>
           startDateTime: z.string().datetime({ offset: true }),
           endDateTime: z.string().datetime({ offset: true }).optional(),
           address: z.object({
-            street: z.string(),
-            number: z.string(),
+            name: z.string(),
+            street: z.string().optional(),
+            number: z.string().optional(),
             postalCode: z.string(),
             city: z.string(),
           }),

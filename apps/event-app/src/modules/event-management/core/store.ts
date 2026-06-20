@@ -1,9 +1,15 @@
 import { atom } from '@/libs/supa-store';
-import type { Coordinates, GeoStatus, PosterStatus } from '../contracts/models';
+import type {
+  Coordinates,
+  GeoResult,
+  GeoStatus,
+  PosterStatus,
+} from '../contracts/models';
 
 export const createStore = () => {
   const $coordinates = atom<Coordinates | null>(null);
   const $geoStatus = atom<GeoStatus>('idle');
+  const $geoResults = atom<GeoResult[]>([]);
   const $keywords = atom<string[]>([]);
   const $keywordInput = atom('');
   const $aiSuggestions = atom<string[]>([]);
@@ -18,6 +24,7 @@ export const createStore = () => {
   return {
     $coordinates,
     $geoStatus,
+    $geoResults,
     $keywords,
     $keywordInput,
     $aiSuggestions,

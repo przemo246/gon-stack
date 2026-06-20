@@ -12,18 +12,14 @@ import {
   fmtMonthShort,
   fmtDayName,
 } from './mock-data';
-import type { Event, EventDetail } from '../contracts/models';
+import type { Event, EventDetails } from '../contracts/models';
 import { eventCategoryLabel } from '@/shared/event-categories';
 
 const dateOnly = (iso: string) => iso.split('T')[0];
 const timeOnly = (iso: string) => iso.split('T')[1]?.substring(0, 5) ?? '';
 
-const paletteIndex = (id: string) =>
-  id.split('').reduce((sum, c) => sum + c.charCodeAt(0), 0) %
-  POSTER_PALETTES.length;
-
 type DetailsPageProps = {
-  event: EventDetail;
+  event: EventDetails;
   allEvents: Event[];
   onBack: () => void;
   onOpenEvent: (event: Event) => void;
@@ -40,14 +36,28 @@ export const DetailsPage = ({
   savedSet,
 }: DetailsPageProps) => {
   const [going, setGoing] = useState(false);
+  // Random palette for the poster fallback, picked once and kept stable across
+  // re-renders so it doesn't flicker on every state change.
+  const [fallbackPalette] = useState(() =>
+    Math.floor(Math.random() * POSTER_PALETTES.length),
+  );
   const saved = savedSet.has(event.id);
 
   const date = dateOnly(event.startDateTime);
   const endDate = event.endDateTime ? dateOnly(event.endDateTime) : undefined;
   const time = timeOnly(event.startDateTime);
-  const venue = `${event.address.street} ${event.address.number}`;
-  const fullAddress = `${venue}, ${event.address.postalCode} ${event.address.city}`;
-  const palette = paletteIndex(event.id);
+  // The place name is the primary label; the street line is shown only when the
+  // location actually has one (parks, fields, lakes do not).
+  const streetLine = [event.address.street, event.address.number]
+    .filter(Boolean)
+    .join(' ');
+  const venue = event.address.name;
+  const fullAddress = [
+    streetLine,
+    `${event.address.postalCode} ${event.address.city}`,
+  ]
+    .filter(Boolean)
+    .join(', ');
   const posterTitle = event.name;
   const posterMeta = `${event.address.city.toUpperCase()} · ${fmtDate(date).toUpperCase()}`;
   const categoryDisplayLabel = eventCategoryLabel(event.category);
@@ -67,13 +77,21 @@ export const DetailsPage = ({
 
       {/* Hero block */}
       <div className="grid gap-12 items-stretch bg-surface rounded-lg p-8 mb-8 grid-cols-[0.9fr_1.1fr]">
-        <div className="rounded-[18px] overflow-hidden aspect-3/4 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.25)]">
-          <Poster
-            palette={palette}
-            posterTitle={posterTitle}
-            posterMeta={posterMeta}
-            size="lg"
-          />
+        <div className="rounded-[18px] overflow-hidden aspect-3/4 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.25)] bg-soft-stone">
+          {event.imageUrl ? (
+            <img
+              src={event.imageUrl}
+              alt={event.name}
+              className="w-full h-full object-contain"
+            />
+          ) : (
+            <Poster
+              palette={fallbackPalette}
+              posterTitle={posterTitle}
+              posterMeta={posterMeta}
+              size="lg"
+            />
+          )}
         </div>
         <div className="flex flex-col gap-5 py-3">
           <Text.MonoLabel>
@@ -177,22 +195,11 @@ export const DetailsPage = ({
             />
             <div className="grid grid-cols-3 gap-6 mt-4 pt-4 border-t border-hairline">
               <div className="flex flex-col gap-1 text-sm">
-                <Text.MonoLabel>ADRES</Text.MonoLabel>
-                <div>{venue}</div>
-                <div className="text-muted">
-                  {event.address.postalCode} {event.address.city}
-                </div>
-              </div>
-              <div className="flex flex-col gap-1 text-sm">
                 <Text.MonoLabel>WSPÓŁRZĘDNE</Text.MonoLabel>
                 <div className="font-mono text-[13px]">
                   {event.coordinates.lat.toFixed(4)}° N ·{' '}
                   {event.coordinates.lng.toFixed(4)}° E
                 </div>
-              </div>
-              <div className="flex flex-col gap-1 text-sm">
-                <Text.MonoLabel>DOJAZD</Text.MonoLabel>
-                <div>Tramwaj, autobus, parking dla rowerów</div>
               </div>
             </div>
           </section>
@@ -222,13 +229,6 @@ export const DetailsPage = ({
                 </li>
               ))}
             </ul>
-          </div>
-          <div className="bg-soft-stone border border-border-light rounded-md p-5">
-            <Text.MonoLabel className="text-coral">UWAGA</Text.MonoLabel>
-            <p className="text-sm mt-2 mb-0 text-body-muted leading-relaxed">
-              Afisz nie sprzedaje biletów. Po sprzedaż przejdź na stronę
-              organizatora — link otrzymasz po kliknięciu &quot;Idę&quot;.
-            </p>
           </div>
         </aside>
       </div>

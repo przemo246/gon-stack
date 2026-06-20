@@ -6,9 +6,12 @@ export type { EventCategory };
 
 export type Coordinates = { lat: number; lng: number };
 
+export type { GeoResult } from '@/shared/server-contracts/schemas/geocode-address';
+
 export type EventAddress = {
-  street: string;
-  number: string;
+  name: string;
+  street?: string;
+  number?: string;
   postalCode: string;
   city: string;
 };

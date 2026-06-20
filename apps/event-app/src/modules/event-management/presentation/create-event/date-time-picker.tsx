@@ -31,6 +31,21 @@ const buildIso = (day: Date, time: string): string => {
   return d.toISOString();
 };
 
+// Format free-typed input into a 24-hour HH:mm mask (auto-inserts the colon).
+const formatTimeInput = (raw: string): string => {
+  const digits = raw.replace(/\D/g, '').slice(0, 4);
+  if (digits.length <= 2) return digits;
+  return `${digits.slice(0, 2)}:${digits.slice(2)}`;
+};
+
+const isValidTime = (time: string): boolean => {
+  const match = /^(\d{2}):(\d{2})$/.exec(time);
+  if (!match) return false;
+  const hours = Number(match[1]);
+  const minutes = Number(match[2]);
+  return hours >= 0 && hours <= 23 && minutes >= 0 && minutes <= 59;
+};
+
 // ── Component ──────────────────────────────────────────────────────────────────
 
 export const DateTimePicker = ({
@@ -47,6 +62,13 @@ export const DateTimePicker = ({
     value && isValid(new Date(value)) ? new Date(value) : undefined;
   const timeValue = selectedDate ? format(selectedDate, 'HH:mm') : '00:00';
 
+  // Local draft so the user can type intermediate values (e.g. "1", "12:").
+  const [timeText, setTimeText] = useState(timeValue);
+
+  useEffect(() => {
+    setTimeText(timeValue);
+  }, [timeValue]);
+
   useEffect(() => {
     const onOutside = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node))
@@ -62,9 +84,17 @@ export const DateTimePicker = ({
   };
 
   const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const base = selectedDate ?? new Date();
-    onChange(buildIso(base, e.target.value));
+    const formatted = formatTimeInput(e.target.value);
+    setTimeText(formatted);
+    if (isValidTime(formatted)) {
+      const base = selectedDate ?? new Date();
+      onChange(buildIso(base, formatted));
+    }
   };
+
+  // On blur, discard an incomplete/invalid draft by snapping back to the
+  // committed value.
+  const handleTimeBlur = () => setTimeText(timeValue);
 
   return (
     <div ref={ref} className="relative">
@@ -91,10 +121,14 @@ export const DateTimePicker = ({
           <div className="mt-1 border-t border-hairline pt-3 flex items-center gap-2">
             <span className="text-xs text-muted">Godzina:</span>
             <input
-              type="time"
-              value={timeValue}
+              type="text"
+              inputMode="numeric"
+              placeholder="gg:mm"
+              maxLength={5}
+              value={timeText}
               onChange={handleTimeChange}
-              className="rounded-xs border border-hairline bg-canvas px-2 py-1 text-sm text-ink outline-none focus:border-primary transition-colors"
+              onBlur={handleTimeBlur}
+              className="w-16 rounded-xs border border-hairline bg-canvas px-2 py-1 text-sm text-ink outline-none focus:border-primary transition-colors"
             />
           </div>
         </div>

@@ -49,8 +49,9 @@ export const updateEvent = privateProcedure({
     if (input.endDateTime !== undefined)
       updatePayload.end_date_time = input.endDateTime;
     if (input.address !== undefined) {
-      updatePayload.street = input.address.street;
-      updatePayload.number = input.address.number;
+      updatePayload.place_name = input.address.name;
+      updatePayload.street = input.address.street ?? null;
+      updatePayload.number = input.address.number ?? null;
       updatePayload.postal_code = input.address.postalCode;
       updatePayload.city = input.address.city;
     }
@@ -95,8 +96,9 @@ export const updateEvent = privateProcedure({
         startDateTime: updated.start_date_time,
         endDateTime: updated.end_date_time ?? undefined,
         address: {
-          street: updated.street,
-          number: updated.number,
+          name: updated.place_name,
+          street: updated.street ?? undefined,
+          number: updated.number ?? undefined,
           postalCode: updated.postal_code,
           city: updated.city,
         },

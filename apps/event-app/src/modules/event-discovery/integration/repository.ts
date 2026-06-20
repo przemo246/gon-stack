@@ -1,7 +1,7 @@
 import type { Schema as SearchEventsSchema } from '@/shared/server-contracts/schemas/search-events';
 import type { Schema as GetEventByIdSchema } from '@/shared/server-contracts/schemas/get-event-by-id';
 import type { InferOut } from '@/shared/server-contracts/extraction';
-import type { Event, EventDetail } from '../contracts/models';
+import type { Event, EventDetails } from '../contracts/models';
 import type { SearchFilters } from '../contracts/events';
 
 const CATEGORY_MAP: Record<string, string> = {
@@ -44,7 +44,7 @@ export const searchEvents = async (
 export const fetchEvent = async (
   id: string,
   signal: AbortSignal,
-): Promise<EventDetail> => {
+): Promise<EventDetails> => {
   const res = await fetch(`/api/events/${id}`, { signal });
   if (!res.ok) {
     throw new Error('Coś poszło nie tak. Spróbuj ponownie później.');

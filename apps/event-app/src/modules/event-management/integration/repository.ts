@@ -1,5 +1,9 @@
 import type { Schema as CreateEventSchema } from '@/shared/server-contracts/schemas/create-event';
-import type { Schema as GeocodeSchema } from '@/shared/server-contracts/schemas/geocode-address';
+import type {
+  Schema as GeocodeSchema,
+  GeoResult,
+} from '@/shared/server-contracts/schemas/geocode-address';
+import type { Schema as ReverseGeocodeSchema } from '@/shared/server-contracts/schemas/reverse-geocode';
 import type { Schema as SuggestKeywordsSchema } from '@/shared/server-contracts/schemas/suggest-event-keywords';
 import type { InferOut } from '@/shared/server-contracts/extraction';
 import { supabaseBrowser } from '@/shared/data-sources/supabase-browser';
@@ -73,10 +77,10 @@ export const suggestKeywords = async (
   return await res.json();
 };
 
-export const geocodeAddress = async (
+export const searchLocations = async (
   query: string,
   signal: AbortSignal,
-): Promise<{ lat: number; lng: number } | null> => {
+): Promise<GeoResult[]> => {
   const res = await fetch(
     `/api/events/geocode?q=${encodeURIComponent(query)}`,
     {
@@ -94,5 +98,23 @@ export const geocodeAddress = async (
     throw new Error('Coś poszło nie tak. Spróbuj ponownie później.');
   }
 
-  return { lat: data.lat, lng: data.lng };
+  return data.results;
+};
+
+export const reverseGeocode = async (
+  lat: number,
+  lng: number,
+  signal: AbortSignal,
+): Promise<GeoResult | null> => {
+  const res = await fetch(`/api/events/reverse-geocode?lat=${lat}&lng=${lng}`, {
+    signal,
+  });
+
+  if (!res.ok) {
+    throw new Error('Coś poszło nie tak. Spróbuj ponownie później.');
+  }
+
+  const data = (await res.json()) as InferOut<ReverseGeocodeSchema['out']>;
+
+  return data.code === 200 ? data.result : null;
 };

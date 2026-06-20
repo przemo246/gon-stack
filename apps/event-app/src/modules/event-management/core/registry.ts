@@ -1,7 +1,8 @@
 import { eda } from '@/libs/eda';
 import { type Store } from './store';
 import { type Event } from '../contracts/events';
-import { geocodeAddressHandler } from './handlers/geocode-address';
+import { searchLocationHandler } from './handlers/search-location';
+import { selectLocationHandler } from './handlers/select-location';
 import { suggestKeywordsHandler } from './handlers/suggest-keywords';
 import { submitCreateEventHandler } from './handlers/submit-create-event';
 import { addKeywordHandler } from './handlers/add-keyword';
@@ -18,7 +19,8 @@ export const createRegistry = (store: Store) => {
   const { ofType, trigger, createRegistry: register } = eda<Event>();
 
   const registry = register(
-    geocodeAddressHandler(store, ofType),
+    searchLocationHandler(store, ofType),
+    selectLocationHandler(store, ofType),
     suggestKeywordsHandler(store, ofType),
     submitCreateEventHandler(store, ofType),
     addKeywordHandler(store, ofType),

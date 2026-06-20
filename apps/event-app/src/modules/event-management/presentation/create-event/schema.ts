@@ -33,8 +33,9 @@ export const formSchema = z.object({
   startDateTime: z.string().min(1, 'Data rozpoczęcia jest wymagana'),
   endDateTime: z.string().optional(),
   address: z.object({
-    street: z.string().min(1, 'Ulica jest wymagana'),
-    number: z.string().min(1, 'Numer jest wymagany'),
+    name: z.string().min(1, 'Nazwa miejsca jest wymagana'),
+    street: z.string().optional(),
+    number: z.string().optional(),
     postalCode: z.string().min(1, 'Kod pocztowy jest wymagany'),
     city: z.string().min(1, 'Miasto jest wymagane'),
   }),

@@ -38,8 +38,9 @@ export const getEventById = publicProcedure({
         startDateTime: event.start_date_time,
         endDateTime: event.end_date_time ?? undefined,
         address: {
-          street: event.street,
-          number: event.number,
+          name: event.place_name,
+          street: event.street ?? undefined,
+          number: event.number ?? undefined,
           postalCode: event.postal_code,
           city: event.city,
         },

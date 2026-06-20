@@ -1,5 +1,19 @@
 import z from 'zod';
 
+// A single geocoding candidate. Coordinates are always present (they put the pin
+// on the map); the structured address parts are best-effort — a park or a field
+// has a city but no street/number.
+export const geoResult = z.object({
+  name: z.string(),
+  street: z.string().optional(),
+  number: z.string().optional(),
+  postalCode: z.string().optional(),
+  city: z.string().optional(),
+  lat: z.number(),
+  lng: z.number(),
+  displayName: z.string(),
+});
+
 export const schema = () =>
   z.object({
     in: z.object({
@@ -8,13 +22,7 @@ export const schema = () =>
     out: z.union([
       z.object({
         code: z.literal(200),
-        lat: z.number(),
-        lng: z.number(),
-      }),
-      z.object({
-        code: z.literal(404),
-        type: z.literal('not-found'),
-        message: z.string(),
+        results: z.array(geoResult),
       }),
       z.object({
         code: z.literal(400),
@@ -30,3 +38,4 @@ export const schema = () =>
   });
 
 export type Schema = z.infer<ReturnType<typeof schema>>;
+export type GeoResult = z.infer<typeof geoResult>;

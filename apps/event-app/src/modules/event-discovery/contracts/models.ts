@@ -11,7 +11,7 @@ export type Event = {
   isFeatured: boolean;
 };
 
-export type EventDetail = {
+export type EventDetails = {
   id: string;
   name: string;
   description?: string;
@@ -19,8 +19,9 @@ export type EventDetail = {
   startDateTime: string;
   endDateTime?: string;
   address: {
-    street: string;
-    number: string;
+    name: string;
+    street?: string;
+    number?: string;
     postalCode: string;
     city: string;
   };
